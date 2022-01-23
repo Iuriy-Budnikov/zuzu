@@ -64,10 +64,7 @@
       opacity: 1,
       stagger: durationTitleStagger,
       ease: 'power1.easeOut',
-      force3D: true,
-      onComplete: () => {
-        initDots = true;
-      }
+      force3D: true
     });
 
     tl.to(
