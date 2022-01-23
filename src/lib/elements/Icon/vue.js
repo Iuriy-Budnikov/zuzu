@@ -1,0 +1,4 @@
+export default `<g fill="none" transform="matrix(1 0 0 -1 .124 44.662)">
+<polygon fill="#41B883" points="29.222 41.297 23.747 31.815 18.273 41.297 .041 41.297 23.747 .237 47.453 41.297" transform="translate(.014 .002)"/>
+<polygon fill="#34495E" points="19.803 24.875 14.329 15.392 8.854 24.875 .105 24.875 14.329 .239 28.552 24.875" transform="translate(9.433 16.425)"/>
+</g>`;

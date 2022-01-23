@@ -1,0 +1,106 @@
+@import "../../mixins/index.scss";
+
+
+html {
+  box-sizing: border-box;
+  font-size: var(--type__body__standard--fontsize);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--color__bg--primary);
+  color: var(--color__text--primary);
+  font-style: normal;
+  font-weight: var(--type__weight--regular);
+  font-family: var(--type__primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+p {
+  margin: 0;
+  font-family: var(--type__secondary);
+  font-size: 20px;
+  line-height: 32px;
+
+  @include media('<=phone') {
+    font-size: 16px;
+    line-height: 28px;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+ul,
+h6,
+h5,
+h4,
+h3,
+h2,
+h1 {
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 44px;
+}
+
+h2 {
+  font-size: 34px;
+
+  @include media('<=phone') {
+    font-size: 22px;
+    line-height: 31px;
+  }
+}
+
+textarea,
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
+main {
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button:end:increment,
+::-webkit-scrollbar-button:start:decrement {
+  display: none;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb:vertical {
+  display: block;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--color__scrollbar-thumb);
+}
