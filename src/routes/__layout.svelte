@@ -13,7 +13,7 @@
   });
 </script>
 
-<GTM gtmId="GTM-PZM27QT" />
+<GTM gtmId="GTM-PZM27QT" timeout={2000} />
 <Header />
 <Wrapper>
   <slot />
