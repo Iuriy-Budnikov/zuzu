@@ -1,5 +1,3 @@
-import { ga } from '@beyonk/svelte-google-analytics';
-
 /**
  *
  * @param {Object} event - ga event
@@ -7,5 +5,5 @@ import { ga } from '@beyonk/svelte-google-analytics';
  * @returns
  */
 export function dispatchEvent(event, options) {
-	ga.addEvent(event, options);
+	// ga.addEvent(event, options);
 }
