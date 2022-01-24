@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { GoogleAnalytics } from '@beyonk/svelte-google-analytics';
+  import GTM from '$lib/elements/GTM/GTM.svelte';
   import Header from '$lib/components/Header/Header.svelte';
   import Footer from '$lib/components/Footer/Footer.svelte';
   import Wrapper from '$lib/components/Wrapper/Wrapper.svelte';
@@ -13,8 +13,7 @@
   });
 </script>
 
-<GoogleAnalytics properties={['UA-217877643-1']} />
-
+<GTM gtmId="GTM-PZM27QT" />
 <Header />
 <Wrapper>
   <slot />

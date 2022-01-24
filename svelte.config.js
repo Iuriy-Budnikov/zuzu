@@ -17,6 +17,9 @@ const config = {
     }
   }),
   kit: {
+    paths: {
+      base: ''
+    },
     adapter: adapter({
       fallback: '200.html'
     })
