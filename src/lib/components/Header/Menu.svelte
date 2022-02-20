@@ -1,7 +1,6 @@
 <script>
   import gsap from 'gsap';
   import CustomEase from '$lib/utils/gsap/CustomEase';
-  import { scrollToSectionWithGaEvent } from '$lib/utils/scrollUtils';
   import PushLogo from '$lib/elements/Logos/Logo.svelte';
   import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
   import links from './links';
@@ -17,9 +16,8 @@
     'M0,0 C0.021,0.032 0.082,0.02 0.162,0.03 0.329,0.05 0.342,0.08 0.354,0.104 0.408,0.213 0.498,0.536 0.536,0.8 0.558,0.954 0.78,1 1,1'
   );
 
-  function onClickLink(event) {
+  function onClickLink() {
     onClickBackdropMenu();
-    scrollToSectionWithGaEvent(event);
   }
 
   function animateMenuIn(node) {
@@ -131,7 +129,7 @@
           <ul class="menu__ul">
             {#each links as item}
               <li class="menu__li">
-                <a class="menu__a" on:click={onClickLink} href={`#${item.id}`}>{item.title}</a>
+                <a class="menu__a" on:click={onClickLink} href={`/${item.slug}`}>{item.title}</a>
               </li>
             {/each}
           </ul>
