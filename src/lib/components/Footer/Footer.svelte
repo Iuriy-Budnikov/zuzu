@@ -1,6 +1,6 @@
 <script>
   let year = new Date().getFullYear();
-  import PushLogo from '$lib/elements/Logos/PushLogo.svelte';
+  import PushLogo from '$lib/elements/Logos/Logo.svelte';
   import { dispatchEvent } from '$lib/utils/gaUtils';
 
   function onClickPartner() {

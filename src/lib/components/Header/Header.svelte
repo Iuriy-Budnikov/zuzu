@@ -1,24 +1,9 @@
 <script>
-  import { onMount } from 'svelte';
-  import { scrollToSectionWithGaEvent } from '$lib/utils/scrollUtils';
-  import PushLogo from '$lib/elements/Logos/PushLogo.svelte';
+  import { page } from '$app/stores';
+  import Logo from '$lib/elements/Logos/Logo.svelte';
   import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
   import Menu from './Menu.svelte';
-  import linksNav from './links';
-
-  let links = linksNav.map((c) => ({ ...c, active: false }));
-  const threshold = 0.55;
-
-  function changeNav(entries) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && entry.intersectionRatio >= threshold) {
-        const id = entry.target.getAttribute('id');
-        links = links.map((c) => {
-          return { ...c, active: id === c.id };
-        });
-      }
-    });
-  }
+  import links from './links';
 
   let isMenuOpen = false;
   function onOpenMenu() {
@@ -27,19 +12,17 @@
   function onClickBackdropMenu() {
     isMenuOpen = false;
   }
-
-  onMount(() => {
-    const observer = new IntersectionObserver(changeNav, { threshold });
-    const sections = links.map((c) => document.getElementById(c.id));
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
-  });
 </script>
 
 <header class="header">
-  <div class="header__logo" id="header-logo"><PushLogo /></div>
-  <div class="header__deadzone" id="header-links" />
+  <div class="header__logo" id="header-logo">
+    {#if $page.url.pathname === '/'}
+      <Logo />
+    {:else}
+      <a href="/"><Logo /></a>
+    {/if}
+  </div>
+  <div class="header__deadzone" />
   <MediaQuery query="(min-width: 1025px)" let:matches>
     {#if matches}
       <nav class="header__nav">
@@ -48,9 +31,8 @@
             <li class="header__li">
               <a
                 class="header__a"
-                class:header__a--active={item.active}
-                on:click={scrollToSectionWithGaEvent}
-                href={`#${item.id}`}>{item.title}</a
+                class:header__a--active={$page.url.pathname === `/${item.slug}`}
+                href={`/${item.slug}`}>{item.title}</a
               >
             </li>
           {/each}
@@ -81,7 +63,7 @@
   .header {
     margin: 0 auto;
     max-width: 1200px;
-    padding: 60px 40px 80px;
+    padding: 60px 40px 0;
     position: absolute;
     top: 0;
     left: 0;
@@ -94,7 +76,7 @@
     pointer-events: none;
 
     @include media('<=tablet') {
-      padding: 60px 30px 80px;
+      padding: 60px 30px 0;
     }
     @include media('<=phone') {
       padding: 28px 5% 0;
@@ -102,6 +84,7 @@
     }
     &__logo {
       min-width: 100px;
+      pointer-events: all;
     }
     &__deadzone {
       position: absolute;
@@ -143,6 +126,10 @@
       color: var(--color__text--neutral);
       transition: color 0.2s;
       pointer-events: all;
+
+      &--active {
+        pointer-events: none;
+      }
 
       &--active,
       &:hover {

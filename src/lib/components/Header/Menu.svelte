@@ -2,7 +2,7 @@
   import gsap from 'gsap';
   import CustomEase from '$lib/utils/gsap/CustomEase';
   import { scrollToSectionWithGaEvent } from '$lib/utils/scrollUtils';
-  import PushLogo from '$lib/elements/Logos/PushLogo.svelte';
+  import PushLogo from '$lib/elements/Logos/Logo.svelte';
   import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
   import links from './links';
   import { onMount } from 'svelte';
