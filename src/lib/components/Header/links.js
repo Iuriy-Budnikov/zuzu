@@ -1,3 +1,4 @@
 export default [
-  { title: 'Контакты', slug: 'contacts' }
+  { title: 'Блог', slug: 'blog' },
+  { title: 'Контакты', slug: 'contacts' },
 ];
