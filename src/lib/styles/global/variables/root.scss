@@ -10,7 +10,7 @@
   --color__bg--secondary: linear-gradient(180deg, #faf9fa 0%, #ffffff 98%);
   --color__bg--third: #fff;
 
-  --color__brand: #0066cc;
+  --color__brand: #A17DDA;
 
   --color__border--primary: #e7e7e7;
 
@@ -21,17 +21,17 @@
   // scrollbar
   --color__scrollbar-thumb: rgba(0, 0, 0, 0.3);
 
-  @media (prefers-color-scheme: dark) {
-    --color__bg--primary: #1d1d1f;
-    // --color__bg--secondary: #2c2c2e;
-    --color__bg--secondary: linear-gradient(180deg, #1d1d1f 0%, #2c2c2e 98%);
-    --color__bg--third: #2c2c2e;
-    --color__text--primary: #fff;
-    --color__text--neutral: #b6bbcb;
-    --color__bg--neutral: #313031;
-    --color__bg--button: #313031;
-    --color__border--primary: #3a3a3c;
+  // @media (prefers-color-scheme: dark) {
+  //   --color__bg--primary: #1d1d1f;
+  //   // --color__bg--secondary: #2c2c2e;
+  //   --color__bg--secondary: linear-gradient(180deg, #1d1d1f 0%, #2c2c2e 98%);
+  //   --color__bg--third: #2c2c2e;
+  //   --color__text--primary: #fff;
+  //   --color__text--neutral: #b6bbcb;
+  //   --color__bg--neutral: #313031;
+  //   --color__bg--button: #313031;
+  //   --color__border--primary: #3a3a3c;
 
-    --color__scrollbar-thumb: rgba(255, 255, 255, 0.25);
-  }
+  //   --color__scrollbar-thumb: rgba(255, 255, 255, 0.25);
+  // }
 }
