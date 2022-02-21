@@ -44,7 +44,6 @@
 		"to-querystring": "1.1.1",
 		"to-vfile": "^6.1.0",
 		"unified": "^9.2.1",
-		"vite": "^2.1.0",
 		"yup": "0.32.11"
 	}
 }

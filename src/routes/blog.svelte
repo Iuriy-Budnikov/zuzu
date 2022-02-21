@@ -1,6 +1,4 @@
 <script context="module">
-  export const prerender = true;
-
   import { base } from '$app/paths';
   export async function load({ fetch }) {
     const posts = await fetch(`${base}/blog.json`).then((r) => r.json());
