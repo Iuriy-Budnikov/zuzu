@@ -10,7 +10,7 @@
 
 <svelte:head>
   <title>ZuZu Travel | Контакты. Я в соц сетях 😍</title>
-  <meta name="description" content="Zuzu Travel | Контакты. Я в соц сетя" />
+  <meta name="description" content="ZuZu Travel | Контакты. Я в соц сетях" />
 </svelte:head>
 
 <div class="contacts">
@@ -27,7 +27,7 @@
         />
       </div>
       <h1 class="contacts__h1">Привет! Я - Ирма!</h1>
-      <h3 class="contacts__h2">Пишите мне в соц сетях</h3>
+      <h3 class="contacts__h2">По вопросам пишите мне в соц сети, буду рада помочь</h3>
     </div>
     <SocialContacts />
   </div>
