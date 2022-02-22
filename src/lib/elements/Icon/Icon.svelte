@@ -2,7 +2,8 @@
   import facebook from './facebook';
   import telegram from './telegram';
   import instagram from './instagram';
-  import whatsap from './whatsap';
+  import whatsapp from './whatsapp';
+  import viber from './viber';
   export let name;
   export let box = 48;
   export let width = '48px';
@@ -22,9 +23,13 @@
       svg: instagram
     },
     {
-      name: 'whatsap',
-      svg: whatsap
-    }
+      name: 'whatsapp',
+      svg: whatsapp
+    },
+    {
+      name: 'viber',
+      svg: viber
+    },
   ];
   let displayIcon = icons.find((e) => e.name === name);
 </script>

@@ -2,19 +2,24 @@
   import SocialContact from './SocialContact.svelte';
   import SocialContactsList from './SocialContactsList.svelte';
   import Icon from '../../elements/Icon/Icon.svelte';
+
+  const phone = '+380635513261';
 </script>
 
 <SocialContactsList>
-  <SocialContact link="https://www.facebook.com/zuzutravelua/">
+  <SocialContact className="ga-event-facebook" link="https://www.facebook.com/zuzutravelua/">
     <Icon name="facebook" />
   </SocialContact>
-  <SocialContact link="https://t.me/zuzutravelua">
+  <SocialContact className="ga-event-telegram" link="https://t.me/zuzutravelua">
     <Icon name="telegram" />
   </SocialContact>
-  <SocialContact link="https://www.instagram.com/zuzutravel.ua/">
+  <SocialContact className="ga-event-instagram" link="https://www.instagram.com/zuzutravel.ua/">
     <Icon name="instagram" />
   </SocialContact>
-  <SocialContact link="https://wa.me/+380635513261?lang=ru">
-    <Icon name="whatsap" />
+  <SocialContact className="ga-event-whatsapp" link="https://wa.me/{phone}?lang=ru">
+    <Icon name="whatsapp" />
+  </SocialContact>
+  <SocialContact className="ga-event-viber" link="viber://chat?number={phone}">
+    <Icon name="viber" />
   </SocialContact>
 </SocialContactsList>

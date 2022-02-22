@@ -1,8 +1,9 @@
 <script>
   export let link = '';
+  export let className = '';
 </script>
 
-<a href={link} class="social-contact" rel="noopener noreferrer" target="_blank">
+<a href={link} class="social-contact {className}" rel="noopener noreferrer" target="_blank">
   <slot />
 </a>
 
