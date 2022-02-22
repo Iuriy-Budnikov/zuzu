@@ -1,8 +1,8 @@
 <script>
   import SocialContact from './SocialContact.svelte';
   import SocialContactsList from './SocialContactsList.svelte';
+  import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
   import Icon from '../../elements/Icon/Icon.svelte';
-
   const phone = '+380635513261';
 </script>
 
@@ -19,7 +19,11 @@
   <SocialContact className="ga-event-whatsapp" link="https://wa.me/{phone}?lang=ru">
     <Icon name="whatsapp" />
   </SocialContact>
-  <SocialContact className="ga-event-viber" link="viber://chat?number={phone}">
-    <Icon name="viber" />
-  </SocialContact>
+  <MediaQuery query="(max-width: 1024px)" let:matches>
+    {#if matches}
+      <SocialContact className="ga-event-viber" link="viber://chat?number={phone}">
+        <Icon name="viber" />
+      </SocialContact>
+    {/if}
+  </MediaQuery>
 </SocialContactsList>
