@@ -1,10 +1,14 @@
 ---
 title: Todo App I use
-tags: 
+tags:
     - tech
     - personal
 date: 2021-06-21
 ---
+
+<script context="module">
+  export const prerender = true;
+</script>
 
 # {title}
 
