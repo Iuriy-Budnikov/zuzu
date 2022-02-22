@@ -1,6 +1,6 @@
 <script context="module">
   export const prerender = true;
-  const allPosts = import.meta.glob("./*.{md,svx}");
+  const allPosts = import.meta.glob('./../article/*.{md,svx}');
 
   let body = [];
   for (let path in allPosts) {
@@ -15,8 +15,8 @@
 
     return {
       props: {
-        posts,
-      },
+        posts
+      }
     };
   };
 </script>
@@ -29,16 +29,16 @@
   });
 </script>
 
-<h1>Blog</h1>
+<svelte:head>
+  <title>ZuZu Travel | Блог</title>
+  <meta name="description" content="Блог" />
+</svelte:head>
+
+<h1>Блог</h1>
 <ul>
   {#each dateSortedPosts as { path, metadata: { title, tags, date } }}
     <li>
-      <a
-        href={path
-          .replace("./", "/blog/")
-          .replace(".md", "")
-          .replace(".svx", "")}>{title}</a
-      >
+      <a href={path.replace('./', '/blog/').replace('.md', '').replace('.svx', '')}>{title}</a>
       <p class="date">{new Date(date).toDateString()}</p>
       <p>
         {#each tags as tag}
