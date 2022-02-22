@@ -31,8 +31,8 @@
             <li class="header__li">
               <a
                 class="header__a"
-                class:header__a--active={$page.url.pathname === `/${item.slug}`}
-                href={`/${item.slug}`}>{item.title}</a
+                class:header__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
+                href={`/${item.slug}/`}>{item.title}</a
               >
             </li>
           {/each}

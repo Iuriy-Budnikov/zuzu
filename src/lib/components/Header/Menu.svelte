@@ -1,4 +1,5 @@
 <script>
+  import { page } from '$app/stores';
   import gsap from 'gsap';
   import CustomEase from '$lib/utils/gsap/CustomEase';
   import PushLogo from '$lib/elements/Logos/Logo.svelte';
@@ -129,7 +130,12 @@
           <ul class="menu__ul">
             {#each links as item}
               <li class="menu__li">
-                <a class="menu__a" on:click={onClickLink} href={`/${item.slug}`}>{item.title}</a>
+                <a
+                  class="menu__a"
+                  class:menu__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
+                  on:click={onClickLink}
+                  href={`/${item.slug}/`}>{item.title}</a
+                >
               </li>
             {/each}
           </ul>
@@ -179,10 +185,20 @@
 
       li {
         margin-bottom: 15px;
-        a {
-          font-size: 30px;
-          color: var(--color__text--primary);
-        }
+      }
+    }
+
+    &__a {
+      font-size: 30px;
+      color: var(--color__text--primary);
+
+      &--active {
+        pointer-events: none;
+      }
+
+      &--active,
+      &:hover {
+        color: var(--color__text--primary);
       }
     }
   }
