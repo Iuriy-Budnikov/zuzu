@@ -31,6 +31,11 @@
   export let filteredPosts, tag;
 </script>
 
+<svelte:head>
+  <title>ZuZu Travel | Теги</title>
+  <meta name="description" content="ZuZu Travel | Теги" />
+</svelte:head>
+
 <h1>{tag}</h1>
 
 <ul>

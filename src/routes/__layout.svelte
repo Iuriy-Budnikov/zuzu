@@ -17,7 +17,6 @@
   <meta property="og:site_name" content="zuzutravel.co" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{$page.url}" />
-  <!-- <meta property="og:image" content="https://www.otpusk.com/static/img/preview-otpusk.jpg" /> -->
 </svelte:head>
 
 <GTM gtmId="GTM-PZM27QT" timeout={2000} />
