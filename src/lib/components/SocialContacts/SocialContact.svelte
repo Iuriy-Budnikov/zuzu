@@ -24,6 +24,8 @@
 
     @include media('<=phone') {
       margin: 0 5px;
+      width: 58px;
+      height: 58px;
     }
   }
 </style>
