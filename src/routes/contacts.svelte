@@ -26,7 +26,7 @@
           width={200}
         />
       </div>
-      <h1 class="contacts__h1">Привет! Я - Ирма!</h1>
+      <h1 class="contacts__h1">Привет!<br />Я - Ирма!</h1>
       <h3 class="contacts__h2">По вопросам пишите мне в соц сети, буду рада помочь</h3>
     </div>
     <SocialContacts />
