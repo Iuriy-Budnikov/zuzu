@@ -29,11 +29,19 @@
         <ul class="header__ul">
           {#each links as item}
             <li class="header__li">
-              <a
-                class="header__a"
-                class:header__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
-                href={`/${item.slug}/`}>{item.title}</a
-              >
+              {#if $page.url.pathname === `/${item.slug}`}
+                <span
+                  class="header__a"
+                  class:header__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
+                  href={`/${item.slug}/`}>{item.title}</span
+                >
+              {:else}
+                <a
+                  class="header__a"
+                  class:header__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
+                  href={`/${item.slug}/`}>{item.title}</a
+                >
+              {/if}
             </li>
           {/each}
         </ul>
@@ -76,11 +84,11 @@
     pointer-events: none;
 
     @include media('<=tablet') {
-      padding: 60px 30px 0;
+      padding: 28px 30px 0;
+      z-index: 5;
     }
     @include media('<=phone') {
       padding: 28px 5% 0;
-      z-index: 5;
     }
     &__logo {
       min-width: 100px;
@@ -126,10 +134,6 @@
       color: var(--color__text--neutral);
       transition: color 0.2s;
       pointer-events: all;
-
-      &--active {
-        pointer-events: none;
-      }
 
       &--active,
       &:hover {

@@ -11,7 +11,6 @@ const sassPath = `${filePath}/src/lib/styles/`;
 
 const config = {
   extensions: ['.svelte', '.md'],
-
   preprocess: [
     mdsvex(mdsvexConfig),
     preprocess({
