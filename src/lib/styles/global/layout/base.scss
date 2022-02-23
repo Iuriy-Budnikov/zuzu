@@ -1,5 +1,4 @@
-@import "../../mixins/index.scss";
-
+@import '../../mixins/index.scss';
 
 html {
   box-sizing: border-box;
@@ -14,6 +13,7 @@ html {
 
 body {
   background-color: var(--color__bg--primary);
+  overflow-y: scroll;
   color: var(--color__text--primary);
   font-style: normal;
   font-weight: var(--type__weight--regular);
@@ -27,6 +27,7 @@ body {
 
 p {
   margin: 0;
+  padding: 0;
   font-family: var(--type__secondary);
   font-size: 20px;
   line-height: 32px;
@@ -87,20 +88,4 @@ main {
   height: 100%;
   position: relative;
   z-index: 2;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-button:end:increment,
-::-webkit-scrollbar-button:start:decrement {
-  display: none;
-  background: transparent;
-}
-::-webkit-scrollbar-thumb:vertical {
-  display: block;
-  height: 48px;
-  border-radius: 8px;
-  background: var(--color__scrollbar-thumb);
 }
