@@ -5,7 +5,7 @@
 
 <script>
   import { format } from 'date-fns';
-  import { uk } from 'date-fns/locale';
+  import { uk } from 'date-fns/locale/index.js';
 
   export let description;
   export let title;
