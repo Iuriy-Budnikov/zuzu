@@ -95,7 +95,7 @@
     }
 
     &__article {
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     &__article_title {

@@ -43,13 +43,14 @@
 <div class="blog">
   <h1 class="blog__title">{capitalizeFirstLetter(tag)}</h1>
   <section>
-    <ul>
-      {#each filteredPosts as { path, metadata: { title } }}
-        <li>
-          <a href={path.replace('./tags', '/').replace('.md', '').replace('.svx', '')}>{title}</a>
-        </li>
-      {/each}
-    </ul>
+    {#each filteredPosts as { path, metadata: { title } }}
+      <article class="blog__article">
+        <a
+          class="blog__article_title"
+          href={path.replace('./tags', '/').replace('.md', '').replace('.svx', '')}>{title}</a
+        >
+      </article>
+    {/each}
   </section>
 </div>
 
@@ -64,6 +65,30 @@
     }
     @include media('<=phone') {
       padding: 80px 5% 0;
+    }
+
+    &__title {
+      margin-bottom: 64px;
+
+      @include media('<=phone') {
+        font-size: 36px;
+        line-height: 34px;
+        margin-bottom: 18px;
+      }
+    }
+
+    &__article {
+      margin-bottom: 40px;
+    }
+
+    &__article_title {
+      margin: 0;
+      padding: 0;
+      font-family: var(--type__secondary);
+      color: var(--color__brand);
+      font-size: 20px;
+      line-height: 32px;
+      border-bottom: 1px solid var(--color__brand);
     }
   }
 </style>
