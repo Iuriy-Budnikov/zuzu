@@ -33,10 +33,10 @@
     padding: 120px 40px 0 40px;
 
     @include media('<=tablet') {
-      padding: 80px 30px 0;
+      padding: 100px 30px 0;
     }
     @include media('<=phone') {
-      padding: 80px 5% 0;
+      padding: 100px 5% 0;
     }
   }
   .title {
@@ -56,5 +56,8 @@
     @include media('<=phone') {
       margin-bottom: 8px;
     }
+  }
+  .title + .date {
+    margin-bottom: 16px;
   }
 </style>
