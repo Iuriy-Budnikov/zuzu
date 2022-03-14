@@ -78,10 +78,10 @@
     padding: 120px 40px 0 40px;
 
     @include media('<=tablet') {
-      padding: 80px 30px 0;
+      padding: 100px 30px 0;
     }
     @include media('<=phone') {
-      padding: 80px 5% 0;
+      padding: 100px 5% 0;
     }
 
     &__title {
@@ -90,7 +90,7 @@
       @include media('<=phone') {
         font-size: 36px;
         line-height: 34px;
-        margin-bottom: 18px;
+        margin-bottom: 40px;
       }
     }
 
