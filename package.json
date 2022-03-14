@@ -29,13 +29,10 @@
 		"critical": "4.0.1",
 		"date-fns": "^2.28.0",
 		"gsap": "3.9.1",
-		"jsonp": "0.2.1",
 		"mdsvex": "^0.10.5",
 		"smoothscroll-polyfill": "0.4.4",
 		"svelte-forms-lib": "2.0.1",
 		"svelte-select": "4.4.7",
-		"tiny-slider": "2.9.4",
-		"to-querystring": "1.1.1",
 		"yup": "0.32.11"
 	}
 }
