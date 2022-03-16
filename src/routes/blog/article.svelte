@@ -41,15 +41,6 @@
     @include media('<=phone') {
       padding: 100px 5% 0;
     }
-
-    :global(ul + h3),
-    :global(p + h3) {
-      margin-top: 80px;
-
-      @include media('<=phone') {
-        margin-top: 60px;
-      }
-    }
   }
   .title {
     margin-bottom: 10px;

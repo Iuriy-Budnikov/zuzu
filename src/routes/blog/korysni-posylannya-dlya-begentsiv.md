@@ -110,7 +110,7 @@ date: 2022-03-16
 
 Інформацію для батьків дітей, які поїхали з України та тимчасово проживають у Чехії
 
-<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FUkraineEmbassyinCzechia%2Fposts%2F4984095948350346&show_text=true&width=500" width="500" height="756" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FUkraineEmbassyinCzechia%2Fposts%2F4984095948350346&show_text=true&width=500" width="500" height="756" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" title="Інформацію для батьків дітей, які поїхали з України та тимчасово проживають у Чехії"></iframe>
 <br ><br >
 
 Українці в Чехії - група [Facebook](https://www.facebook.com/groups/1547833218739504/).
@@ -177,7 +177,7 @@ date: 2022-03-16
 
 Тимчасовий захист в Португалії.
 
-<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D109361775030369%26id%3D105939822039231&show_text=true&width=500" width="500" height="838" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D109361775030369%26id%3D105939822039231&show_text=true&width=500" width="500" height="838" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" title="Тимчасовий захист в Португалії."></iframe>
 <br ><br >
 
 Українці в Португалії - [Facebook](https://www.facebook.com/groups/1832356113758345/).
@@ -200,7 +200,7 @@ date: 2022-03-16
 
 Інформація для тих, хто подає заяву на отримання посвідки на проживання з тимчасовим захистом [за посиланням](https://www.migrationsverket.se/download/18.6b4387bd17dc72a99251189/1646813584273/Infoblad%20till%20dig%20som%20s%C3%B6ker%20tillf%C3%A4lligt%20skydd%20UKRAINSKA.pdf).
 
-<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D7179124288795257%26id%3D865346253506457&show_text=true&width=500" width="500" height="699" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D7179124288795257%26id%3D865346253506457&show_text=true&width=500" width="500" height="699" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" title="Інформація для тих, хто подає заяву на отримання посвідки на проживання з тимчасовим захистом"></iframe>
 <br /><br />
 
 [Гід по Швеції](https://ukrainian-in-sweden.medium.com/) для украінців.
@@ -255,7 +255,7 @@ date: 2022-03-16
 
 [Офіційна сторінка Facebook Посольство України в Греції](https://www.facebook.com/Embassy-of-Ukraine-to-the-Hellenic-Republic-1474484016097476).
 
-<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D3093148780897650%26id%3D1474484016097476&show_text=true&width=500" width="500" height="430" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D3093148780897650%26id%3D1474484016097476&show_text=true&width=500" width="500" height="430" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" title="Офіційна сторінка Facebook Посольство України в Греції"></iframe>
 <br /><br /><br /><br />
 
 ### 🇮🇹 Італія<br />
