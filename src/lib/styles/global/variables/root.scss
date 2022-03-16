@@ -10,7 +10,7 @@
   --color__bg--secondary: linear-gradient(180deg, #faf9fa 0%, #ffffff 98%);
   --color__bg--third: #fff;
 
-  --color__brand: #A17DDA;
+  --color__brand: #a17dda;
 
   --color__border--primary: #e7e7e7;
 
@@ -18,8 +18,18 @@
   --color__text--primary: #111;
   --color__text--neutral: #9598a2;
 
+  --color__link: #0060a0;
+  --color__link-underline: rgba(0, 96, 160, 0.15);
+  --color__link-hover: #a03000;
+  --color__link-underline-hover: rgba(160, 48, 0, 0.2);
+
+  --color__tag: #556677;
+  --color__tag-underline: rgba(0, 0, 0, 0.15);
+
   // scrollbar
   --color__scrollbar-thumb: rgba(0, 0, 0, 0.3);
+
+  --time: 0.2s;
 
   // @media (prefers-color-scheme: dark) {
   //   --color__bg--primary: #1d1d1f;

@@ -1,6 +1,9 @@
 <script context="module">
   import p from '../../lib/elements/Article/p.svelte';
-  export { p };
+  import ul from '../../lib/elements/Article/ul.svelte';
+  import li from '../../lib/elements/Article/li.svelte';
+  import h3 from '../../lib/elements/Article/h3.svelte';
+  export { p, ul, li, h3 };
 </script>
 
 <script>
@@ -37,6 +40,15 @@
     }
     @include media('<=phone') {
       padding: 100px 5% 0;
+    }
+
+    :global(ul + h3),
+    :global(p + h3) {
+      margin-top: 80px;
+
+      @include media('<=phone') {
+        margin-top: 60px;
+      }
     }
   }
   .title {
