@@ -85,10 +85,8 @@
       margin: 0;
       padding: 0;
       font-family: var(--type__secondary);
-      color: var(--color__brand);
       font-size: 20px;
       line-height: 32px;
-      border-bottom: 1px solid var(--color__brand);
     }
   }
 </style>

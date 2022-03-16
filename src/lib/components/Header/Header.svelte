@@ -93,6 +93,9 @@
     &__logo {
       min-width: 100px;
       pointer-events: all;
+      a {
+        border-bottom: 0;
+      }
     }
     &__deadzone {
       position: absolute;
@@ -134,6 +137,7 @@
       color: var(--color__text--neutral);
       transition: color 0.2s;
       pointer-events: all;
+      border-bottom: 0;
 
       &--active,
       &:hover {

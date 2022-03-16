@@ -2,14 +2,12 @@
   import { page } from '$app/stores';
   import gsap from 'gsap';
   import CustomEase from '$lib/utils/gsap/CustomEase';
-  import PushLogo from '$lib/elements/Logos/Logo.svelte';
   import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
   import links from './links';
   import { onMount } from 'svelte';
 
   export let isMenuOpen = false;
   export let onClickBackdropMenu = () => {};
-  let logoElement = undefined;
   let navElement = undefined;
   let backdropElement = undefined;
   const ease = CustomEase.create(
@@ -24,9 +22,8 @@
   function animateMenuIn(node) {
     let tl = gsap.timeline();
 
-    const durationMenu = 0.7;
-    const durationLinks = 0.3;
-    const durationLogo = 1;
+    const durationMenu = 0.35;
+    const durationLinks = 0.25;
     const durationLinksStagger = 0.08;
     const linksNode = navElement.querySelectorAll('li');
     gsap.set(node, {
@@ -35,9 +32,6 @@
     gsap.set(linksNode, {
       opacity: 0,
       y: -10
-    });
-    gsap.set(logoElement, {
-      opacity: 0
     });
     gsap.set(backdropElement, {
       opacity: 0
@@ -70,15 +64,6 @@
         force3D: true
       },
       '<60%'
-    );
-
-    gsap.to(
-      logoElement,
-      {
-        duration: durationLogo,
-        opacity: 1
-      },
-      '<35%'
     );
 
     return {
@@ -125,7 +110,6 @@
   <MediaQuery query="(max-width: 1024px)" let:matches>
     {#if matches}
       <div class="menu" in:animateMenuIn out:animateMenuOut>
-        <div class="menu__logo" bind:this={logoElement}><PushLogo /></div>
         <nav class="menu__nav" bind:this={navElement}>
           <ul class="menu__ul">
             {#each links as item}
@@ -173,9 +157,6 @@
       z-index: 3;
       opacity: 0.5;
     }
-    &__logo {
-      display: none;
-    }
     &__nav {
       width: 100%;
     }
@@ -191,6 +172,7 @@
     &__a {
       font-size: 30px;
       color: var(--color__text--primary);
+      border-bottom: 0;
 
       &--active {
         pointer-events: none;

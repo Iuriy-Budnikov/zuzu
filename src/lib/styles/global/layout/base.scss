@@ -25,9 +25,11 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+li,
 p {
   margin: 0;
   padding: 0;
+  font-weight: normal;
   font-family: var(--type__secondary);
   font-size: 20px;
   line-height: 32px;
@@ -44,7 +46,19 @@ img {
 }
 
 a {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--color__link-underline);
+  color: var(--color__link);
   text-decoration: none;
+  transition-duration: var(--time);
+  transition-property: border-bottom, border-color, background, color, fill;
+  transition-timing-function: ease-out;
+
+  &:hover {
+    border-color: var(--color__link-underline-hover);
+    color: var(--color__link-hover);
+  }
 }
 
 ul {
@@ -74,6 +88,25 @@ h2 {
   @include media('<=phone') {
     font-size: 22px;
     line-height: 31px;
+  }
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 32px;
+
+  @include media('<=phone') {
+    font-size: 16px;
+    line-height: 28px;
+  }
+}
+
+p + h3,
+ul + h3 {
+  margin-top: 80px;
+
+  @include media('<=phone') {
+    margin-top: 60px;
   }
 }
 

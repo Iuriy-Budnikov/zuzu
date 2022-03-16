@@ -61,11 +61,11 @@
         <a class="blog__article_title" href={path.replace('.md', '').replace('.svx', '')}>{title}</a
         >
         <p class="date">{date}</p>
-        <p>
+        <div>
           {#each tags as tag}
             <a class="tag" href="/tags/{tag}">#{tag}</a>
           {/each}
-        </p>
+        </div>
       </article>
     {/each}
   </section>
@@ -95,28 +95,37 @@
     }
 
     &__article {
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
 
     &__article_title {
       margin: 0;
       padding: 0;
       font-family: var(--type__secondary);
-      color: var(--color__brand);
       font-size: 20px;
       line-height: 32px;
-      border-bottom: 1px solid var(--color__brand);
     }
   }
 
   .tag {
     margin-right: 10px;
     text-decoration: none;
-    color: #555;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color__tag);
+    transition-property: border-bottom, border-color, background, color, fill;
+    transition-duration: var(--time);
+    transition-timing-function: ease-out;
+    border-color: var(--color__tag-underline);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+
+    &:hover {
+      border-color: var(--color__link-underline-hover);
+      color: var(--color__link-hover);
+    }
   }
-  .tag:hover {
-    color: blue;
-  }
+
   .date {
     font-size: 0.7rem;
     color: gray;
