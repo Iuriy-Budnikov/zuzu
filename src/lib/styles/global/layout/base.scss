@@ -122,3 +122,11 @@ main {
   position: relative;
   z-index: 2;
 }
+
+iframe {
+  margin-bottom: 40px;
+
+  @include media('<=phone') {
+    width: 100%;
+  }
+}
