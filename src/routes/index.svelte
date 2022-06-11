@@ -3,7 +3,7 @@
 </script>
 
 <script>
-  import SearchTours from '$lib/components/SearchTours/SearchTours.svelte';
+  import SearchTours from '$lib/components/SearchToursForm/SearchToursForm.svelte';
 
   const title = 'ZuZu Travel | Гарячі тури та путівки ⛱️ туризм, відпочинок та подорожі';
   const description =

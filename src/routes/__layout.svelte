@@ -5,7 +5,8 @@
   import Header from '$lib/components/Header/Header.svelte';
   import Wrapper from '$lib/components/Wrapper/Wrapper.svelte';
   import '$lib/styles/global/index.scss';
-  import '$lib/styles/global/tiny-slider.scss';
+  import '$lib/styles/global/scrollbar.scss';
+  import '$lib/stores/effects';
 
   onMount(async () => {
     const smoothscroll = await import('smoothscroll-polyfill');

@@ -4,6 +4,9 @@
   import instagram from './instagram';
   import whatsapp from './whatsapp';
   import viber from './viber';
+  import flag from './flag';
+  import city from './city';
+  import arrow from './arrow';
   export let name;
   export let box = 48;
   export let width = '48px';
@@ -29,6 +32,18 @@
     {
       name: 'viber',
       svg: viber
+    },
+    {
+      name: 'flag',
+      svg: flag
+    },
+    {
+      name: 'city',
+      svg: city
+    },
+    {
+      name: 'arrow',
+      svg: arrow
     },
   ];
   let displayIcon = icons.find((e) => e.name === name);
