@@ -82,14 +82,14 @@
   }
 
   function handleSuggestion({ value, id, type }) {
+    if (type === 'city' || type === 'hotel' || $form['where_category_id'] != id) {
+      formContext.updateField('where_ids', []);
+    }
+
     formContext.updateField('where', value);
     formContext.updateField('where_category_id', id);
     isOpenSuggestions = false;
     isOpenSuggestionsDistrict = false;
-
-    if (type === 'city' || type === 'hotel') {
-      formContext.updateField('where_ids', []);
-    }
   }
 
   function handleReset() {
