@@ -1,7 +1,8 @@
 import { API_HOST, API_TOKEN } from '$lib/constants/api';
 import axios from 'axios';
-import { setupCache } from 'axios-cache-adapter';
+import axiosCache from 'axios-cache-adapter';
 import { lang } from './searchConst';
+const { setupCache } = axiosCache;
 
 const axiosParams = {
   baseURL: API_HOST,
