@@ -29,13 +29,14 @@
   let formContext = createForm({
     initialValues: {
       where: '',
-      where_id: undefined,
+      where_category_id: '',
+      where_ids: [],
       from: ''
     },
     // validationSchema: schema,
     onSubmit
   });
-  const { isSubmitting, handleChange } = formContext;
+  const { isSubmitting } = formContext;
 </script>
 
 <Form context={formContext} formProps={{ method: 'post' }}>
@@ -51,6 +52,7 @@
     border-radius: 3px;
     box-shadow: 0 4px 40px 0 rgb(0 0 0 / 4%), 0 2px 20px 0 rgb(254 226 12 / 6%);
     background-color: var(--color__light);
+    font-family: var(--type__secondary);
     display: flex;
     flex-direction: row;
     align-items: center;

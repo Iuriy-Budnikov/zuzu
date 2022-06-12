@@ -14,6 +14,12 @@ const { actions, values } = createChunk({
         Object.keys(n.response)
           .map((key) => n.response[key])
           .sort((a, b) => b.weight - a.weight)
+          .filter((c) => {
+            if (c.type === 'hotel' && c.price === '') {
+              return false;
+            }
+            return true;
+          })
     },
     failure: {
       handler: (store, payload) => ({ ...store, loading: false, error: payload }),

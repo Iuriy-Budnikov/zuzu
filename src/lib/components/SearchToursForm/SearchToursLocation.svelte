@@ -4,25 +4,71 @@
   import { onMount } from 'svelte';
   import { dispatch } from '$lib/stores/store';
   import { valuesSearchSuggests, actionsSearchSuggests } from '$lib/stores/search/searchSuggests';
+  import { valuesSearchGeoTree, actionsSearchGeoTree } from '$lib/stores/search/searchGeoTree';
   import SearchSuggestLocation from './SearchSuggestLocation.svelte';
+  import SearchSuggestGeoGroup from './SearchSuggestGeoGroup.svelte';
+  import SearchSuggestGeoItem from './SearchSuggestGeoItem.svelte';
+  import Icon from '$lib/elements/Icon/Icon.svelte';
 
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
+  const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
 
   export let formContext;
   export let submitting = false;
 
   let isOpenSuggestions = false;
-  let listElement;
+  let isOpenSuggestionsDistrict = false;
+  let listSuggestsElement;
+  let listGeoElement;
 
   const { form } = getContext(key);
 
+  let placeholder = '';
+  $: {
+    const numberOfIds = $form['where_ids'].length;
+    const categoryId = $form['where_category_id'];
+    if (categoryId) {
+      const findSuggest = $suggests?.find((c) => c.id == categoryId);
+      if (findSuggest) {
+        placeholder = findSuggest.value + ': ';
+        if (numberOfIds) {
+          placeholder += numberOfIds + ' ';
+          if (numberOfIds === 1) {
+            placeholder += 'курорт';
+          } else if (numberOfIds > 1 && numberOfIds < 5) {
+            placeholder += 'курорта';
+          } else {
+            placeholder += 'курортів';
+          }
+        }
+      }
+    } else {
+      placeholder = !isOpenSuggestions ? 'Куди' : '';
+    }
+  }
+
   function onClickLabel() {
     isOpenSuggestions = true;
+    form.subscribe(({ where }) => {
+      dispatch(
+        actionsSearchSuggests.start({
+          params: {
+            text: where,
+            nsv: where ? undefined : 1,
+            with: where ? undefined : 'price',
+            city: where ? undefined : ''
+          }
+        })
+      );
+    });
   }
 
   function onInputKeyDown(e) {
-    listElement.scrollTop = 0;
+    listSuggestsElement.scrollTop = 0;
     const text = e.currentTarget.value;
+    if (!text) {
+      handleReset();
+    }
     dispatch(
       actionsSearchSuggests.start({
         params: {
@@ -35,10 +81,41 @@
     );
   }
 
-  function handleSuggestion({ name, id }) {
-    formContext.updateField('where', name);
-    formContext.updateField('where_id', id);
+  function handleSuggestion({ value, id, type }) {
+    formContext.updateField('where', value);
+    formContext.updateField('where_category_id', id);
     isOpenSuggestions = false;
+    isOpenSuggestionsDistrict = false;
+
+    if (type === 'city' || type === 'hotel') {
+      formContext.updateField('where_ids', []);
+    }
+  }
+
+  function handleReset() {
+    formContext.updateField('where', '');
+    formContext.updateField('where_category_id', '');
+    formContext.updateField('where_ids', []);
+  }
+
+  function handleHoverSuggestion({ id, type }) {
+    if (type === 'country') {
+      if (isOpenSuggestionsDistrict) {
+        listGeoElement.scrollTop = 0;
+      }
+      isOpenSuggestionsDistrict = true;
+      dispatch(
+        actionsSearchGeoTree.start({
+          params: {
+            id
+          }
+        })
+      );
+    } else {
+      if (isOpenSuggestionsDistrict) {
+        isOpenSuggestionsDistrict = false;
+      }
+    }
   }
 
   onMount(() => {
@@ -64,21 +141,47 @@
       name="where"
       type="text"
       on:keyup={onInputKeyDown}
-      placeholder={!isOpenSuggestions ? 'Куди' : ''}
-      value={$form['where']}
+      {placeholder}
+      value={$form['where_ids'].length ? '' : $form['where']}
     />
     {#if isOpenSuggestions || !!$form['where']}
       <div class="search-tours-form-location__label_minimized">Куди</div>
     {/if}
   </label>
+  {#if !!$form['where'] || !!$form['where_ids'].length || !!$form['where_category_id']}
+    <div class="search-tours-form-location__reset" on:click={handleReset}>
+      <Icon name="reset" width="10px" height="10px" box="10" />
+    </div>
+  {/if}
   {#if isOpenSuggestions}
     <div class="search-tours-form-location__sugestions">
-      <div class="search-tours-form-location__container scrollbar" bind:this={listElement}>
+      <div class="search-tours-form-location__container scrollbar" bind:this={listSuggestsElement}>
         {#each $suggests as item}
-          <SearchSuggestLocation {...item} {handleSuggestion} />
+          <SearchSuggestLocation
+            {...item}
+            {handleSuggestion}
+            {handleHoverSuggestion}
+            isActive={$geo?.[0]?.parent_id == item.id}
+          />
         {/each}
       </div>
     </div>
+    {#if isOpenSuggestionsDistrict}
+      <div class="search-tours-form-location__sugestions">
+        <div
+          class="search-tours-form-location__container search-tours-form-location__container--geo scrollbar"
+          bind:this={listGeoElement}
+        >
+          {#each $geo as item}
+            {#if item.type === 'province'}
+              <SearchSuggestGeoGroup {...item} />
+            {:else if item.type === 'city'}
+              <SearchSuggestGeoItem {...item} />
+            {/if}
+          {/each}
+        </div>
+      </div>
+    {/if}
   {/if}
 </div>
 
@@ -88,6 +191,32 @@
     border-radius: 5px 0 0 5px;
     position: relative;
     height: 100%;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 1px;
+      background: #f8f8f9;
+      top: 12px;
+      bottom: 12px;
+      right: -1px;
+      z-index: 1;
+    }
+
+    &:hover {
+      background: #f8f8f9;
+
+      .search-tours-form-location__reset {
+        &:before {
+          background: #fff !important;
+        }
+      }
+
+      &:after {
+        display: none;
+      }
+    }
 
     &__label {
       display: flex;
@@ -124,6 +253,35 @@
       }
     }
 
+    &__reset {
+      position: absolute;
+      right: 25px;
+      transform: translateY(-50%);
+      top: 50%;
+      z-index: 2;
+      cursor: pointer;
+      color: #8f9397;
+      font-size: 10px;
+      height: 16px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        background: #f7f7f7;
+        z-index: -20;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+      }
+
+      :global(svg) {
+        height: 16px;
+      }
+    }
+
     &__sugestions {
       position: relative;
     }
@@ -140,6 +298,11 @@
       background-color: var(--color__light);
       box-shadow: 0 4px 40px 0 rgb(0 0 0 / 4%);
       max-height: 363px;
+
+      &--geo {
+        min-height: 363px;
+        left: 503px;
+      }
     }
   }
 </style>

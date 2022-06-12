@@ -1,22 +1,31 @@
 <script>
+  import { API_IMG_CDN } from '$lib/constants/api';
+
   import Icon from '$lib/elements/Icon/Icon.svelte';
 
   import { formatPrice } from '$lib/utils/numberUtils';
 
+  export let countryName = '';
+  export let cityName = '';
   export let name = '';
   export let uah = '';
   export let price = '';
   export let id;
   export let type = '';
   export let img = '';
+  export let value = '';
   export let isActive = false;
   export let handleSuggestion = () => {};
+  export let handleHoverSuggestion = () => {};
 
   $: formattedPrice = formatPrice(parseInt(uah, 10));
   $: formattedName = type === 'hotel' ? name.replaceAll('*', '⭐') : name;
 
   function onClickSuggestion() {
-    handleSuggestion({ name, id });
+    handleSuggestion({ value, id, type });
+  }
+  function onMouseOverSuggestion() {
+    handleHoverSuggestion({ id, type });
   }
 </script>
 
@@ -24,12 +33,13 @@
   class="search-suggest-location"
   class:search-suggest-location--active={isActive}
   on:click={onClickSuggestion}
+  on:mouseenter={onMouseOverSuggestion}
 >
   <div class="search-suggest-location__wrapper">
     {#if type === 'hotel'}
       <div
         class="search-suggest-location__icon"
-        style="background-image: url('https://newimg.otpusk.com/3/160x120/{img}')"
+        style="background-image: url('{API_IMG_CDN}/3/160x120/{img}')"
       />
     {:else}
       <div class="search-suggest-location__icon">
@@ -40,7 +50,6 @@
         {/if}
       </div>
     {/if}
-
     <div
       class="search-suggest-location__name"
       class:search-suggest-location__name--innactive={price === ''}
@@ -49,9 +58,11 @@
         {formattedName}
       </div>
       <div class="search-suggest-location__price">
-        {#if price === '' && type === 'country'}
+        {#if type === 'country' && price === ''}
           немає турів
-        {:else if uah !== ''}
+        {:else if type === 'hotel'}
+          {countryName}, {cityName}
+        {:else if price !== ''}
           від {formattedPrice}
         {/if}
       </div>

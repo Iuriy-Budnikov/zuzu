@@ -1,0 +1,31 @@
+import { createChunk } from '../store';
+
+const { actions, values } = createChunk({
+  initialState: { loading: false, geo: [], error: null },
+  namespace: 'searchGeoTree',
+  actions: {
+    start: {
+      handler: (state) => ({ ...state, loading: true }),
+      payload: (n) => n
+    },
+    success: {
+      handler: (state, payload) => ({ ...state, loading: false, geo: payload }),
+      payload: (n) =>
+        n.geo
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((c) => {
+            if (c.children) {
+              return { ...c, children: c.children.sort((a, b) => a.name.localeCompare(b.name)) };
+            }
+            return c;
+          })
+    },
+    failure: {
+      handler: (store, payload) => ({ ...store, loading: false, error: payload }),
+      payload: (n) => n
+    }
+  }
+});
+
+export const actionsSearchGeoTree = actions;
+export const valuesSearchGeoTree = values;

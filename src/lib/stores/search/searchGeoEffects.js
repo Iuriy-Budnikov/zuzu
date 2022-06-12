@@ -1,29 +1,29 @@
 import axios from 'axios';
 import { createEffect } from '../store';
-import { actionsSearchSuggests } from './searchSuggests';
+import { actionsSearchGeoTree } from './searchGeoTree';
 import { catchError, debounceTime, EMPTY, from, map, mergeMap, of } from 'rxjs';
 import { apiClientCached } from './searchClient';
 
 let cancelTokenSuggestion;
 
-createEffect(actionsSearchSuggests.start, (action$) => {
+createEffect(actionsSearchGeoTree.start, (action$) => {
   return action$.pipe(
     debounceTime(300),
     mergeMap(({ payload: { params } }) => {
       cancelTokenSuggestion?.cancel?.();
       cancelTokenSuggestion = axios.CancelToken.source();
       return from(
-        apiClientCached.get('/2.5/tours/suggests', {
-          params: { ...params },
+        apiClientCached.get('/2.5/tours/geotree', {
+          params: { depth: 'city', with: 'price', ...params },
           cancelToken: cancelTokenSuggestion?.token
         })
       ).pipe(
-        map(({ data }) => actionsSearchSuggests.success(data)),
+        map(({ data }) => actionsSearchGeoTree.success(data)),
         catchError((error) => {
           if (error?.code === 'ERR_CANCELED') {
             return EMPTY;
           }
-          return of(actionsSearchSuggests.failure(error?.response?.data));
+          return of(actionsSearchGeoTree.failure(error?.response?.data));
         })
       );
     })

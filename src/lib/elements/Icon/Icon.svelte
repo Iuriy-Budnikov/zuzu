@@ -7,6 +7,7 @@
   import flag from './flag';
   import city from './city';
   import arrow from './arrow';
+  import reset from './reset';
   export let name;
   export let box = 48;
   export let width = '48px';
@@ -45,6 +46,10 @@
       name: 'arrow',
       svg: arrow
     },
+    {
+      name: 'reset',
+      svg: reset
+    }
   ];
   let displayIcon = icons.find((e) => e.name === name);
 </script>
