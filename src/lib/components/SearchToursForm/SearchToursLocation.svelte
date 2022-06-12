@@ -118,6 +118,11 @@
     }
   }
 
+  function handleSubmitGeo() {
+    isOpenSuggestions = false;
+    isOpenSuggestionsDistrict = false;
+  }
+
   onMount(() => {
     dispatch(
       actionsSearchSuggests.start({
@@ -136,7 +141,9 @@
   <label class="search-tours-form-location__label" on:click={onClickLabel}>
     <input
       class="search-tours-form-location__input"
-      class:search-tours-form-location__input--minimized={isOpenSuggestions || !!$form['where']}
+      class:search-tours-form-location__input--minimized={isOpenSuggestions ||
+        !!$form['where'] ||
+        !!$form['where_ids'].length}
       disabled={submitting}
       name="where"
       type="text"
@@ -144,7 +151,7 @@
       {placeholder}
       value={$form['where_ids'].length ? '' : $form['where']}
     />
-    {#if isOpenSuggestions || !!$form['where']}
+    {#if isOpenSuggestions || !!$form['where'] || !!$form['where_ids'].length}
       <div class="search-tours-form-location__label_minimized">Куди</div>
     {/if}
   </label>
@@ -155,30 +162,48 @@
   {/if}
   {#if isOpenSuggestions}
     <div class="search-tours-form-location__sugestions">
-      <div class="search-tours-form-location__container scrollbar" bind:this={listSuggestsElement}>
-        {#each $suggests as item}
-          <SearchSuggestLocation
-            {...item}
-            {handleSuggestion}
-            {handleHoverSuggestion}
-            isActive={$geo?.[0]?.parent_id == item.id}
-          />
-        {/each}
+      <div class="search-tours-form-location__container">
+        <div class="search-tours-form-location__list  scrollbar" bind:this={listSuggestsElement}>
+          {#each $suggests as item}
+            <SearchSuggestLocation
+              {...item}
+              {handleSuggestion}
+              {handleHoverSuggestion}
+              isActive={$geo?.[0]?.parent_id == item.id}
+            />
+          {/each}
+        </div>
       </div>
     </div>
     {#if isOpenSuggestionsDistrict}
       <div class="search-tours-form-location__sugestions">
         <div
-          class="search-tours-form-location__container search-tours-form-location__container--geo scrollbar"
-          bind:this={listGeoElement}
+          class="search-tours-form-location__container search-tours-form-location__container--geo"
         >
-          {#each $geo as item}
-            {#if item.type === 'province'}
-              <SearchSuggestGeoGroup {...item} />
-            {:else if item.type === 'city'}
-              <SearchSuggestGeoItem {...item} />
+          <div
+            class="search-tours-form-location__list search-tours-form-location__list--geo scrollbar"
+            class:search-tours-form-location__list--has-value={!!$form['where_ids'].length}
+            bind:this={listGeoElement}
+          >
+            {#each $geo as item}
+              {#if item.type === 'province'}
+                <SearchSuggestGeoGroup {...item} />
+              {:else if item.type === 'city'}
+                <SearchSuggestGeoItem {...item} />
+              {/if}
+            {/each}
+            {#if !!$form['where_ids'].length}
+              <div class="search-tours-form-location__submit_container">
+                <button
+                  type="button"
+                  class="search-tours-form-location__submit"
+                  on:click={handleSubmitGeo}
+                >
+                  Обрати
+                </button>
+              </div>
             {/if}
-          {/each}
+          </div>
         </div>
       </div>
     {/if}
@@ -287,11 +312,18 @@
     }
 
     &__container {
-      width: 500px;
       top: calc(100% + 2px);
       left: 0;
       position: absolute;
       z-index: 2;
+
+      &--geo {
+        left: 503px;
+      }
+    }
+
+    &__list {
+      width: 500px;
       border-radius: 5px;
       overflow-y: scroll;
       overflow-x: hidden;
@@ -301,7 +333,37 @@
 
       &--geo {
         min-height: 363px;
-        left: 503px;
+      }
+
+      &--has-value {
+        padding-bottom: 70px;
+      }
+    }
+
+    &__submit_container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 16px;
+      background-color: var(--color__light);
+    }
+
+    &__submit {
+      background-color: var(--color__brand);
+      width: 100%;
+      font-family: var(--type__primary);
+      border: 1px solid var(--color__brand);
+      border-radius: 8px;
+      padding: 10px;
+      color: var(--color__light);
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-weight: 600;
+
+      &:hover {
+        opacity: 0.9;
       }
     }
   }
