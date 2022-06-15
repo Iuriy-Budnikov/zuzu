@@ -5,18 +5,18 @@
   import { dispatch } from '$lib/stores/store';
   import { valuesSearchSuggests, actionsSearchSuggests } from '$lib/stores/search/searchSuggests';
   import { valuesSearchGeoTree, actionsSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  import { clickOutside } from '$lib/utils/clickOutside';
+  import { windowKeyDown } from '$lib/utils/windowKeyDown';
+
   import SearchSuggestLocation from './SearchSuggestLocation.svelte';
   import SearchSuggestGeoGroup from './SearchSuggestGeoGroup.svelte';
   import SearchSuggestGeoItem from './SearchSuggestGeoItem.svelte';
   import Icon from '$lib/elements/Icon/Icon.svelte';
-  import { clickOutside } from '$lib/utils/clickOutside';
-  import { windowKeyDown } from '$lib/utils/windowKeyDown';
+  import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
+  import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
 
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
-
-  export let formContext;
-  export let submitting = false;
 
   let isOpenSuggestions = false;
   let isOpenSuggestionsDistrict = false;
@@ -24,7 +24,7 @@
   let listGeoElement;
   let inputElement;
 
-  const { form } = getContext(key);
+  const { form, updateField } = getContext(key);
 
   let placeholder = '';
   $: {
@@ -53,19 +53,21 @@
   }
 
   function onClickLabel() {
-    isOpenSuggestions = true;
-    form.subscribe(({ where }) => {
-      dispatch(
-        actionsSearchSuggests.start({
-          params: {
-            text: where,
-            nsv: where ? undefined : 1,
-            with: where ? undefined : 'price',
-            city: where ? undefined : ''
-          }
-        })
-      );
-    });
+    if (!isOpenSuggestions) {
+      isOpenSuggestions = true;
+      form.subscribe(({ where }) => {
+        dispatch(
+          actionsSearchSuggests.start({
+            params: {
+              text: where,
+              nsv: where ? undefined : 1,
+              with: where ? undefined : 'price',
+              city: where ? undefined : ''
+            }
+          })
+        );
+      });
+    }
   }
 
   function onInputKeyDown(e) {
@@ -90,19 +92,19 @@
 
   function handleSuggestion({ value, id, type }) {
     if (type === 'city' || type === 'hotel' || $form['where_category_id'] != id) {
-      formContext.updateField('where_ids', []);
+      updateField('where_ids', []);
     }
 
-    formContext.updateField('where', value);
-    formContext.updateField('where_category_id', id);
+    updateField('where', value);
+    updateField('where_category_id', id);
     isOpenSuggestions = false;
     isOpenSuggestionsDistrict = false;
   }
 
   function handleReset() {
-    formContext.updateField('where', '');
-    formContext.updateField('where_category_id', '');
-    formContext.updateField('where_ids', []);
+    updateField('where', '');
+    updateField('where_category_id', '');
+    updateField('where_ids', []);
   }
 
   function handleHoverSuggestion({ id, type }) {
@@ -165,132 +167,101 @@
   });
 </script>
 
-<div class="search-tours-form-location">
-  <label class="search-tours-form-location__label" on:click={onClickLabel}>
-    <input
-      class="search-tours-form-location__input"
-      class:search-tours-form-location__input--minimized={isOpenSuggestions ||
-        !!$form['where'] ||
-        !!$form['where_ids'].length}
-      disabled={submitting}
-      name="where"
-      type="text"
-      on:keyup={onInputKeyDown}
-      {placeholder}
-      value={$form['where_ids'].length ? '' : $form['where']}
-      bind:this={inputElement}
-    />
-    {#if isOpenSuggestions || !!$form['where'] || !!$form['where_ids'].length}
-      <div class="search-tours-form-location__label_minimized">Куди</div>
-    {/if}
-  </label>
-  {#if !!$form['where'] || !!$form['where_ids'].length || !!$form['where_category_id']}
-    <div class="search-tours-form-location__reset" on:click={handleReset}>
-      <Icon name="reset" width="10px" height="10px" box="10" />
-    </div>
-  {/if}
-  <div
-    use:clickOutside
-    on:click_outside={handleClickOutside}
-    use:windowKeyDown
-    on:window_key_down={handleWindowKeyDown}
-  >
-    {#if isOpenSuggestions}
-      <div class="search-tours-form-location__sugestions">
-        <div class="search-tours-form-location__container">
-          <div class="search-tours-form-location__list  scrollbar" bind:this={listSuggestsElement}>
-            {#each $suggests as item}
-              <SearchSuggestLocation
-                {...item}
-                {handleSuggestion}
-                {handleHoverSuggestion}
-                isActive={$geo?.[0]?.parent_id == item.id}
-              />
-            {/each}
-          </div>
-        </div>
+<SearchToursField type="location">
+  <div class="search-tours-form-location">
+    <SearchToursLabel
+      {onClickLabel}
+      label={isOpenSuggestions || !!$form['where'] || !!$form['where_ids'].length ? 'Куди' : ''}
+    >
+      <input
+        class="search-tours-form-location__input"
+        class:search-tours-form-location__input--minimized={isOpenSuggestions ||
+          !!$form['where'] ||
+          !!$form['where_ids'].length}
+        name="where"
+        type="text"
+        on:keyup={onInputKeyDown}
+        {placeholder}
+        value={$form['where_ids'].length ? '' : $form['where']}
+        bind:this={inputElement}
+      />
+    </SearchToursLabel>
+    {#if !!$form['where'] || !!$form['where_ids'].length || !!$form['where_category_id']}
+      <div class="search-tours-form-location__reset" on:click={handleReset}>
+        <Icon name="reset" width="10px" height="10px" box="10" />
       </div>
     {/if}
-    {#if isOpenSuggestionsDistrict}
-      <div class="search-tours-form-location__sugestions">
-        <div
-          class="search-tours-form-location__container search-tours-form-location__container--geo"
-        >
+    <div
+      use:clickOutside
+      on:click_outside={handleClickOutside}
+      use:windowKeyDown
+      on:window_key_down={handleWindowKeyDown}
+    >
+      {#if isOpenSuggestions}
+        <div class="search-tours-form-location__dropdown">
+          <div class="search-tours-form-location__container">
+            <div
+              class="search-tours-form-location__list  scrollbar"
+              bind:this={listSuggestsElement}
+            >
+              {#each $suggests as item}
+                <SearchSuggestLocation
+                  {...item}
+                  {handleSuggestion}
+                  {handleHoverSuggestion}
+                  isActive={$geo?.[0]?.parent_id == item.id}
+                />
+              {/each}
+            </div>
+          </div>
+        </div>
+      {/if}
+      {#if isOpenSuggestionsDistrict}
+        <div class="search-tours-form-location__dropdown">
           <div
-            class="search-tours-form-location__list search-tours-form-location__list--geo scrollbar"
-            class:search-tours-form-location__list--has-value={!!$form['where_ids'].length}
-            bind:this={listGeoElement}
+            class="search-tours-form-location__container search-tours-form-location__container--geo"
           >
-            {#each $geo as item}
-              {#if item.type === 'province'}
-                <SearchSuggestGeoGroup {...item} />
-              {:else if item.type === 'city'}
-                <SearchSuggestGeoItem {...item} />
+            <div
+              class="search-tours-form-location__list search-tours-form-location__list--geo scrollbar"
+              class:search-tours-form-location__list--has-value={!!$form['where_ids'].length}
+              bind:this={listGeoElement}
+            >
+              {#each $geo as item}
+                {#if item.type === 'province'}
+                  <SearchSuggestGeoGroup {...item} />
+                {:else if item.type === 'city'}
+                  <SearchSuggestGeoItem {...item} />
+                {/if}
+              {/each}
+              {#if !!$form['where_ids'].length}
+                <div class="search-tours-form-location__submit_container">
+                  <button
+                    type="button"
+                    class="search-tours-form-location__submit"
+                    on:click={handleSubmitGeo}
+                  >
+                    Обрати
+                  </button>
+                </div>
               {/if}
-            {/each}
-            {#if !!$form['where_ids'].length}
-              <div class="search-tours-form-location__submit_container">
-                <button
-                  type="button"
-                  class="search-tours-form-location__submit"
-                  on:click={handleSubmitGeo}
-                >
-                  Обрати
-                </button>
-              </div>
-            {/if}
+            </div>
           </div>
         </div>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </div>
-</div>
+</SearchToursField>
 
 <style lang="scss">
   .search-tours-form-location {
-    flex: 1.7;
-    border-radius: 5px 0 0 5px;
-    position: relative;
     height: 100%;
 
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 1px;
-      background: #f8f8f9;
-      top: 12px;
-      bottom: 12px;
-      right: -1px;
-      z-index: 1;
-    }
-
     &:hover {
-      background: #f8f8f9;
-
       .search-tours-form-location__reset {
         &:before {
           background: #fff !important;
         }
       }
-
-      &:after {
-        display: none;
-      }
-    }
-
-    &__label {
-      display: flex;
-      align-items: center;
-    }
-
-    &__label_minimized {
-      position: absolute;
-      left: 16px;
-      font-size: 14px;
-      top: 15px;
-      color: #91989e;
-      z-index: 1;
     }
 
     &__input {
@@ -355,7 +326,7 @@
       }
     }
 
-    &__sugestions {
+    &__dropdown {
       position: relative;
     }
 

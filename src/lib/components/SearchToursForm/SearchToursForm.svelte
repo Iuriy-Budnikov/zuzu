@@ -1,26 +1,8 @@
 <script>
-  import { onMount } from 'svelte';
-  import { dispatch } from '$lib/stores/store';
-  import { valuesSearchCities, actionsSearchCities } from '$lib/stores/search/searchCities';
-  import { valuesSearchServices, actionsSearchServices } from '$lib/stores/search/searchServices';
-
   import { createForm } from 'svelte-forms-lib';
   import Form from '$lib/elements/Forms/Form.svelte';
-  import SearchToursLocation from './SearchToursLocation.svelte';
-
-  const { cities, loading: loadingCities } = valuesSearchCities;
-  const { services, loading: loadingServices } = valuesSearchServices;
-
-  onMount(() => {
-    dispatch(
-      actionsSearchCities.start({
-        params: {
-          geoId: 0
-        }
-      })
-    );
-    dispatch(actionsSearchServices.start());
-  });
+  import SearchToursLocation from './SearchToursLocation/SearchToursLocation.svelte';
+  import SearchToursDepCities from './SearchToursDepCities/SearchToursDepCities.svelte';
 
   const onSubmit = async (values) => {
     console.log('values', values);
@@ -41,7 +23,8 @@
 
 <Form context={formContext} formProps={{ method: 'post' }}>
   <div class="search-tours-form">
-    <SearchToursLocation {formContext} submitting={$isSubmitting} />
+    <SearchToursLocation />
+    <SearchToursDepCities />
     <button type="submit">submit</button>
   </div>
 </Form>

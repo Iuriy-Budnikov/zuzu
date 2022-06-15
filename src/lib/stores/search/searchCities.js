@@ -10,7 +10,7 @@ const { actions, values } = createChunk({
     },
     success: {
       handler: (state, payload) => ({ ...state, loading: false, cities: payload }),
-      payload: (n) => n.deptCities
+      payload: (n) => n.fromCities
     },
     failure: {
       handler: (store, payload) => ({ ...store, loading: false, error: payload }),
