@@ -9,6 +9,8 @@
   import SearchSuggestGeoGroup from './SearchSuggestGeoGroup.svelte';
   import SearchSuggestGeoItem from './SearchSuggestGeoItem.svelte';
   import Icon from '$lib/elements/Icon/Icon.svelte';
+  import { clickOutside } from '$lib/utils/clickOutside';
+  import { windowKeyDown } from '$lib/utils/windowKeyDown';
 
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
@@ -20,6 +22,7 @@
   let isOpenSuggestionsDistrict = false;
   let listSuggestsElement;
   let listGeoElement;
+  let inputElement;
 
   const { form } = getContext(key);
 
@@ -30,8 +33,10 @@
     if (categoryId) {
       const findSuggest = $suggests?.find((c) => c.id == categoryId);
       if (findSuggest) {
-        placeholder = findSuggest.value + ': ';
+        placeholder = '';
         if (numberOfIds) {
+          placeholder = findSuggest.value;
+          placeholder += ': ';
           placeholder += numberOfIds + ' ';
           if (numberOfIds === 1) {
             placeholder += 'курорт';
@@ -64,7 +69,9 @@
   }
 
   function onInputKeyDown(e) {
-    listSuggestsElement.scrollTop = 0;
+    if (listSuggestsElement) {
+      listSuggestsElement.scrollTop = 0;
+    }
     const text = e.currentTarget.value;
     if (!text) {
       handleReset();
@@ -100,7 +107,7 @@
 
   function handleHoverSuggestion({ id, type }) {
     if (type === 'country') {
-      if (isOpenSuggestionsDistrict) {
+      if (isOpenSuggestionsDistrict && listGeoElement) {
         listGeoElement.scrollTop = 0;
       }
       isOpenSuggestionsDistrict = true;
@@ -121,6 +128,27 @@
   function handleSubmitGeo() {
     isOpenSuggestions = false;
     isOpenSuggestionsDistrict = false;
+  }
+
+  function handleClickOutside() {
+    if (isOpenSuggestions) {
+      isOpenSuggestions = false;
+    }
+    if (isOpenSuggestionsDistrict) {
+      isOpenSuggestionsDistrict = false;
+    }
+  }
+
+  function handleWindowKeyDown({ detail: { event } }) {
+    if (event.key === 'Escape') {
+      if (isOpenSuggestions) {
+        isOpenSuggestions = false;
+        inputElement.blur();
+      }
+      if (isOpenSuggestionsDistrict) {
+        isOpenSuggestionsDistrict = false;
+      }
+    }
   }
 
   onMount(() => {
@@ -150,6 +178,7 @@
       on:keyup={onInputKeyDown}
       {placeholder}
       value={$form['where_ids'].length ? '' : $form['where']}
+      bind:this={inputElement}
     />
     {#if isOpenSuggestions || !!$form['where'] || !!$form['where_ids'].length}
       <div class="search-tours-form-location__label_minimized">Куди</div>
@@ -160,21 +189,28 @@
       <Icon name="reset" width="10px" height="10px" box="10" />
     </div>
   {/if}
-  {#if isOpenSuggestions}
-    <div class="search-tours-form-location__sugestions">
-      <div class="search-tours-form-location__container">
-        <div class="search-tours-form-location__list  scrollbar" bind:this={listSuggestsElement}>
-          {#each $suggests as item}
-            <SearchSuggestLocation
-              {...item}
-              {handleSuggestion}
-              {handleHoverSuggestion}
-              isActive={$geo?.[0]?.parent_id == item.id}
-            />
-          {/each}
+  <div
+    use:clickOutside
+    on:click_outside={handleClickOutside}
+    use:windowKeyDown
+    on:window_key_down={handleWindowKeyDown}
+  >
+    {#if isOpenSuggestions}
+      <div class="search-tours-form-location__sugestions">
+        <div class="search-tours-form-location__container">
+          <div class="search-tours-form-location__list  scrollbar" bind:this={listSuggestsElement}>
+            {#each $suggests as item}
+              <SearchSuggestLocation
+                {...item}
+                {handleSuggestion}
+                {handleHoverSuggestion}
+                isActive={$geo?.[0]?.parent_id == item.id}
+              />
+            {/each}
+          </div>
         </div>
       </div>
-    </div>
+    {/if}
     {#if isOpenSuggestionsDistrict}
       <div class="search-tours-form-location__sugestions">
         <div
@@ -207,7 +243,7 @@
         </div>
       </div>
     {/if}
-  {/if}
+  </div>
 </div>
 
 <style lang="scss">
@@ -276,6 +312,10 @@
       &--minimized {
         padding-top: 22px;
       }
+
+      &::placeholder {
+        color: var(--color__dark);
+      }
     }
 
     &__reset {
@@ -289,6 +329,13 @@
       font-size: 10px;
       height: 16px;
 
+      &:hover {
+        &:before {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
       &:before {
         content: '';
         position: absolute;
@@ -300,6 +347,7 @@
         top: 50%;
         left: 50%;
         border-radius: 50%;
+        transition: width 0.3s, height 0.3s;
       }
 
       :global(svg) {
@@ -355,7 +403,7 @@
       width: 100%;
       font-family: var(--type__primary);
       border: 1px solid var(--color__brand);
-      border-radius: 8px;
+      border-radius: 3px;
       padding: 10px;
       color: var(--color__light);
       cursor: pointer;
