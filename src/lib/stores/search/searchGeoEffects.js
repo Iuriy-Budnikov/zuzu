@@ -1,14 +1,13 @@
 import axios from 'axios';
 import { createEffect } from '../store';
 import { actionsSearchGeoTree } from './searchGeoTree';
-import { catchError, debounceTime, EMPTY, from, map, mergeMap, of } from 'rxjs';
+import { catchError, EMPTY, from, map, mergeMap, of } from 'rxjs';
 import { apiClientCached } from './searchClient';
 
 let cancelTokenSuggestion;
 
 createEffect(actionsSearchGeoTree.start, (action$) => {
   return action$.pipe(
-    debounceTime(300),
     mergeMap(({ payload: { params } }) => {
       cancelTokenSuggestion?.cancel?.();
       cancelTokenSuggestion = axios.CancelToken.source();

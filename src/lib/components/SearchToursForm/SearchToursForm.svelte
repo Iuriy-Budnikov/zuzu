@@ -91,7 +91,6 @@
   function onCloseGeoTreeModal() {
     dispatch(actionsSearchForm.closeGeoTreeModal());
   }
-
   function onChangeGeoTree({ detail: { checked, id, parent_id } }) {
     let new_where_ids = $form.where_ids;
     const where_category_id = $form.where_category_id;
@@ -112,7 +111,6 @@
     }
     updateField('where_ids', new_where_ids);
   }
-
   function onChangeGeoTreeAll({ detail: { checked, ids, parent_id } }) {
     updateField('where_ids', checked ? ids : []);
     updateField('where_category_id', checked ? parent_id : '');
@@ -124,6 +122,16 @@
   }
   function onOpenDepsModal() {
     dispatch(actionsSearchForm.openDepsModal());
+
+    console.log('$form.where_category_id', $form.where_category_id);
+
+    dispatch(
+      actionsSearchCities.start({
+        params: {
+          geoId: $form.where_category_id || 0
+        }
+      })
+    );
   }
   function onCloseDepsModal() {
     dispatch(actionsSearchForm.closeDepsModal());
@@ -152,6 +160,7 @@
       on:change_suggest={onChangeSuggest}
       on:change_geo_tree={onChangeGeoTree}
       on:change_geo_tree_all={onChangeGeoTreeAll}
+      on:open_deps_modal={onOpenDepsModal}
     />
     <SearchToursDepCities
       on:change_dep_city={onChangeDepCity}

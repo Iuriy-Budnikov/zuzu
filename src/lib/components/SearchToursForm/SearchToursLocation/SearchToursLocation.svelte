@@ -16,7 +16,7 @@
   import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
   import SearchSuggestGeoAddAll from './SearchSuggestGeoAddAll.svelte';
-  import { children } from 'svelte/internal';
+  import SearchToursLoader from '../SearchToursComponents/SearchToursLoader.svelte';
 
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
@@ -77,6 +77,7 @@
     dispatch('close_suggest_modal');
     dispatch('close_geo_tree_modal');
     dispatch('change_suggest', { type, id, where: value });
+    dispatch('open_deps_modal');
   }
 
   function handleReset() {
@@ -146,17 +147,18 @@
         bind:this={inputElement}
       />
     </SearchToursLabel>
-    {#if !!$form['where'] || !!$form['where_ids'].length || !!$form['where_category_id']}
-      <div class="search-tours-form-location__reset" on:click={handleReset}>
-        <Icon name="reset" width="10px" height="10px" box="10" />
-      </div>
-    {/if}
+
     <div
       use:clickOutside
       on:click_outside={handleClickOutside}
       use:windowKeyDown
       on:window_key_down={handleWindowKeyDown}
     >
+      {#if !!$form['where'] || !!$form['where_ids'].length || !!$form['where_category_id']}
+        <div class="search-tours-form-location__reset" on:click={handleReset}>
+          <Icon name="reset" width="10px" height="10px" box="10" />
+        </div>
+      {/if}
       {#if $isSuggestModalOpened}
         <div class="search-tours-form-location__dropdown">
           <div class="search-tours-form-location__container">
@@ -164,14 +166,18 @@
               class="search-tours-form-location__list  scrollbar"
               bind:this={listSuggestsElement}
             >
-              {#each $suggests as item}
-                <SearchSuggestLocation
-                  {...item}
-                  {handleSuggestion}
-                  {handleHoverSuggestion}
-                  isActive={$geo?.[0]?.parent_id == item.id}
-                />
-              {/each}
+              {#if $loadingSuggests}
+                <SearchToursLoader />
+              {:else}
+                {#each $suggests as item}
+                  <SearchSuggestLocation
+                    {...item}
+                    {handleSuggestion}
+                    {handleHoverSuggestion}
+                    isActive={$geo?.[0]?.parent_id == item.id}
+                  />
+                {/each}
+              {/if}
             </div>
           </div>
         </div>
@@ -186,27 +192,31 @@
               class:search-tours-form-location__list--has-value={!!$form['where_ids'].length}
               bind:this={listGeoElement}
             >
-              {#if !!$geo.length}
-                <SearchSuggestGeoAddAll on:change_geo_tree_all name="Всі курорти" />
-              {/if}
-
-              {#each $geo as item}
-                {#if item.type === 'province'}
-                  <SearchSuggestGeoGroup {...item} on:change_geo_tree />
-                {:else if item.type === 'city'}
-                  <SearchSuggestGeoItem {...item} on:change_geo_tree />
+              {#if $loadingGeoTree}
+                <SearchToursLoader />
+              {:else}
+                {#if !!$geo.length}
+                  <SearchSuggestGeoAddAll on:change_geo_tree_all name="Всі курорти" />
                 {/if}
-              {/each}
-              {#if !!$form['where_ids'].length}
-                <div class="search-tours-form-location__submit_container">
-                  <button
-                    type="button"
-                    class="search-tours-form-location__submit"
-                    on:click={handleSubmitGeo}
-                  >
-                    Обрати
-                  </button>
-                </div>
+
+                {#each $geo as item}
+                  {#if item.type === 'province'}
+                    <SearchSuggestGeoGroup {...item} on:change_geo_tree />
+                  {:else if item.type === 'city'}
+                    <SearchSuggestGeoItem {...item} on:change_geo_tree />
+                  {/if}
+                {/each}
+                {#if !!$form['where_ids'].length}
+                  <div class="search-tours-form-location__submit_container">
+                    <button
+                      type="button"
+                      class="search-tours-form-location__submit"
+                      on:click={handleSubmitGeo}
+                    >
+                      Обрати
+                    </button>
+                  </div>
+                {/if}
               {/if}
             </div>
           </div>
