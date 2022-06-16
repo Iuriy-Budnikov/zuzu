@@ -19,6 +19,7 @@ const { actions, values } = createChunk({
             }
             return c;
           })
+          .sort((a, b) => (a?.children?.length || -1) - (b?.children?.length || -1))
     },
     failure: {
       handler: (store, payload) => ({ ...store, loading: false, error: payload }),

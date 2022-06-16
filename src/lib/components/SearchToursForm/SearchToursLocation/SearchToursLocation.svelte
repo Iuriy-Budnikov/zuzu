@@ -15,6 +15,8 @@
   import Icon from '$lib/elements/Icon/Icon.svelte';
   import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
+  import SearchSuggestGeoAddAll from './SearchSuggestGeoAddAll.svelte';
+  import { children } from 'svelte/internal';
 
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
@@ -125,10 +127,10 @@
   });
 </script>
 
-<SearchToursField type="location">
+<SearchToursField isActive={$isSuggestModalOpened} type="location">
   <div class="search-tours-form-location">
     <SearchToursLabel
-      {onClickLabel}
+      on:click={onClickLabel}
       label={$isSuggestModalOpened || !!$form['where'] || !!$form['where_ids'].length ? 'Куди' : ''}
     >
       <input
@@ -184,11 +186,15 @@
               class:search-tours-form-location__list--has-value={!!$form['where_ids'].length}
               bind:this={listGeoElement}
             >
+              {#if !!$geo.length}
+                <SearchSuggestGeoAddAll on:change_geo_tree_all name="Всі курорти" />
+              {/if}
+
               {#each $geo as item}
                 {#if item.type === 'province'}
-                  <SearchSuggestGeoGroup {...item} />
+                  <SearchSuggestGeoGroup {...item} on:change_geo_tree />
                 {:else if item.type === 'city'}
-                  <SearchSuggestGeoItem {...item} />
+                  <SearchSuggestGeoItem {...item} on:change_geo_tree />
                 {/if}
               {/each}
               {#if !!$form['where_ids'].length}

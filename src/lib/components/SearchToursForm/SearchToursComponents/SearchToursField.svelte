@@ -1,9 +1,11 @@
 <script>
+  export let isActive = false;
   export let type = 'location';
 </script>
 
 <div
   class="search-tours-field"
+  class:search-tours-field--active={isActive}
   class:search-tours-field--location={type === 'location'}
   class:search-tours-field--dep-cities={type === 'dep-cities'}
 >
@@ -14,6 +16,7 @@
   .search-tours-field {
     position: relative;
     height: 100%;
+    transition: background-color 0.2s;
 
     &--location {
       flex: 1.7;
@@ -35,6 +38,7 @@
       z-index: 1;
     }
 
+    &--active,
     &:hover {
       background: #f8f8f9;
 

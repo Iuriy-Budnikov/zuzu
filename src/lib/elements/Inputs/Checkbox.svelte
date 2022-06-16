@@ -5,13 +5,13 @@
   export let value = '';
 </script>
 
-<label class="radio__label" class:radio__label--disabled={disabled}>
-  <input class="radio__input" {disabled} {checked} {name} {value} type="radio" on:change />
+<label class="checkbox__label" class:checkbox__label--disabled={disabled}>
+  <input class="checkbox__input" {disabled} {checked} {name} {value} type="checkbox" on:change />
   <slot />
 </label>
 
 <style lang="scss">
-  .radio {
+  .checkbox {
     &__label {
       color: var(--color__dark);
       line-height: 1;
@@ -39,7 +39,7 @@
       width: 20px;
       height: 20px;
       border: 2px solid var(--form-control-color);
-      border-radius: 50%;
+      border-radius: 3px;
 
       display: grid;
       place-content: center;
@@ -48,8 +48,9 @@
         content: '';
         width: 8px;
         height: 8px;
-        border-radius: 50%;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         transform: scale(0);
+        transform-origin: bottom left;
         transition: 120ms transform ease-in-out;
         box-shadow: inset 10px 10px var(--form-control-color);
         /* Windows High Contrast Mode */

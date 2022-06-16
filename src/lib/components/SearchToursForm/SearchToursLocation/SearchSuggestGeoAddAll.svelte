@@ -3,32 +3,47 @@
   import { key } from 'svelte-forms-lib';
   const { form } = getContext(key);
   import Checkbox from '$lib/elements/Inputs/Checkbox.svelte';
+  import { valuesSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  const { geo } = valuesSearchGeoTree;
 
-  export let id;
-  export let parent_id = '';
-  export let category_id = '';
   export let name = '';
 
   const dispatch = createEventDispatcher();
 
   function onChange(e) {
+    const ids = [];
+    $geo.forEach((c) => {
+      if (!c.children) {
+        ids.push(c.id);
+      } else {
+        c.children.forEach((child) => {
+          ids.push(child.id);
+        });
+      }
+    });
     const checked = e.currentTarget.checked;
-    const combinedParentId = category_id || parent_id;
-    dispatch('change_geo_tree', { checked, id, parent_id: combinedParentId });
+    dispatch('change_geo_tree_all', { checked, ids, parent_id: $geo?.[0].parent_id });
+  }
+
+  let checked = false;
+  $: {
+    const ids = [];
+    $geo.forEach((c) => {
+      if (c.children) {
+        c.children.forEach((child) => {
+          ids.push(child.id);
+        });
+      } else {
+        ids.push(c.id);
+      }
+    });
+    checked = ids.every((v) => $form['where_ids'].includes(v));
   }
 </script>
 
-<div
-  class="search-suggest-geo-item"
-  class:search-suggest-geo-item--active={$form['where_ids']?.findIndex((c) => c === id) > -1}
->
+<div class="search-suggest-geo-item" class:search-suggest-geo-item--active={checked}>
   <span class="search-suggest-geo-item__checkbox">
-    <Checkbox
-      id={`checkbox-${id}`}
-      on:change={onChange}
-      checked={$form['where_ids']?.findIndex((c) => c === id) > -1}
-      value={id}
-    >
+    <Checkbox {checked} on:change={onChange}>
       <span class="search-suggest-geo-item__name">{name}</span>
     </Checkbox>
   </span>

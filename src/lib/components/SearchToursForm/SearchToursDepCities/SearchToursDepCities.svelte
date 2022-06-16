@@ -39,13 +39,13 @@
   });
 </script>
 
-<SearchToursField type="dep-cities">
-  <SearchToursLabel {onClickLabel} label="Звідки" />
+<SearchToursField isActive={$isDepsModalOpened} type="dep-cities">
+  <SearchToursLabel on:click={onClickLabel} label="Звідки" />
   <SearchToursDropdown
     isOpen={$isDepsModalOpened}
     listElement={listCitiesElement}
-    {handleClickOutside}
-    {handleWindowKeyDown}
+    on:click_outside={handleClickOutside}
+    on:window_key_down={handleWindowKeyDown}
   >
     <SearchToursDepCityItem on:change_dep_city name="Тільки проживання" id="0" />
     {#each $cities as item}

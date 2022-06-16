@@ -92,6 +92,32 @@
     dispatch(actionsSearchForm.closeGeoTreeModal());
   }
 
+  function onChangeGeoTree({ detail: { checked, id, parent_id } }) {
+    let new_where_ids = $form.where_ids;
+    const where_category_id = $form.where_category_id;
+
+    updateField('where_category_id', parent_id);
+
+    if (!!where_category_id && where_category_id != parent_id) {
+      new_where_ids = [];
+    }
+
+    if (checked) {
+      new_where_ids.push(id);
+    } else {
+      const index = new_where_ids.indexOf(id);
+      if (index > -1) {
+        new_where_ids.splice(index, 1);
+      }
+    }
+    updateField('where_ids', new_where_ids);
+  }
+
+  function onChangeGeoTreeAll({ detail: { checked, ids, parent_id } }) {
+    updateField('where_ids', checked ? ids : []);
+    updateField('where_category_id', checked ? parent_id : '');
+  }
+
   function onChangeDepCity({ detail: { id } }) {
     updateField('from_id', id);
     dispatch(actionsSearchForm.closeDepsModal());
@@ -124,6 +150,8 @@
       on:reset_suggests={onResetSuggests}
       on:autocomplete_suggests={onAutocompleteSuggests}
       on:change_suggest={onChangeSuggest}
+      on:change_geo_tree={onChangeGeoTree}
+      on:change_geo_tree_all={onChangeGeoTreeAll}
     />
     <SearchToursDepCities
       on:change_dep_city={onChangeDepCity}

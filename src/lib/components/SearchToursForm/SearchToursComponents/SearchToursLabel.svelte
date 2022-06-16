@@ -1,9 +1,8 @@
 <script>
-  export let onClickLabel;
   export let label = '';
 </script>
 
-<label class="search-tours-label" on:click={onClickLabel}>
+<label class="search-tours-label" on:click>
   <slot />
   {#if label}
     <div class="search-tours-label__text">{label}</div>

@@ -13,7 +13,7 @@
 
 {#if children && children.length}
   {#each children as item}
-    <SearchSuggestGeoGroupItem category_id={parent_id} {...item} />
+    <SearchSuggestGeoGroupItem category_id={parent_id} {...item} on:change_geo_tree />
   {/each}
 {/if}
 
@@ -24,5 +24,6 @@
     padding: 18px 16px 7px;
     border-top: 2px solid #f8f8f9;
     font-family: var(--type__primary);
+    font-weight: 600;
   }
 </style>

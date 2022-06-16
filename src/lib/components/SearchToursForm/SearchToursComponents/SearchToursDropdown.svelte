@@ -3,17 +3,15 @@
   import { windowKeyDown } from '$lib/utils/windowKeyDown';
 
   export let isOpen = false;
-  export let handleClickOutside;
-  export let handleWindowKeyDown;
   export let listElement;
 </script>
 
 <div
   class="search-tours-dropdown"
   use:clickOutside
-  on:click_outside={handleClickOutside}
+  on:click_outside
   use:windowKeyDown
-  on:window_key_down={handleWindowKeyDown}
+  on:window_key_down
 >
   {#if isOpen}
     <div class="search-tours-dropdown__dropdown">
