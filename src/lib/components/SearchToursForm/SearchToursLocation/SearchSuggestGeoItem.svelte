@@ -8,7 +8,7 @@
   export let category_id = '';
   export let name = '';
 
-  function onCheck(e) {
+  function onChange(e) {
     const combinedParentId = category_id || parent_id;
 
     const checked = e.currentTarget.checked;
@@ -46,7 +46,7 @@
       <input
         id={`checkbox-${id}`}
         type="checkbox"
-        on:change={onCheck}
+        on:change={onChange}
         checked={$form['where_ids']?.findIndex((c) => c === id) > -1}
         value={id}
       />

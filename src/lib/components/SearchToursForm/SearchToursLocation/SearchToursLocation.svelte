@@ -1,10 +1,11 @@
 <script>
-  import { getContext } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   import { key } from 'svelte-forms-lib';
   import { onMount } from 'svelte';
-  import { dispatch } from '$lib/stores/store';
-  import { valuesSearchSuggests, actionsSearchSuggests } from '$lib/stores/search/searchSuggests';
-  import { valuesSearchGeoTree, actionsSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  import { valuesSearchSuggests } from '$lib/stores/search/searchSuggests';
+  import { valuesSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  import { valuesSearchForm } from '$lib/stores/search/searchForm';
+
   import { clickOutside } from '$lib/utils/clickOutside';
   import { windowKeyDown } from '$lib/utils/windowKeyDown';
 
@@ -17,14 +18,15 @@
 
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
+  const { isSuggestModalOpened, isGeoTreeModalOpened } = valuesSearchForm;
 
-  let isOpenSuggestions = false;
-  let isOpenSuggestionsDistrict = false;
   let listSuggestsElement;
   let listGeoElement;
   let inputElement;
 
-  const { form, updateField } = getContext(key);
+  const dispatch = createEventDispatcher();
+
+  const { form } = getContext(key);
 
   let placeholder = '';
   $: {
@@ -48,25 +50,13 @@
         }
       }
     } else {
-      placeholder = !isOpenSuggestions ? 'Куди' : '';
+      placeholder = !$isSuggestModalOpened ? 'Куди' : '';
     }
   }
 
   function onClickLabel() {
-    if (!isOpenSuggestions) {
-      isOpenSuggestions = true;
-      form.subscribe(({ where }) => {
-        dispatch(
-          actionsSearchSuggests.start({
-            params: {
-              text: where,
-              nsv: where ? undefined : 1,
-              with: where ? undefined : 'price',
-              city: where ? undefined : ''
-            }
-          })
-        );
-      });
+    if (!$isSuggestModalOpened) {
+      dispatch('open_suggest_modal');
     }
   }
 
@@ -78,92 +68,60 @@
     if (!text) {
       handleReset();
     }
-    dispatch(
-      actionsSearchSuggests.start({
-        params: {
-          text: text,
-          nsv: text ? undefined : 1,
-          with: text ? undefined : 'price',
-          city: text ? undefined : ''
-        }
-      })
-    );
+    dispatch('autocomplete_suggests', { where: text });
   }
 
   function handleSuggestion({ value, id, type }) {
-    if (type === 'city' || type === 'hotel' || $form['where_category_id'] != id) {
-      updateField('where_ids', []);
-    }
-
-    updateField('where', value);
-    updateField('where_category_id', id);
-    isOpenSuggestions = false;
-    isOpenSuggestionsDistrict = false;
+    dispatch('close_suggest_modal');
+    dispatch('close_geo_tree_modal');
+    dispatch('change_suggest', { type, id, where: value });
   }
 
   function handleReset() {
-    updateField('where', '');
-    updateField('where_category_id', '');
-    updateField('where_ids', []);
+    dispatch('reset_suggests');
   }
 
   function handleHoverSuggestion({ id, type }) {
     if (type === 'country') {
-      if (isOpenSuggestionsDistrict && listGeoElement) {
+      if ($isGeoTreeModalOpened && listGeoElement) {
         listGeoElement.scrollTop = 0;
       }
-      isOpenSuggestionsDistrict = true;
-      dispatch(
-        actionsSearchGeoTree.start({
-          params: {
-            id
-          }
-        })
-      );
+      dispatch('open_geo_tree_modal', { id });
     } else {
-      if (isOpenSuggestionsDistrict) {
-        isOpenSuggestionsDistrict = false;
+      if ($isGeoTreeModalOpened) {
+        dispatch('close_geo_tree_modal');
       }
     }
   }
 
   function handleSubmitGeo() {
-    isOpenSuggestions = false;
-    isOpenSuggestionsDistrict = false;
+    dispatch('close_suggest_modal');
+    dispatch('close_geo_tree_modal');
   }
 
   function handleClickOutside() {
-    if (isOpenSuggestions) {
-      isOpenSuggestions = false;
+    if ($isSuggestModalOpened) {
+      dispatch('close_suggest_modal');
     }
-    if (isOpenSuggestionsDistrict) {
-      isOpenSuggestionsDistrict = false;
+    if ($isGeoTreeModalOpened) {
+      dispatch('close_geo_tree_modal');
     }
   }
 
   function handleWindowKeyDown({ detail: { event } }) {
     if (event.key === 'Escape') {
-      if (isOpenSuggestions) {
-        isOpenSuggestions = false;
+      if ($isSuggestModalOpened) {
+        dispatch('close_suggest_modal');
         inputElement.blur();
       }
-      if (isOpenSuggestionsDistrict) {
-        isOpenSuggestionsDistrict = false;
+      if ($isGeoTreeModalOpened) {
+        dispatch('close_geo_tree_modal');
       }
     }
   }
 
   onMount(() => {
-    dispatch(
-      actionsSearchSuggests.start({
-        params: {
-          nsv: 1,
-          with: 'price',
-          city: '',
-          geoId: 0
-        }
-      })
-    );
+    dispatch('mount_suggests');
   });
 </script>
 
@@ -171,11 +129,11 @@
   <div class="search-tours-form-location">
     <SearchToursLabel
       {onClickLabel}
-      label={isOpenSuggestions || !!$form['where'] || !!$form['where_ids'].length ? 'Куди' : ''}
+      label={$isSuggestModalOpened || !!$form['where'] || !!$form['where_ids'].length ? 'Куди' : ''}
     >
       <input
         class="search-tours-form-location__input"
-        class:search-tours-form-location__input--minimized={isOpenSuggestions ||
+        class:search-tours-form-location__input--minimized={$isSuggestModalOpened ||
           !!$form['where'] ||
           !!$form['where_ids'].length}
         name="where"
@@ -197,7 +155,7 @@
       use:windowKeyDown
       on:window_key_down={handleWindowKeyDown}
     >
-      {#if isOpenSuggestions}
+      {#if $isSuggestModalOpened}
         <div class="search-tours-form-location__dropdown">
           <div class="search-tours-form-location__container">
             <div
@@ -216,7 +174,7 @@
           </div>
         </div>
       {/if}
-      {#if isOpenSuggestionsDistrict}
+      {#if $isGeoTreeModalOpened}
         <div class="search-tours-form-location__dropdown">
           <div
             class="search-tours-form-location__container search-tours-form-location__container--geo"
@@ -370,10 +328,10 @@
     }
 
     &__submit {
-      background-color: var(--color__brand);
+      background-color: var(--color__link);
       width: 100%;
       font-family: var(--type__primary);
-      border: 1px solid var(--color__brand);
+      border: 1px solid var(--color__link);
       border-radius: 3px;
       padding: 10px;
       color: var(--color__light);

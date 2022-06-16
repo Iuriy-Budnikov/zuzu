@@ -1,60 +1,55 @@
 <script>
-  import { onMount } from 'svelte';
-  import { dispatch } from '$lib/stores/store';
-  import { valuesSearchCities, actionsSearchCities } from '$lib/stores/search/searchCities';
-  import { clickOutside } from '$lib/utils/clickOutside';
-  import { windowKeyDown } from '$lib/utils/windowKeyDown';
+  import { onMount, createEventDispatcher } from 'svelte';
+  import { valuesSearchCities } from '$lib/stores/search/searchCities';
+  import { valuesSearchForm } from '$lib/stores/search/searchForm';
 
   import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
   import SearchToursDropdown from '../SearchToursComponents/SearchToursDropdown.svelte';
   import SearchToursDepCityItem from './SearchToursDepCityItem.svelte';
 
-  const { cities, loading: loadingCities } = valuesSearchCities;
-  let isOpenMenu = false;
+  const { cities } = valuesSearchCities;
+  const { isDepsModalOpened } = valuesSearchForm;
   let listCitiesElement;
 
+  const dispatch = createEventDispatcher();
+
   function onClickLabel() {
-    if (!isOpenMenu) {
-      isOpenMenu = true;
+    if (!$isDepsModalOpened) {
+      dispatch('open_deps_modal');
     }
   }
 
   function handleClickOutside() {
-    if (isOpenMenu) {
-      isOpenMenu = false;
+    if ($isDepsModalOpened) {
+      dispatch('close_deps_modal');
     }
   }
 
   function handleWindowKeyDown({ detail: { event } }) {
     if (event.key === 'Escape') {
-      if (isOpenMenu) {
-        isOpenMenu = false;
+      if ($isDepsModalOpened) {
+        dispatch('close_deps_modal');
       }
     }
   }
 
   onMount(() => {
-    dispatch(
-      actionsSearchCities.start({
-        params: {
-          geoId: 0
-        }
-      })
-    );
+    dispatch('mount_deps_cities');
   });
 </script>
 
 <SearchToursField type="dep-cities">
   <SearchToursLabel {onClickLabel} label="Звідки" />
   <SearchToursDropdown
-    isOpen={isOpenMenu}
+    isOpen={$isDepsModalOpened}
     listElement={listCitiesElement}
     {handleClickOutside}
     {handleWindowKeyDown}
   >
+    <SearchToursDepCityItem on:change_dep_city name="Тільки проживання" id="0" />
     {#each $cities as item}
-      <SearchToursDepCityItem {...item} isActive={false} />
+      <SearchToursDepCityItem on:change_dep_city {...item} />
     {/each}
   </SearchToursDropdown>
 </SearchToursField>

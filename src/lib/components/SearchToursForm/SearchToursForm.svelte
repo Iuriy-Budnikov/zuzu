@@ -1,5 +1,11 @@
 <script>
   import { createForm } from 'svelte-forms-lib';
+  import { dispatch } from '$lib/stores/store';
+  import { actionsSearchCities } from '$lib/stores/search/searchCities';
+  import { actionsSearchForm } from '$lib/stores/search/searchForm';
+  import { actionsSearchSuggests } from '$lib/stores/search/searchSuggests';
+  import { actionsSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+
   import Form from '$lib/elements/Forms/Form.svelte';
   import SearchToursLocation from './SearchToursLocation/SearchToursLocation.svelte';
   import SearchToursDepCities from './SearchToursDepCities/SearchToursDepCities.svelte';
@@ -13,18 +19,118 @@
       where: '',
       where_category_id: '',
       where_ids: [],
-      from: ''
+      from_id: ''
     },
     // validationSchema: schema,
     onSubmit
   });
-  const { isSubmitting } = formContext;
+  const { form, isSubmitting, updateField } = formContext;
+
+  function onOpenSuggestModal() {
+    dispatch(actionsSearchForm.openSuggestModal());
+    dispatch(
+      actionsSearchSuggests.start({
+        params: {
+          text: $form.where,
+          nsv: $form.where ? undefined : 1,
+          with: $form.where ? undefined : 'price',
+          city: $form.where ? undefined : ''
+        }
+      })
+    );
+  }
+  function onCloseSuggestModal() {
+    dispatch(actionsSearchForm.closeSuggestModal());
+  }
+  function onMountSuggests() {
+    dispatch(
+      actionsSearchSuggests.start({
+        params: {
+          nsv: 1,
+          with: 'price',
+          city: '',
+          geoId: 0
+        }
+      })
+    );
+  }
+  function onResetSuggests() {
+    updateField('where', '');
+    updateField('where_category_id', '');
+    updateField('where_ids', []);
+  }
+  function onAutocompleteSuggests({ detail: { where } }) {
+    dispatch(
+      actionsSearchSuggests.start({
+        params: {
+          text: where,
+          nsv: where ? undefined : 1,
+          with: where ? undefined : 'price',
+          city: where ? undefined : ''
+        }
+      })
+    );
+  }
+  function onChangeSuggest({ detail: { type, id, where } }) {
+    if (type === 'city' || type === 'hotel' || $form['where_category_id'] != id) {
+      updateField('where_ids', []);
+    }
+    updateField('where', where);
+    updateField('where_category_id', id);
+  }
+  function onOpenGeoTreeModal({ detail: { id } }) {
+    dispatch(actionsSearchForm.openGeoTreeModal());
+    dispatch(
+      actionsSearchGeoTree.start({
+        params: {
+          id
+        }
+      })
+    );
+  }
+  function onCloseGeoTreeModal() {
+    dispatch(actionsSearchForm.closeGeoTreeModal());
+  }
+
+  function onChangeDepCity({ detail: { id } }) {
+    updateField('from_id', id);
+    dispatch(actionsSearchForm.closeDepsModal());
+  }
+  function onOpenDepsModal() {
+    dispatch(actionsSearchForm.openDepsModal());
+  }
+  function onCloseDepsModal() {
+    dispatch(actionsSearchForm.closeDepsModal());
+  }
+  function onMountDepsCities() {
+    dispatch(
+      actionsSearchCities.start({
+        params: {
+          geoId: 0
+        }
+      })
+    );
+  }
 </script>
 
 <Form context={formContext} formProps={{ method: 'post' }}>
   <div class="search-tours-form">
-    <SearchToursLocation />
-    <SearchToursDepCities />
+    <SearchToursLocation
+      on:open_suggest_modal={onOpenSuggestModal}
+      on:close_suggest_modal={onCloseSuggestModal}
+      on:open_geo_tree_modal={onOpenGeoTreeModal}
+      on:close_geo_tree_modal={onCloseGeoTreeModal}
+      on:mount_suggests={onMountSuggests}
+      on:reset_suggests={onResetSuggests}
+      on:autocomplete_suggests={onAutocompleteSuggests}
+      on:change_suggest={onChangeSuggest}
+    />
+    <SearchToursDepCities
+      on:change_dep_city={onChangeDepCity}
+      on:open_deps_modal={onOpenDepsModal}
+      on:close_deps_modal={onCloseDepsModal}
+      on:mount_deps_cities={onMountDepsCities}
+    />
     <button type="submit">submit</button>
   </div>
 </Form>

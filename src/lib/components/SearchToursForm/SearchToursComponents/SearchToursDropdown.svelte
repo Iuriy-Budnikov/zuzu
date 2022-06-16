@@ -41,7 +41,7 @@
 
     &__list {
       width: auto;
-      min-width: 100%;
+      min-width: 360px;
       border-radius: 5px;
       overflow-y: scroll;
       overflow-x: hidden;
