@@ -14,17 +14,31 @@
     console.log('values', values);
   };
 
+  let initialValues = {
+    where: '',
+    where_category_id: '',
+    where_ids: [],
+    from_id: ''
+  };
+
+  if (typeof localStorage !== 'undefined') {
+    try {
+      initialValues = JSON.parse(localStorage.getItem('searchForm'));
+    } catch (error) {}
+  }
+
   let formContext = createForm({
-    initialValues: {
-      where: '',
-      where_category_id: '',
-      where_ids: [],
-      from_id: ''
-    },
+    initialValues,
     // validationSchema: schema,
     onSubmit
   });
   const { form, isSubmitting, updateField } = formContext;
+
+  if (typeof localStorage !== 'undefined') {
+    form.subscribe((values) => {
+      localStorage.setItem('searchForm', JSON.stringify(values));
+    });
+  }
 
   function onOpenSuggestModal() {
     dispatch(actionsSearchForm.openSuggestModal());
@@ -58,6 +72,7 @@
     updateField('where', '');
     updateField('where_category_id', '');
     updateField('where_ids', []);
+    updateField('from_id', '');
   }
   function onAutocompleteSuggests({ detail: { where } }) {
     dispatch(
@@ -77,6 +92,7 @@
     }
     updateField('where', where);
     updateField('where_category_id', id);
+    updateField('from_id', '');
   }
   function onOpenGeoTreeModal({ detail: { id } }) {
     dispatch(actionsSearchForm.openGeoTreeModal());
@@ -115,6 +131,9 @@
     updateField('where_ids', checked ? ids : []);
     updateField('where_category_id', checked ? parent_id : '');
   }
+  function onSubmitGeoTree() {
+    updateField('from_id', '');
+  }
 
   function onChangeDepCity({ detail: { id } }) {
     updateField('from_id', id);
@@ -137,7 +156,7 @@
     dispatch(
       actionsSearchCities.start({
         params: {
-          geoId: 0
+          geoId: $form.where_category_id || 0
         }
       })
     );
@@ -157,6 +176,7 @@
       on:change_suggest={onChangeSuggest}
       on:change_geo_tree={onChangeGeoTree}
       on:change_geo_tree_all={onChangeGeoTreeAll}
+      on:submit_geo_tree={onSubmitGeoTree}
       on:open_deps_modal={onOpenDepsModal}
     />
     <SearchToursDepCities

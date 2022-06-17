@@ -103,6 +103,7 @@
   function handleSubmitGeo() {
     dispatch('close_suggest_modal');
     dispatch('close_geo_tree_modal');
+    dispatch('submit_geo_tree');
     dispatch('open_deps_modal');
   }
 
