@@ -23,7 +23,13 @@
 
   if (typeof localStorage !== 'undefined') {
     try {
-      initialValues = JSON.parse(localStorage.getItem('searchForm'));
+      const searchForm = JSON.parse(localStorage.getItem('searchForm'));
+      if (searchForm) {
+        initialValues = {
+          ...initialValues,
+          ...searchForm
+        }
+      }
     } catch (error) {}
   }
 
