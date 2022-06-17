@@ -68,7 +68,7 @@
     }
     const text = e.currentTarget.value;
     if (!text) {
-      handleReset();
+      dispatch('reset_suggests');
     }
     dispatch('autocomplete_suggests', { where: text });
   }
@@ -82,6 +82,9 @@
 
   function handleReset() {
     dispatch('reset_suggests');
+    if ($isSuggestModalOpened) {
+      dispatch('autocomplete_suggests', { where: '' });
+    }
   }
 
   function handleHoverSuggestion({ id, type }) {
@@ -100,6 +103,7 @@
   function handleSubmitGeo() {
     dispatch('close_suggest_modal');
     dispatch('close_geo_tree_modal');
+    dispatch('open_deps_modal');
   }
 
   function handleClickOutside() {

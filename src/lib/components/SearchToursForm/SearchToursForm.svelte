@@ -122,9 +122,6 @@
   }
   function onOpenDepsModal() {
     dispatch(actionsSearchForm.openDepsModal());
-
-    console.log('$form.where_category_id', $form.where_category_id);
-
     dispatch(
       actionsSearchCities.start({
         params: {
