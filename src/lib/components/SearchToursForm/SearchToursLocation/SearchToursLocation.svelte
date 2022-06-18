@@ -322,6 +322,7 @@
       cursor: pointer;
       transition: background-color 0.2s;
       font-weight: 600;
+      font-size: 18px;
 
       &:hover {
         background-color: var(--color__button-hover);

@@ -129,7 +129,6 @@
       border-radius: 3px;
       cursor: pointer;
       font-size: 18px;
-      font-weight: 500;
       margin-bottom: 18px;
       width: 100%;
       line-height: 1;
