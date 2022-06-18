@@ -4,6 +4,13 @@
   import instagram from './instagram';
   import whatsapp from './whatsapp';
   import viber from './viber';
+  import flag from './flag';
+  import city from './city';
+  import arrow from './arrow';
+  import reset from './reset';
+  import air from './air';
+  import bus from './bus';
+  import foot from './foot';
   export let name;
   export let box = 48;
   export let width = '48px';
@@ -29,6 +36,34 @@
     {
       name: 'viber',
       svg: viber
+    },
+    {
+      name: 'flag',
+      svg: flag
+    },
+    {
+      name: 'city',
+      svg: city
+    },
+    {
+      name: 'arrow',
+      svg: arrow
+    },
+    {
+      name: 'reset',
+      svg: reset
+    },
+    {
+      name: 'air',
+      svg: air
+    },
+    {
+      name: 'bus',
+      svg: bus
+    },
+    {
+      name: 'foot',
+      svg: foot
     },
   ];
   let displayIcon = icons.find((e) => e.name === name);

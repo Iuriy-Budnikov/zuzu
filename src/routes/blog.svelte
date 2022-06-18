@@ -1,6 +1,7 @@
 <script context="module">
   export const prerender = true;
-  const allPosts = import.meta.glob('./*.{md,svx}');
+
+  const allPosts = import.meta.glob('./blog/*.{md,svx}');
 
   let body = [];
   for (let path in allPosts) {
@@ -22,6 +23,10 @@
 </script>
 
 <script>
+  const title = 'ZuZu Travel | Гарячі тури та путівки ⛱️ туризм, відпочинок та подорожі';
+  const description =
+    'Гарячі тури від всіх туроператорів України на одному сайті. ✈️️ Порівняння цін, фотографії готелів, онлайн-моніторинг путівок, що горять.';
+
   import { format } from 'date-fns';
   import { uk } from 'date-fns/locale/index.js';
   export let posts;
@@ -42,8 +47,10 @@
 </script>
 
 <svelte:head>
-  <title>ZuZu Travel | Мій блог про відпочинок 🌴</title>
-  <meta name="description" content="Мій блог про відпочинок" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
 </svelte:head>
 
 <div class="blog">
@@ -51,16 +58,14 @@
   <section>
     {#each dateSortedPosts as { path, metadata: { title, tags, date } }}
       <article class="blog__article">
-        <a
-          class="blog__article_title"
-          href={path.replace('./', '/blog/').replace('.md', '').replace('.svx', '')}>{title}</a
+        <a class="blog__article_title" href={path.replace('.md', '').replace('.svx', '')}>{title}</a
         >
         <p class="date">{date}</p>
-        <p>
+        <div>
           {#each tags as tag}
             <a class="tag" href="/tags/{tag}">#{tag}</a>
           {/each}
-        </p>
+        </div>
       </article>
     {/each}
   </section>
@@ -73,24 +78,24 @@
     padding: 200px 40px 0 40px;
 
     @include media('<=tablet') {
-      padding: 80px 30px 0;
+      padding: 100px 30px 0;
     }
     @include media('<=phone') {
-      padding: 80px 5% 0;
+      padding: 100px 5% 0;
     }
 
     &__title {
-      margin-bottom: 64px;
+      margin-bottom: 60px;
 
       @include media('<=phone') {
         font-size: 36px;
         line-height: 34px;
-        margin-bottom: 18px;
+        margin-bottom: 40px;
       }
     }
 
     &__article {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
     &__article_title {
@@ -105,11 +110,22 @@
   .tag {
     margin-right: 10px;
     text-decoration: none;
-    color: #555;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color__tag);
+    transition-property: border-bottom, border-color, background, color, fill;
+    transition-duration: var(--time);
+    transition-timing-function: ease-out;
+    border-color: var(--color__tag-underline);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+
+    &:hover {
+      border-color: var(--color__link-underline-hover);
+      color: var(--color__link-hover);
+    }
   }
-  .tag:hover {
-    color: blue;
-  }
+
   .date {
     font-size: 0.7rem;
     color: gray;

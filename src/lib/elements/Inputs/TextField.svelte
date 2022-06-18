@@ -1,28 +1,9 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  export let name = undefined;
+  export let name = '';
   export let type = 'text';
-  const dispatch = createEventDispatcher();
-  function onFocus(e) {
-    dispatch('focus', e);
-  }
-  function onChange(e) {
-    dispatch('change', e);
-  }
-  function onBlur(e) {
-    dispatch('blur', e);
-  }
 </script>
 
-<input
-  class="textfield"
-  {name}
-  {type}
-  on:focus={onFocus}
-  on:change={onChange}
-  on:blur={onBlur}
-  {...$$props}
-/>
+<input {...$$props} class="textfield" {name} {type} on:change />
 
 <style lang="scss">
   .textfield {

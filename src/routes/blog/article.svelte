@@ -33,7 +33,7 @@
   .article {
     margin: 0 auto;
     max-width: 1200px;
-    padding: 120px 40px 0 40px;
+    padding: 200px 40px 0 40px;
 
     @include media('<=tablet') {
       padding: 100px 30px 0;

@@ -21,38 +21,38 @@
 
 <style lang="scss">
   :global {
-    .form-select {
-      --background: transparent;
-      --border: transparent;
-      --height: auto;
-      --padding: 4px 0 11px;
-      --itemPadding: 20px;
-      font-family: var(--type__secondary);
-      line-height: 24px;
-      font-size: 20px;
-    }
+    // .form-select {
+    //   --background: transparent;
+    //   --border: transparent;
+    //   --height: auto;
+    //   --padding: 4px 0 11px;
+    //   --itemPadding: 20px;
+    //   font-family: var(--type__secondary);
+    //   line-height: 24px;
+    //   font-size: 20px;
+    // }
 
-    .listContainer {
-      background: transparent !important;
-    }
+    // .listContainer {
+    //   background: transparent !important;
+    // }
 
-    .selectedItem,
-    .selection {
-      overflow: visible !important;
-    }
-    .item {
-      background: var(--color__bg--primary);
-      cursor: pointer !important;
-    }
-    .item.hover:not(.active) {
-      background: var(--color__bg--neutral) !important;
-    }
-    .item.hover {
-      background: var(--color__bg--primary) !important;
-    }
-    .item.active {
-      background: var(--color__brand) !important;
-      color: #fff !important;
-    }
+    // .selectedItem,
+    // .selection {
+    //   overflow: visible !important;
+    // }
+    // .item {
+    //   background: var(--color__bg--primary);
+    //   cursor: pointer !important;
+    // }
+    // .item.hover:not(.active) {
+    //   background: var(--color__bg--neutral) !important;
+    // }
+    // .item.hover {
+    //   background: var(--color__bg--primary) !important;
+    // }
+    // .item.active {
+    //   background: var(--color__brand) !important;
+    //   color: #fff !important;
+    // }
   }
 </style>
