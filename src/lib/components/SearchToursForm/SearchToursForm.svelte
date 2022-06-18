@@ -20,8 +20,8 @@
     to: '',
     toCities: [],
     from: '',
-    nights: 7,
-    nightsTo: 9,
+    nights: 6,
+    nightsTo: 8,
     checkIn: '',
     checkTo: '',
     people: 2
