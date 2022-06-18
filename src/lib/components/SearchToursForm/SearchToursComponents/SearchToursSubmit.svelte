@@ -22,6 +22,7 @@
       outline: 0;
       border: 2px solid transparent;
       transition: background-color 0.2s;
+      font-family: var(--type__primary);
 
       &:hover {
         background-color: var(--color__button-hover);

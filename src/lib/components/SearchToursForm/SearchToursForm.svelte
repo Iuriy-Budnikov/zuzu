@@ -238,7 +238,7 @@
   .search-tours-form {
     height: 80px;
     border-radius: 3px;
-    box-shadow: 0 4px 40px 0 rgb(0 0 0 / 4%), 0 2px 20px 0 rgb(254 226 12 / 6%);
+    box-shadow: 0px 0px 40px rgb(0 0 0 / 40%);
     background-color: var(--color__light);
     font-family: var(--type__secondary);
     display: flex;

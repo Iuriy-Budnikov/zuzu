@@ -26,7 +26,6 @@
     margin: 0 auto;
     max-width: 1200px;
     padding: 240px 40px 240px 40px;
-    background-color: var(--color__secondary);
 
     @include media('<=tablet') {
       padding: 100px 30px 0;

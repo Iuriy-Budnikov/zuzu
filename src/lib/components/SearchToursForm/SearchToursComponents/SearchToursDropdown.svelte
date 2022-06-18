@@ -37,6 +37,7 @@
       z-index: 2;
       border-radius: 5px;
       overflow: hidden;
+      box-shadow: 0px 0px 40px rgb(0 0 0 / 20%);
     }
 
     &__list {
@@ -46,7 +47,6 @@
       overflow-y: scroll;
       overflow-x: hidden;
       background-color: var(--color__light);
-      box-shadow: 0 4px 40px 0 rgb(0 0 0 / 4%);
       max-height: 363px;
     }
   }
