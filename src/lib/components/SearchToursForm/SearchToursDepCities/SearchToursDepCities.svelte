@@ -12,7 +12,6 @@
 
   const { cities, loading: loadingCities } = valuesSearchCities;
   const { isDepsModalOpened } = valuesSearchForm;
-  let listCitiesElement;
 
   const dispatch = createEventDispatcher();
 
@@ -47,7 +46,6 @@
   </SearchToursLabel>
   <SearchToursDropdown
     isOpen={$isDepsModalOpened}
-    listElement={listCitiesElement}
     on:click_outside={handleClickOutside}
     on:window_key_down={handleWindowKeyDown}
   >

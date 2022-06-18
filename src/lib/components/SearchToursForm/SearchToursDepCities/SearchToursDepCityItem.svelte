@@ -16,11 +16,8 @@
   }
 </script>
 
-<div
-  class="search-tours-dep-city-item"
-  class:search-tours-dep-city-item--active={$form.from_id == id}
->
-  <Radio checked={$form.from_id == id} value={id} on:change={onChange}>
+<div class="search-tours-dep-city-item" class:search-tours-dep-city-item--active={$form.from == id}>
+  <Radio checked={$form.from == id} on:change={onChange}>
     <div class="search-tours-dep-city-item__text">
       <span class="search-tours-dep-city-item__name">
         {#if rel}з {/if}{rel || name}</span

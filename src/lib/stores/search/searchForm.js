@@ -4,7 +4,8 @@ const { actions, values } = createChunk({
   initialState: {
     isSuggestModalOpened: false,
     isGeoTreeModalOpened: false,
-    isDepsModalOpened: false
+    isDepsModalOpened: false,
+    isNightsModalOpened: false
   },
   namespace: 'searchForm',
   actions: {
@@ -25,6 +26,12 @@ const { actions, values } = createChunk({
     },
     closeDepsModal: {
       handler: (store) => ({ ...store, isDepsModalOpened: false })
+    },
+    openNightsModal: {
+      handler: (store) => ({ ...store, isNightsModalOpened: true })
+    },
+    closeNightsModal: {
+      handler: (store) => ({ ...store, isNightsModalOpened: false })
     }
   }
 });

@@ -39,7 +39,7 @@
 
     &__list {
       width: auto;
-      min-width: 360px;
+      min-width: 200px;
       border-radius: 5px;
       overflow-y: scroll;
       overflow-x: hidden;

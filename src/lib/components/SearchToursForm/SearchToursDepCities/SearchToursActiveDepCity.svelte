@@ -6,19 +6,19 @@
   import Icon from '$lib/elements/Icon/Icon.svelte';
   const { cities } = valuesSearchCities;
 
-  $: city = $cities.find((c) => c.id === $form.from_id);
+  $: city = $cities.find((c) => c.id === $form.from);
 </script>
 
 <div class="search-tours-active-dep-city">
   <div class="search-tours-active-dep-city__name">
-    {#if $form.from_id === '0'}
+    {#if $form.from === '0'}
       Тільки проживання
     {:else if !!city}
       з {city?.rel}
     {/if}
   </div>
   <div class="search-tours-active-dep-city__icon">
-    {#if $form.from_id === '0'}
+    {#if $form.from === '0'}
       <Icon width="16px" height="16px" box="16" name="foot" />
     {:else if !!city}
       {#if city.transport?.[0] === 'air'}

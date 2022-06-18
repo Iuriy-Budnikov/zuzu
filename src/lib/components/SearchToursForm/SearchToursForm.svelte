@@ -9,6 +9,7 @@
   import Form from '$lib/elements/Forms/Form.svelte';
   import SearchToursLocation from './SearchToursLocation/SearchToursLocation.svelte';
   import SearchToursDepCities from './SearchToursDepCities/SearchToursDepCities.svelte';
+  import SearchTourNights from './SearchTourNights/SearchTourNights.svelte';
 
   const onSubmit = async (values) => {
     console.log('values', values);
@@ -16,9 +17,14 @@
 
   let initialValues = {
     where: '',
-    where_category_id: '',
-    where_ids: [],
-    from_id: ''
+    to: '',
+    toCities: [],
+    from: '',
+    nights: 7,
+    nightsTo: 9,
+    checkIn: '',
+    checkTo: '',
+    people: 2
   };
 
   if (typeof localStorage !== 'undefined') {
@@ -28,7 +34,7 @@
         initialValues = {
           ...initialValues,
           ...searchForm
-        }
+        };
       }
     } catch (error) {}
   }
@@ -76,9 +82,9 @@
   }
   function onResetSuggests() {
     updateField('where', '');
-    updateField('where_category_id', '');
-    updateField('where_ids', []);
-    updateField('from_id', '');
+    updateField('to', '');
+    updateField('toCities', []);
+    updateField('from', '');
   }
   function onAutocompleteSuggests({ detail: { where } }) {
     dispatch(
@@ -93,12 +99,12 @@
     );
   }
   function onChangeSuggest({ detail: { type, id, where } }) {
-    if (type === 'city' || type === 'hotel' || $form['where_category_id'] != id) {
-      updateField('where_ids', []);
+    if (type === 'city' || type === 'hotel' || $form['to'] != id) {
+      updateField('toCities', []);
     }
     updateField('where', where);
-    updateField('where_category_id', id);
-    updateField('from_id', '');
+    updateField('to', id);
+    updateField('from', '');
   }
   function onOpenGeoTreeModal({ detail: { id } }) {
     dispatch(actionsSearchForm.openGeoTreeModal());
@@ -114,35 +120,35 @@
     dispatch(actionsSearchForm.closeGeoTreeModal());
   }
   function onChangeGeoTree({ detail: { checked, id, parent_id } }) {
-    let new_where_ids = $form.where_ids;
-    const where_category_id = $form.where_category_id;
+    let new_toCities = $form.toCities;
+    const to = $form.to;
 
-    updateField('where_category_id', parent_id);
+    updateField('to', parent_id);
 
-    if (!!where_category_id && where_category_id != parent_id) {
-      new_where_ids = [];
+    if (!!to && to != parent_id) {
+      new_toCities = [];
     }
 
     if (checked) {
-      new_where_ids.push(id);
+      new_toCities.push(id);
     } else {
-      const index = new_where_ids.indexOf(id);
+      const index = new_toCities.indexOf(id);
       if (index > -1) {
-        new_where_ids.splice(index, 1);
+        new_toCities.splice(index, 1);
       }
     }
-    updateField('where_ids', new_where_ids);
+    updateField('toCities', new_toCities);
   }
   function onChangeGeoTreeAll({ detail: { checked, ids, parent_id } }) {
-    updateField('where_ids', checked ? ids : []);
-    updateField('where_category_id', checked ? parent_id : '');
+    updateField('toCities', checked ? ids : []);
+    updateField('to', checked ? parent_id : '');
   }
   function onSubmitGeoTree() {
-    updateField('from_id', '');
+    updateField('from', '');
   }
 
   function onChangeDepCity({ detail: { id } }) {
-    updateField('from_id', id);
+    updateField('from', id);
     dispatch(actionsSearchForm.closeDepsModal());
   }
   function onOpenDepsModal() {
@@ -150,7 +156,7 @@
     dispatch(
       actionsSearchCities.start({
         params: {
-          geoId: $form.where_category_id || 0
+          geoId: $form.to || 0
         }
       })
     );
@@ -162,10 +168,22 @@
     dispatch(
       actionsSearchCities.start({
         params: {
-          geoId: $form.where_category_id || 0
+          geoId: $form.to || 0
         }
       })
     );
+  }
+
+  function onChangeNight({ detail: { nights, nightsTo } }) {
+    updateField('nights', nights);
+    updateField('nightsTo', nightsTo);
+    dispatch(actionsSearchForm.closeNightsModal());
+  }
+  function onOpenNightsModal() {
+    dispatch(actionsSearchForm.openNightsModal());
+  }
+  function onCloseNightsModal() {
+    dispatch(actionsSearchForm.closeNightsModal());
   }
 </script>
 
@@ -190,6 +208,11 @@
       on:open_deps_modal={onOpenDepsModal}
       on:close_deps_modal={onCloseDepsModal}
       on:mount_deps_cities={onMountDepsCities}
+    />
+    <SearchTourNights
+      on:change_night={onChangeNight}
+      on:open_nights_modal={onOpenNightsModal}
+      on:close_nights_modal={onCloseNightsModal}
     />
     <button type="submit">submit</button>
   </div>

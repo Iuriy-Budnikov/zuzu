@@ -37,7 +37,7 @@
         ids.push(c.id);
       }
     });
-    checked = ids.every((v) => $form['where_ids']?.includes(v));
+    checked = ids.every((v) => $form['toCities']?.includes(v));
   }
 </script>
 

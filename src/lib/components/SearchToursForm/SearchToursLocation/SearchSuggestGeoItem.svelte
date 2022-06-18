@@ -20,13 +20,13 @@
 
 <div
   class="search-suggest-geo-item"
-  class:search-suggest-geo-item--active={$form['where_ids']?.findIndex((c) => c === id) > -1}
+  class:search-suggest-geo-item--active={$form['toCities']?.findIndex((c) => c === id) > -1}
 >
   <span class="search-suggest-geo-item__checkbox">
     <Checkbox
       id={`checkbox-${id}`}
       on:change={onChange}
-      checked={$form['where_ids']?.findIndex((c) => c === id) > -1}
+      checked={$form['toCities']?.findIndex((c) => c === id) > -1}
       value={id}
     >
       <span class="search-suggest-geo-item__name">{name}</span>

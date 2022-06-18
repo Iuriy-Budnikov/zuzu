@@ -32,8 +32,8 @@
 
   let placeholder = '';
   $: {
-    const numberOfIds = $form['where_ids'].length;
-    const categoryId = $form['where_category_id'];
+    const numberOfIds = $form['toCities'].length;
+    const categoryId = $form['to'];
     if (categoryId) {
       const findSuggest = $suggests?.find((c) => c.id == categoryId);
       if (findSuggest) {
@@ -137,18 +137,18 @@
   <div class="search-tours-form-location">
     <SearchToursLabel
       on:click={onClickLabel}
-      label={$isSuggestModalOpened || !!$form['where'] || !!$form['where_ids']?.length ? 'Куди' : ''}
+      label={$isSuggestModalOpened || !!$form['where'] || !!$form['toCities']?.length ? 'Куди' : ''}
     >
       <input
         class="search-tours-form-location__input"
         class:search-tours-form-location__input--minimized={$isSuggestModalOpened ||
           !!$form['where'] ||
-          !!$form['where_ids']?.length}
+          !!$form['toCities']?.length}
         name="where"
         type="text"
         on:keyup={onInputKeyDown}
         {placeholder}
-        value={$form['where_ids']?.length ? '' : $form['where']}
+        value={$form['toCities']?.length ? '' : $form['where']}
         bind:this={inputElement}
       />
     </SearchToursLabel>
@@ -159,7 +159,7 @@
       use:windowKeyDown
       on:window_key_down={handleWindowKeyDown}
     >
-      {#if !!$form['where'] || !!$form['where_ids']?.length || !!$form['where_category_id']}
+      {#if !!$form['where'] || !!$form['toCities']?.length || !!$form['to']}
         <div class="search-tours-form-location__reset" on:click={handleReset}>
           <Icon name="reset" width="10px" height="10px" box="10" />
         </div>
@@ -194,7 +194,7 @@
           >
             <div
               class="search-tours-form-location__list search-tours-form-location__list--geo scrollbar"
-              class:search-tours-form-location__list--has-value={!!$form['where_ids']?.length}
+              class:search-tours-form-location__list--has-value={!!$form['toCities']?.length}
               bind:this={listGeoElement}
             >
               {#if $loadingGeoTree}
@@ -211,7 +211,7 @@
                     <SearchSuggestGeoItem {...item} on:change_geo_tree />
                   {/if}
                 {/each}
-                {#if !!$form['where_ids']?.length}
+                {#if !!$form['toCities']?.length}
                   <div class="search-tours-form-location__submit_container">
                     <button
                       type="button"

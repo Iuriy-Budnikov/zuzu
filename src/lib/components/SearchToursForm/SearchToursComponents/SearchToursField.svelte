@@ -8,6 +8,7 @@
   class:search-tours-field--active={isActive}
   class:search-tours-field--location={type === 'location'}
   class:search-tours-field--dep-cities={type === 'dep-cities'}
+  class:search-tours-field--nights={type === 'nights'}
 >
   <slot />
 </div>
@@ -24,6 +25,10 @@
     }
     &--dep-cities {
       flex: 1.1;
+    }
+    &--nights {
+      flex: 125px 0 0;
+      min-width: 152px;
     }
 
     &:after {
