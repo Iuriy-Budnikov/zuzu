@@ -11,6 +11,8 @@
   import air from './air';
   import bus from './bus';
   import foot from './foot';
+  import minus from './minus';
+  import plus from './plus';
   export let name;
   export let box = 48;
   export let width = '48px';
@@ -65,11 +67,19 @@
       name: 'foot',
       svg: foot
     },
+    {
+      name: 'minus',
+      svg: minus
+    },
+    {
+      name: 'plus',
+      svg: plus
+    }
   ];
   let displayIcon = icons.find((e) => e.name === name);
 </script>
 
-<svg class={$$props.class} {focusable} {width} {height} viewBox="0 0 {box} {box}"
+<svg class={$$props.class} {focusable} {width} {height} viewBox="0 0 {box}"
   >{@html displayIcon.svg}</svg
 >
 

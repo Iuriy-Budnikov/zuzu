@@ -19,12 +19,12 @@
   </div>
   <div class="search-tours-active-dep-city__icon">
     {#if $form.from === '0'}
-      <Icon width="16px" height="16px" box="16" name="foot" />
+      <Icon width="16px" height="16px" box="16 16" name="foot" />
     {:else if !!city}
       {#if city.transport?.[0] === 'air'}
-        <Icon width="18px" height="16px" box="18" name="air" />
+        <Icon width="18px" height="16px" box="18 18" name="air" />
       {:else if city.transport?.[0] === 'bus'}
-        <Icon width="16px" height="16px" box="16" name="bus" />
+        <Icon width="16px" height="16px" box="16 16" name="bus" />
       {/if}
     {/if}
   </div>

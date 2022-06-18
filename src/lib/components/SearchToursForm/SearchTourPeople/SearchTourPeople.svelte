@@ -7,6 +7,8 @@
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
   import SearchToursDropdown from '../SearchToursComponents/SearchToursDropdown.svelte';
   import SearchToursReset from '../SearchToursComponents/SearchToursReset.svelte';
+  import SearchToursActivePeople from './SearchToursActivePeople.svelte';
+  import SearchToursPeoplePicker from './SearchToursPeoplePicker.svelte';
 
   const { isPeopleModalOpened } = valuesSearchForm;
 
@@ -40,20 +42,35 @@
 </script>
 
 <SearchToursField isActive={$isPeopleModalOpened} type="people">
-  <SearchToursLabel on:click={onClickLabel} label="Туристи">
-    <!-- <SearchToursActiveNight /> -->
-    {#if $form['people'] != '2'}
-      <SearchToursReset on:click={handleReset} />
-    {/if}
-  </SearchToursLabel>
-  <SearchToursDropdown
-    isOpen={$isPeopleModalOpened}
-    on:click_outside={handleClickOutside}
-    on:window_key_down={handleWindowKeyDown}
-  >
-    +++++++++++
-    <!-- {#each nights as item}
-      <SearchToursNightsItem on:change_night on:click_night {...item} />
-    {/each} -->
-  </SearchToursDropdown>
+  <div class="search-tours-people">
+    <SearchToursLabel on:click={onClickLabel} label="Туристи">
+      <SearchToursActivePeople />
+      {#if $form['people'] != 2 || $form['children'].length}
+        <SearchToursReset on:click={handleReset} />
+      {/if}
+    </SearchToursLabel>
+    <SearchToursDropdown
+      isOpen={$isPeopleModalOpened}
+      isRight={true}
+      type="people"
+      on:click_outside={handleClickOutside}
+      on:window_key_down={handleWindowKeyDown}
+    >
+      <SearchToursPeoplePicker on:change_people />
+    </SearchToursDropdown>
+  </div>
 </SearchToursField>
+
+<style lang="scss">
+  .search-tours-people {
+    height: 100%;
+
+    &:hover {
+      :global(.search-tours-reset) {
+        &:before {
+          background: #fff !important;
+        }
+      }
+    }
+  }
+</style>

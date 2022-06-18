@@ -3,6 +3,8 @@
   import { windowKeyDown } from '$lib/utils/windowKeyDown';
 
   export let isOpen = false;
+  export let isRight = false;
+  export let type = '';
   export let listElement;
 </script>
 
@@ -15,8 +17,15 @@
 >
   {#if isOpen}
     <div class="search-tours-dropdown__dropdown">
-      <div class="search-tours-dropdown__container">
-        <div class="search-tours-dropdown__list scrollbar" bind:this={listElement}>
+      <div
+        class="search-tours-dropdown__container"
+        class:search-tours-dropdown__container--right={isRight}
+      >
+        <div
+          class="search-tours-dropdown__list scrollbar"
+          bind:this={listElement}
+          class:search-tours-dropdown__list--people={type === 'people'}
+        >
           <slot />
         </div>
       </div>
@@ -38,6 +47,11 @@
       border-radius: 5px;
       overflow: hidden;
       box-shadow: 0px 0px 40px rgb(0 0 0 / 20%);
+
+      &--right {
+        right: 0;
+        left: auto;
+      }
     }
 
     &__list {
@@ -48,6 +62,10 @@
       overflow-x: hidden;
       background-color: var(--color__light);
       max-height: 363px;
+
+      &--people {
+        max-height: initial;
+      }
     }
   }
 </style>

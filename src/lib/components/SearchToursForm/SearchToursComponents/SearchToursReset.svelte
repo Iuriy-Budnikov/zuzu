@@ -3,7 +3,7 @@
 </script>
 
 <div class="search-tours-reset" on:click>
-  <Icon name="reset" width="10px" height="10px" box="10" />
+  <Icon name="reset" width="10px" height="10px" box="10 10" />
 </div>
 
 <style lang="scss">

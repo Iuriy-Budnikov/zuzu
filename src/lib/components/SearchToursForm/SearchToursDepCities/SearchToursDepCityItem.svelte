@@ -33,12 +33,12 @@
       <span class="search-tours-dep-city-item__icon">
         {#if transport?.[0] === 'air'}
           на літаку
-          <Icon width="18px" height="16px" box="18" name="air" />
+          <Icon width="18px" height="16px" box="18 18" name="air" />
         {:else if transport?.[0] === 'bus'}
           на автобусі
-          <Icon width="16px" height="16px" box="16" name="bus" />
+          <Icon width="16px" height="16px" box="16 16" name="bus" />
         {:else}
-          <Icon width="16px" height="16px" box="16" name="foot" />
+          <Icon width="16px" height="16px" box="16 16" name="foot" />
         {/if}
       </span>
     </div>

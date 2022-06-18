@@ -27,7 +27,8 @@
     nightsTo: 8,
     checkIn: '',
     checkTo: '',
-    people: '2'
+    people: 2,
+    children: []
   };
 
   if (typeof localStorage !== 'undefined') {
@@ -205,8 +206,13 @@
     dispatch(actionsSearchForm.closeNightsModal());
   }
 
+  function onChangePeople({ detail: { people, children } }) {
+    updateField('people', people);
+    updateField('children', children || []);
+  }
   function onResetPeople() {
-    updateField('people', id);
+    updateField('people', 2);
+    updateField('children', []);
   }
   function onOpenPeopleModal() {
     dispatch(actionsSearchForm.openPeopleModal());
@@ -247,6 +253,7 @@
     />
     <SearchTourPeople
       on:reset_people={onResetPeople}
+      on:change_people={onChangePeople}
       on:open_people_modal={onOpenPeopleModal}
       on:close_people_modal={onClosePeopleModal}
     />

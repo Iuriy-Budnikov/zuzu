@@ -44,9 +44,9 @@
     {:else}
       <div class="search-suggest-location__icon">
         {#if type === 'country'}
-          <Icon name="flag" width="14" height="16" box="16" />
+          <Icon name="flag" width="14" height="16" box="16 16" />
         {:else if type === 'city'}
-          <Icon name="city" width="16" height="16" box="16" />
+          <Icon name="city" width="16" height="16" box="16 16" />
         {/if}
       </div>
     {/if}
@@ -70,7 +70,7 @@
   </div>
   {#if type === 'country'}
     <div class="search-suggest-location__arrow">
-      <Icon name="arrow" width="15" height="9" box="10" />
+      <Icon name="arrow" width="15" height="9" box="10 10" />
     </div>
   {/if}
 </div>

@@ -2,18 +2,25 @@
   import { getContext } from 'svelte';
   import { key } from 'svelte-forms-lib';
   const { form } = getContext(key);
-  import { getNights } from './nigths';
 
-  const nights = getNights();
-
-  $: night = nights.find((c) => $form.nights === c.nights && $form.nightsTo === c.nightsTo);
+  $: people = $form['people'];
+  $: children = $form['children'];
 </script>
 
 <div class="search-tours-active-night">
   <div class="search-tours-active-night__name">
-    <span class="search-tours-dep-city-item__night">
-      {night.night}
-    </span>
+    {people}
+    {#if people > 0}
+      {#if !children.length}
+        {#if people === 1}
+          дорослий
+        {:else}
+          дорослих
+        {/if}
+      {:else}
+        дор + {children.length} дит
+      {/if}
+    {/if}
   </div>
 </div>
 
@@ -37,10 +44,6 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-    }
-
-    &__night {
-      color: #474f55;
     }
   }
 </style>
