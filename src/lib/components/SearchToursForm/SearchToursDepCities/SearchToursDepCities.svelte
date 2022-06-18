@@ -52,9 +52,14 @@
     {#if $loadingCities}
       <SearchToursLoader />
     {:else}
-      <SearchToursDepCityItem on:change_dep_city name="Тільки проживання" id="0" />
+      <SearchToursDepCityItem
+        on:change_dep_city
+        on:click_dep_city
+        name="Тільки проживання"
+        id="0"
+      />
       {#each $cities as item}
-        <SearchToursDepCityItem on:change_dep_city {...item} />
+        <SearchToursDepCityItem on:change_dep_city on:click_dep_city {...item} />
       {/each}
     {/if}
   </SearchToursDropdown>

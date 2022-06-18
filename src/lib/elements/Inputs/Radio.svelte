@@ -6,7 +6,16 @@
 </script>
 
 <label class="radio__label" class:radio__label--disabled={disabled}>
-  <input class="radio__input" {disabled} {checked} {name} {value} type="radio" on:change />
+  <input
+    class="radio__input"
+    {disabled}
+    {checked}
+    {name}
+    {value}
+    type="radio"
+    on:change
+
+  />
   <slot />
 </label>
 

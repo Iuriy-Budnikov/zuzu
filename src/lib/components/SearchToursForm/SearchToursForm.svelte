@@ -20,11 +20,12 @@
     to: '',
     toCities: [],
     from: '',
+    transport: '',
     nights: 6,
     nightsTo: 8,
     checkIn: '',
     checkTo: '',
-    people: 2
+    people: '2'
   };
 
   if (typeof localStorage !== 'undefined') {
@@ -85,6 +86,7 @@
     updateField('to', '');
     updateField('toCities', []);
     updateField('from', '');
+    updateField('transport', '');
   }
   function onAutocompleteSuggests({ detail: { where } }) {
     dispatch(
@@ -105,6 +107,7 @@
     updateField('where', where);
     updateField('to', id);
     updateField('from', '');
+    updateField('transport', '');
   }
   function onOpenGeoTreeModal({ detail: { id } }) {
     dispatch(actionsSearchForm.openGeoTreeModal());
@@ -145,11 +148,18 @@
   }
   function onSubmitGeoTree() {
     updateField('from', '');
+    updateField('transport', '');
   }
 
-  function onChangeDepCity({ detail: { id } }) {
+  function onChangeDepCity({ detail: { id, transport } }) {
     updateField('from', id);
+    updateField('transport', transport);
     dispatch(actionsSearchForm.closeDepsModal());
+    dispatch(actionsSearchForm.openNightsModal());
+  }
+  function onClickDepCity() {
+    dispatch(actionsSearchForm.closeDepsModal());
+    dispatch(actionsSearchForm.openNightsModal());
   }
   function onOpenDepsModal() {
     dispatch(actionsSearchForm.openDepsModal());
@@ -179,6 +189,9 @@
     updateField('nightsTo', nightsTo);
     dispatch(actionsSearchForm.closeNightsModal());
   }
+  function onClickNight() {
+    dispatch(actionsSearchForm.closeNightsModal());
+  }
   function onOpenNightsModal() {
     dispatch(actionsSearchForm.openNightsModal());
   }
@@ -205,12 +218,14 @@
     />
     <SearchToursDepCities
       on:change_dep_city={onChangeDepCity}
+      on:click_dep_city={onClickDepCity}
       on:open_deps_modal={onOpenDepsModal}
       on:close_deps_modal={onCloseDepsModal}
       on:mount_deps_cities={onMountDepsCities}
     />
     <SearchTourNights
       on:change_night={onChangeNight}
+      on:click_night={onClickNight}
       on:open_nights_modal={onOpenNightsModal}
       on:close_nights_modal={onCloseNightsModal}
     />

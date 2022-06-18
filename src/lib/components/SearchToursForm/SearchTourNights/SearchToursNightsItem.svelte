@@ -4,7 +4,6 @@
   const { form } = getContext(key);
   import Radio from '$lib/elements/Inputs/Radio.svelte';
 
-  export let name = '';
   export let nights = 0;
   export let nightsTo = 0;
   export let night = '';
@@ -15,13 +14,18 @@
   function onChange() {
     dispatch('change_night', { nights, nightsTo });
   }
+  function onClick() {
+    dispatch('click_night');
+  }
+  $: checked = $form.nights === nights && $form.nightsTo === nightsTo;
 </script>
 
 <div
   class="search-tours-dep-city-item"
-  class:search-tours-dep-city-item--active={$form.nights === nights && $form.nightsTo === nightsTo}
+  class:search-tours-dep-city-item--active={checked}
+  on:click={checked ? onClick : undefined}
 >
-  <Radio checked={$form.nights === nights && $form.nightsTo === nightsTo} on:change={onChange}>
+  <Radio {checked} on:change={onChange}>
     <div class="search-tours-dep-city-item__text">
       <span class="search-tours-dep-city-item__night">
         {night}

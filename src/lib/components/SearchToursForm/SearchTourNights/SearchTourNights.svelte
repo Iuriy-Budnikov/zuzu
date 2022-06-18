@@ -46,7 +46,7 @@
     on:window_key_down={handleWindowKeyDown}
   >
     {#each nights as item}
-      <SearchToursNightsItem on:change_night {...item} />
+      <SearchToursNightsItem on:change_night on:click_night {...item} />
     {/each}
   </SearchToursDropdown>
 </SearchToursField>
