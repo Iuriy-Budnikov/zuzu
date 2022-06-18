@@ -153,7 +153,6 @@
         bind:this={inputElement}
       />
     </SearchToursLabel>
-
     <div
       use:clickOutside
       on:click_outside={handleClickOutside}

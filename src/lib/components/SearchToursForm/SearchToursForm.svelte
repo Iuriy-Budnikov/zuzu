@@ -11,6 +11,7 @@
   import SearchToursDepCities from './SearchToursDepCities/SearchToursDepCities.svelte';
   import SearchTourNights from './SearchTourNights/SearchTourNights.svelte';
   import SearchToursSubmit from './SearchToursComponents/SearchToursSubmit.svelte';
+  import SearchTourPeople from './SearchTourPeople/SearchTourPeople.svelte';
 
   const onSubmit = async (values) => {
     console.log('values', values);
@@ -48,10 +49,14 @@
   });
   const { form, isSubmitting, updateField } = formContext;
 
-  if (typeof localStorage !== 'undefined') {
-    form.subscribe((values) => {
-      localStorage.setItem('searchForm', JSON.stringify(values));
-    });
+  try {
+    if (typeof localStorage !== 'undefined') {
+      form.subscribe((values) => {
+        localStorage.setItem('searchForm', JSON.stringify(values));
+      });
+    }
+  } catch (error) {
+    console.error('localstorage unavailible');
   }
 
   function onOpenSuggestModal() {
@@ -199,6 +204,16 @@
   function onCloseNightsModal() {
     dispatch(actionsSearchForm.closeNightsModal());
   }
+
+  function onResetPeople() {
+    updateField('people', id);
+  }
+  function onOpenPeopleModal() {
+    dispatch(actionsSearchForm.openPeopleModal());
+  }
+  function onClosePeopleModal() {
+    dispatch(actionsSearchForm.closePeopleModal());
+  }
 </script>
 
 <Form context={formContext} formProps={{ method: 'post' }}>
@@ -229,6 +244,11 @@
       on:click_night={onClickNight}
       on:open_nights_modal={onOpenNightsModal}
       on:close_nights_modal={onCloseNightsModal}
+    />
+    <SearchTourPeople
+      on:reset_people={onResetPeople}
+      on:open_people_modal={onOpenPeopleModal}
+      on:close_people_modal={onClosePeopleModal}
     />
     <SearchToursSubmit />
   </div>

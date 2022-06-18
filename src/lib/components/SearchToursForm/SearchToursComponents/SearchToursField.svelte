@@ -9,6 +9,7 @@
   class:search-tours-field--location={type === 'location'}
   class:search-tours-field--dep-cities={type === 'dep-cities'}
   class:search-tours-field--nights={type === 'nights'}
+  class:search-tours-field--people={type === 'people'}
 >
   <slot />
 </div>
@@ -25,10 +26,16 @@
     }
     &--dep-cities {
       flex: 1.1;
+      max-width: 170px;
     }
     &--nights {
       flex: 125px 0 0;
       min-width: 152px;
+      max-width: 152px;
+    }
+    &--people {
+      flex: 1;
+      min-width: 180px;
     }
 
     &:after {
