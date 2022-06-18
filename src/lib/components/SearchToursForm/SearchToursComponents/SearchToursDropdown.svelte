@@ -35,6 +35,8 @@
       left: 0;
       position: absolute;
       z-index: 2;
+      border-radius: 5px;
+      overflow: hidden;
     }
 
     &__list {

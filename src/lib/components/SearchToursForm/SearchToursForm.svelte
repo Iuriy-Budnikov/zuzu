@@ -10,6 +10,7 @@
   import SearchToursLocation from './SearchToursLocation/SearchToursLocation.svelte';
   import SearchToursDepCities from './SearchToursDepCities/SearchToursDepCities.svelte';
   import SearchTourNights from './SearchTourNights/SearchTourNights.svelte';
+  import SearchToursSubmit from './SearchToursComponents/SearchToursSubmit.svelte';
 
   const onSubmit = async (values) => {
     console.log('values', values);
@@ -229,7 +230,7 @@
       on:open_nights_modal={onOpenNightsModal}
       on:close_nights_modal={onCloseNightsModal}
     />
-    <button type="submit">submit</button>
+    <SearchToursSubmit />
   </div>
 </Form>
 

@@ -276,6 +276,8 @@
       left: 0;
       position: absolute;
       z-index: 2;
+      border-radius: 5px;
+      overflow: hidden;
 
       &--geo {
         left: 503px;
@@ -311,19 +313,19 @@
     }
 
     &__submit {
-      background-color: var(--color__link);
+      background-color: var(--color__button);
       width: 100%;
       font-family: var(--type__primary);
-      border: 1px solid var(--color__link);
+      border: 1px solid var(--color__button);
       border-radius: 3px;
       padding: 10px;
       color: var(--color__light);
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: background-color 0.2s;
       font-weight: 600;
 
       &:hover {
-        opacity: 0.9;
+        background-color: var(--color__button-hover);
       }
     }
   }
