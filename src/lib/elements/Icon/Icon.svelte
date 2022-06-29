@@ -14,7 +14,7 @@
   import minus from './minus';
   import plus from './plus';
   export let name;
-  export let box = 48;
+  export let box = '48 48';
   export let width = '48px';
   export let height = '48px';
   export let focusable = false;

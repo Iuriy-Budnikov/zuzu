@@ -8,6 +8,7 @@
   class:search-tours-field--active={isActive}
   class:search-tours-field--location={type === 'location'}
   class:search-tours-field--dep-cities={type === 'dep-cities'}
+  class:search-tours-field--date={type === 'date'}
   class:search-tours-field--nights={type === 'nights'}
   class:search-tours-field--people={type === 'people'}
 >
@@ -27,6 +28,11 @@
     &--dep-cities {
       flex: 1.1;
       max-width: 170px;
+    }
+    &--date {
+      min-width: 125px;
+      width: 125px;
+      max-width: 125px;
     }
     &--nights {
       flex: 125px 0 0;

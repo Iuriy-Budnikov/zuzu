@@ -25,6 +25,7 @@
           class="search-tours-dropdown__list scrollbar"
           bind:this={listElement}
           class:search-tours-dropdown__list--people={type === 'people'}
+          class:search-tours-dropdown__list--date={type === 'date'}
         >
           <slot />
         </div>
@@ -58,12 +59,13 @@
       width: auto;
       min-width: 200px;
       border-radius: 5px;
-      overflow-y: scroll;
+      overflow-y: auto;
       overflow-x: hidden;
       background-color: var(--color__light);
       max-height: 363px;
 
-      &--people {
+      &--people,
+      &--date {
         max-height: initial;
       }
     }

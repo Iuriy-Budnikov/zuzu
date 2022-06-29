@@ -11,7 +11,7 @@
 
 <div class="search-tours-active-night">
   <div class="search-tours-active-night__name">
-    <span class="search-tours-dep-city-item__night">
+    <span class="search-tours-active-night__night">
       {night.night}
     </span>
   </div>

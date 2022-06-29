@@ -92,7 +92,7 @@
 
 <style lang="scss">
   .search-tours-people-picker {
-    padding: 20px 8px 0px 16px;
+    padding: 20px 16px 0px 16px;
     width: 228px;
 
     &__title {

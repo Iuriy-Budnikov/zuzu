@@ -34,6 +34,7 @@
 		"mdsvex": "^0.10.5",
 		"rxjs": "^7.5.5",
 		"smoothscroll-polyfill": "0.4.4",
+		"svelte-flatpickr": "^3.2.6",
 		"svelte-forms-lib": "2.0.1",
 		"svelte-select": "4.4.7",
 		"yup": "0.32.11"

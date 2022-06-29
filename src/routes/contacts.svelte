@@ -18,7 +18,7 @@
     <div class="contacts__hello">
       <div class="contacts__avatar">
         <ImageLoader
-          alt="Ирма Романенко"
+          alt="Ирма"
           height={200}
           sourceSrcSet={`${imagePath}emoji.webp, ${imagePath}emoji@2x.webp 2x`}
           src={`${imagePath}emoji.jpg`}

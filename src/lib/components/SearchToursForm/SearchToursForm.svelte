@@ -12,6 +12,7 @@
   import SearchTourNights from './SearchTourNights/SearchTourNights.svelte';
   import SearchToursSubmit from './SearchToursComponents/SearchToursSubmit.svelte';
   import SearchTourPeople from './SearchTourPeople/SearchTourPeople.svelte';
+  import SearchTourDate from './SearchTourDate/SearchTourDate.svelte';
 
   const onSubmit = async (values) => {
     console.log('values', values);
@@ -25,6 +26,8 @@
     transport: '',
     nights: 6,
     nightsTo: 8,
+    checkRange: 5,
+    checkDate: '',
     checkIn: '',
     checkTo: '',
     people: 2,
@@ -195,15 +198,29 @@
     updateField('nights', nights);
     updateField('nightsTo', nightsTo);
     dispatch(actionsSearchForm.closeNightsModal());
+    dispatch(actionsSearchForm.openDateModal());
   }
   function onClickNight() {
     dispatch(actionsSearchForm.closeNightsModal());
+    dispatch(actionsSearchForm.openDateModal());
   }
   function onOpenNightsModal() {
     dispatch(actionsSearchForm.openNightsModal());
   }
   function onCloseNightsModal() {
     dispatch(actionsSearchForm.closeNightsModal());
+  }
+
+  function onChangeDate({ detail: { checkDate, checkIn, checkTo } }) {
+    updateField('checkDate', checkDate);
+    updateField('checkIn', checkIn);
+    updateField('checkTo', checkTo);
+  }
+  function onOpenDateModal() {
+    dispatch(actionsSearchForm.openDateModal());
+  }
+  function onCloseDateModal() {
+    dispatch(actionsSearchForm.closeDateModal());
   }
 
   function onChangePeople({ detail: { people, children } }) {
@@ -250,6 +267,11 @@
       on:click_night={onClickNight}
       on:open_nights_modal={onOpenNightsModal}
       on:close_nights_modal={onCloseNightsModal}
+    />
+    <SearchTourDate
+      on:change_date={onChangeDate}
+      on:open_date_modal={onOpenDateModal}
+      on:close_date_modal={onCloseDateModal}
     />
     <SearchTourPeople
       on:reset_people={onResetPeople}
