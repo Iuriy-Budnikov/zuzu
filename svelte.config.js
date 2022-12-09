@@ -1,4 +1,3 @@
-import adapter from '@sveltejs/adapter-static';
 import { mdsvex } from 'mdsvex';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -14,6 +13,7 @@ const config = {
   preprocess: [
     mdsvex(mdsvexConfig),
     preprocess({
+      postcss: true,
       scss: {
         prependData: `
 				@import '${sassPath}mixins/index.scss';
@@ -23,12 +23,10 @@ const config = {
     })
   ],
   kit: {
-    paths: {
-      base: ''
-    },
-    adapter: adapter({
-      fallback: '200.html'
-    })
+    alias: {
+      $utils: 'src/utils',
+      $queries: 'src/queries'
+    }
   }
 };
 

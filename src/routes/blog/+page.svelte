@@ -1,27 +1,3 @@
-<script context="module">
-  export const prerender = true;
-
-  const allPosts = import.meta.glob('./blog/*.{md,svx}');
-
-  let body = [];
-  for (let path in allPosts) {
-    body.push(
-      allPosts[path]().then(({ metadata }) => {
-        return { path, metadata };
-      })
-    );
-  }
-  export const load = async () => {
-    const posts = await Promise.all(body);
-
-    return {
-      props: {
-        posts
-      }
-    };
-  };
-</script>
-
 <script>
   const title = 'ZuZu Travel | Гарячі тури та путівки ⛱️ туризм, відпочинок та подорожі';
   const description =
@@ -29,9 +5,11 @@
 
   import { format } from 'date-fns';
   import { uk } from 'date-fns/locale/index.js';
-  export let posts;
 
-  const dateSortedPosts = posts
+  export let data;
+
+
+  const dateSortedPosts = data.posts
     .slice()
     .sort((post1, post2) => {
       return new Date(post2.metadata.date) - new Date(post1.metadata.date);
