@@ -18,7 +18,7 @@
       <article class="blog__article">
         <a
           class="blog__article_title"
-          href={path.replace('./tags', '/').replace('.md', '').replace('.svx', '')}>{title}</a
+          href={`/blog/${path.replace('./tags', '/').replace('.md', '').replace('.svx', '').replace('../../', '')}`}>{title}</a
         >
       </article>
     {/each}
