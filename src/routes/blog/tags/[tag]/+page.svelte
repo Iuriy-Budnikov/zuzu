@@ -1,34 +1,5 @@
-<script context="module">
-  export const prerender = true;
-  const allPosts = import.meta.glob('../blog/*.{md,svx}');
-
-  let body = [];
-  for (let path in allPosts) {
-    body.push(
-      allPosts[path]().then(({ metadata }) => {
-        return { path, metadata };
-      })
-    );
-  }
-  export const load = async ({ params }) => {
-    const posts = await Promise.all(body);
-    const tag = params.tag;
-
-    const filteredPosts = posts.filter((post) => {
-      return post.metadata.tags.includes(tag);
-    });
-
-    return {
-      props: {
-        filteredPosts,
-        tag
-      }
-    };
-  };
-</script>
-
 <script>
-  export let filteredPosts, tag;
+  export let data;
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -41,9 +12,9 @@
 </svelte:head>
 
 <div class="blog">
-  <h1 class="blog__title">{capitalizeFirstLetter(tag)}</h1>
+  <h1 class="blog__title">{capitalizeFirstLetter(data.tag)}</h1>
   <section>
-    {#each filteredPosts as { path, metadata: { title } }}
+    {#each data.filteredPosts as { path, metadata: { title } }}
       <article class="blog__article">
         <a
           class="blog__article_title"

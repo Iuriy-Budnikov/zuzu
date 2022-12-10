@@ -36,12 +36,12 @@
   <section>
     {#each dateSortedPosts as { path, metadata: { title, tags, date } }}
       <article class="blog__article">
-        <a class="blog__article_title" href={path.replace('.md', '').replace('.svx', '')}>{title}</a
+        <a class="blog__article_title" href={`/blog/${path.replace('.md', '').replace('.svx', '')}`}>{title}</a
         >
         <p class="date">{date}</p>
         <div>
           {#each tags as tag}
-            <a class="tag" href="/tags/{tag}">#{tag}</a>
+            <a class="tag" href="/blog/tags/{tag}">#{tag}</a>
           {/each}
         </div>
       </article>

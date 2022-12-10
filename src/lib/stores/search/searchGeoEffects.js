@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createEffect } from '../store';
 import { actionsSearchGeoTree } from './searchGeoTree';
 import { catchError, EMPTY, from, map, mergeMap, of } from 'rxjs';
-import { apiClientCached } from './searchClient';
+import { apiClient } from './searchClient';
 
 let cancelTokenSuggestion;
 
@@ -12,7 +12,7 @@ createEffect(actionsSearchGeoTree.start, (action$) => {
       cancelTokenSuggestion?.cancel?.();
       cancelTokenSuggestion = axios.CancelToken.source();
       return from(
-        apiClientCached.get('/proxy/api/2.5/tours/geotree', {
+        apiClient.get('/proxy/api/2.5/tours/geotree', {
           params: { depth: 'city', with: 'price', ...params },
           cancelToken: cancelTokenSuggestion?.token
         })
