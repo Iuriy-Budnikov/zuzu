@@ -15,7 +15,11 @@
 
 <div class="search-tours-children-picker">
   {#each list as item}
-    <div class="search-tours-children-picker__item" on:click={() => onChange(item)}>
+    <div
+      class="search-tours-children-picker__item"
+      on:click={() => onChange(item)}
+      role="presentation"
+    >
       {#if item === 1}
         до 2
       {:else}

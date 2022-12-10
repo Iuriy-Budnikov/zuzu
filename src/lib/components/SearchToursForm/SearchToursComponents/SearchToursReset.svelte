@@ -2,7 +2,7 @@
   import Icon from '$lib/elements/Icon/Icon.svelte';
 </script>
 
-<div class="search-tours-reset" on:click>
+<div class="search-tours-reset" on:click role="presentation">
   <Icon name="reset" width="10px" height="10px" box="10 10" />
 </div>
 

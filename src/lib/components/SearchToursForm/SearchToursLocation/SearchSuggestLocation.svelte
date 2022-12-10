@@ -32,6 +32,7 @@
   class:search-suggest-location--active={isActive}
   on:click={onClickSuggestion}
   on:mouseenter={onMouseOverSuggestion}
+  role="presentation"
 >
   <div class="search-suggest-location__wrapper">
     {#if type === 'hotel'}

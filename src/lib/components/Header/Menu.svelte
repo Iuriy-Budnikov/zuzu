@@ -1,16 +1,21 @@
 <script>
   import { page } from '$app/stores';
   import gsap from 'gsap';
+  import { createEventDispatcher } from 'svelte';
   import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
   import links from './links';
 
   export let isMenuOpen = false;
-  export let onClickBackdropMenu = () => {};
   let navElement = undefined;
   let backdropElement = undefined;
 
+  const dispatch = createEventDispatcher();
+
   function onClickLink() {
     onClickBackdropMenu();
+  }
+  function onClickBackdropMenu() {
+    dispatch('clickBackdrop');
   }
 
   function animateMenuIn(node) {
@@ -107,14 +112,21 @@
                   class="menu__a"
                   class:menu__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
                   on:click={onClickLink}
-                  href={`/${item.slug}/`}>{item.title}</a
+                  href={`/${item.slug}/`}
                 >
+                  {item.title}
+                </a>
               </li>
             {/each}
           </ul>
         </nav>
       </div>
-      <div class="menu__backdrop" bind:this={backdropElement} on:click={onClickBackdropMenu} />
+      <div
+        class="menu__backdrop"
+        bind:this={backdropElement}
+        on:click={onClickBackdropMenu}
+        role="presentation"
+      />
     {/if}
   </MediaQuery>
 {/if}

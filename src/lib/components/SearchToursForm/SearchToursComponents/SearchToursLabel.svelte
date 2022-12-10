@@ -2,7 +2,7 @@
   export let label = '';
 </script>
 
-<label class="search-tours-label" on:click>
+<label class="search-tours-label" on:click role="presentation">
   <slot />
   {#if label}
     <div class="search-tours-label__text">{label}</div>

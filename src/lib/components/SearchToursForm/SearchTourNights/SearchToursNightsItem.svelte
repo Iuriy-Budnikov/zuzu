@@ -24,6 +24,7 @@
   class="search-tours-dep-city-item"
   class:search-tours-dep-city-item--active={checked}
   on:click={checked ? onClick : undefined}
+  role="presentation"
 >
   <Radio {checked} on:change={onChange}>
     <div class="search-tours-dep-city-item__text">

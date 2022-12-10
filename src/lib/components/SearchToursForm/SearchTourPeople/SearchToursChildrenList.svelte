@@ -20,7 +20,11 @@
     <div class="search-tours-people-children-list__title">Діти</div>
     <div class="search-tours-people-children-list__list">
       {#each children as item, index}
-        <div class="search-tours-people-children-list__item" on:click={() => onClick(index)}>
+        <div
+          class="search-tours-people-children-list__item"
+          on:click={() => onClick(index)}
+          role="presentation"
+        >
           <span>
             {#if item === 1}
               до 2 років

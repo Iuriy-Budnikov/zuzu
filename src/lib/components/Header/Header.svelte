@@ -65,7 +65,7 @@
   {/if}
 </MediaQuery>
 
-<Menu {isMenuOpen} {onClickBackdropMenu} />
+<Menu {isMenuOpen} on:clickBackdrop={onClickBackdropMenu} />
 
 <style lang="scss">
   .header {
