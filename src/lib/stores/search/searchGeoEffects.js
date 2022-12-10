@@ -12,7 +12,7 @@ createEffect(actionsSearchGeoTree.start, (action$) => {
       cancelTokenSuggestion?.cancel?.();
       cancelTokenSuggestion = axios.CancelToken.source();
       return from(
-        apiClientCached.get('/2.5/tours/geotree', {
+        apiClientCached.get('/proxy/api/2.5/tours/geotree', {
           params: { depth: 'city', with: 'price', ...params },
           cancelToken: cancelTokenSuggestion?.token
         })

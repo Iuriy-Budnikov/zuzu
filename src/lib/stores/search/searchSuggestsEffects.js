@@ -12,7 +12,7 @@ createEffect(actionsSearchSuggests.start, (action$) => {
       cancelTokenSuggestion?.cancel?.();
       cancelTokenSuggestion = axios.CancelToken.source();
       return from(
-        apiClientCached.get('/2.5/tours/suggests', {
+        apiClientCached.get('/proxy/api/2.5/tours/suggests', {
           params: { ...params },
           cancelToken: cancelTokenSuggestion?.token
         })

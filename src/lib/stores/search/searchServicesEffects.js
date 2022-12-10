@@ -6,7 +6,7 @@ import { apiClientCached } from './searchClient';
 createEffect(actionsSearchServices.start, (action$) => {
   return action$.pipe(
     mergeMap(() => {
-      return from(apiClientCached.get('/2.6/tours/services')).pipe(
+      return from(apiClientCached.get('/proxy/api/2.6/tours/services')).pipe(
         map(({ data }) => actionsSearchServices.success(data)),
         catchError(({ response: { data } }) => of(actionsSearchServices.failure(data)))
       );

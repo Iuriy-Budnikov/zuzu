@@ -1,6 +1,4 @@
 <script>
-  import { API_IMG_CDN } from '$lib/constants/api';
-
   import Icon from '$lib/elements/Icon/Icon.svelte';
 
   import { formatPrice } from '$lib/utils/numberUtils';
@@ -39,7 +37,7 @@
     {#if type === 'hotel'}
       <div
         class="search-suggest-location__icon"
-        style="background-image: url('{API_IMG_CDN}/3/160x120/{img}')"
+        style="background-image: url('/proxy/img/3/160x120/{img}')"
       />
     {:else}
       <div class="search-suggest-location__icon">
