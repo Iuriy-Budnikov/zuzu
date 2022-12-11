@@ -1,4 +1,5 @@
 <script>
+  import { page } from '$app/stores';
   import { format } from 'date-fns';
   import { uk } from 'date-fns/locale/index.js';
 
@@ -6,32 +7,32 @@
 </script>
 
 <svelte:head>
-  <!-- <link rel="canonical" href={meta.url} /> -->
-
-  <!-- HTML Meta Tags -->
+  <link rel="canonical" href={$page.url.href} />
   <title>{data.post.title}</title>
-  <!-- <meta name="description" content={meta.description} />
-  <meta name="author" content={meta.author} /> -->
+  <meta name="description" content={data.post.description} />
+  {#if data.post.author.name}
+    <meta name="author" content={data.post.author.name} />
+  {/if}
 
-  <!-- Google / Search Engine Tags -->
-  <!-- <meta itemprop="name" content={meta.title} />
-  <meta itemprop="description" content={meta.description} />
-  <meta itemprop="image" content={meta.image} /> -->
+  <meta itemprop="name" content={data.post.title} />
+  <meta itemprop="description" content={data.post.description} />
 
-  <!-- Facebook Meta Tags -->
-  <!-- <meta property="og:url" content={meta.url} />
+  <meta property="og:url" content={$page.url.href} />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content={meta.title} />
-  <meta property="og:description" content={meta.description} />
-  <meta property="og:image" content={meta.image} /> -->
+  <meta property="og:title" content={data.post.title} />
+  <meta property="og:description" content={data.post.description} />
 
-  <!-- Twitter Meta Tags -->
-  <!-- <meta name="twitter:card" content="summary_large_image" />
-  <meta property="twitter:domain" content="https://zuzutravel.co" />
-  <meta property="twitter:url" content={meta.url} />
-  <meta name="twitter:title" content={meta.title} />
-  <meta name="twitter:description" content={meta.description} />
-  <meta name="twitter:image" content={meta.image} /> -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content={$page.url.origin} />
+  <meta property="twitter:url" content={$page.url.href} />
+  <meta name="twitter:title" content={data.post.title} />
+  <meta name="twitter:description" content={data.post.description} />
+
+  {#if data.post.coverImage}
+    <meta itemprop="image" content={data.post.coverImage.url} />
+    <meta property="og:image" content={data.post.coverImage.url} />
+    <meta name="twitter:image" content={data.post.coverImage.url} />
+  {/if}
 </svelte:head>
 
 <article class="article">

@@ -6,12 +6,19 @@ export const load = async ({ params }) => {
   const body = JSON.stringify({
     query: `query GetPostById($slug: String!) {
       post(where: {slug: $slug}) {
-        id
-        title
-        date
+        author {
+          name
+        }
         content {
           html
         }
+        coverImage {
+          url
+        }
+        date
+        description
+        id
+        title
       }
     }`,
     variables: {
