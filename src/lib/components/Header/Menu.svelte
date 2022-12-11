@@ -110,9 +110,9 @@
               <li class="menu__li">
                 <a
                   class="menu__a"
-                  class:menu__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
+                  class:menu__a--active={$page.url.pathname === `/${item.slug}`}
                   on:click={onClickLink}
-                  href={`/${item.slug}/`}
+                  href={`/${item.slug}`}
                 >
                   {item.title}
                 </a>
@@ -181,7 +181,7 @@
 
       &--active,
       &:hover {
-        color: var(--color__text--primary);
+        color: var(--color__link);
       }
     }
   }

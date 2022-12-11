@@ -1,14 +1,36 @@
 <script>
+  import { page } from '$app/stores';
   export let data;
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  const title = 'Привіт! Це теги для мого блогу про ⛱️ туризм, відпочинок та подорожі';
+  const description = 'Щоб простіше було знаходити пости, використовуйте теги';
+  const coverImage = `${$page.url.origin}/images/social_main.jpg`;
 </script>
 
 <svelte:head>
-  <title>ZuZu Travel | Теги</title>
-  <meta name="description" content="ZuZu Travel | Теги" />
+  <link rel="canonical" href={$page.url.href} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <meta itemprop="name" content={title} />
+  <meta itemprop="description" content={description} />
+  <meta itemprop="image" content={coverImage} />
+
+  <meta property="og:url" content={$page.url.href} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={coverImage} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content={$page.url.origin} />
+  <meta property="twitter:url" content={$page.url.href} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={coverImage} />
 </svelte:head>
 
 <div class="blog">
