@@ -1,15 +1,28 @@
-const allPosts = import.meta.glob('./*.{md,svx}');
+import { error } from '@sveltejs/kit';
+import apiClient from '$utils/apiClient/apiCmsClient';
 
-let body = [];
-for (let path in allPosts) {
-  body.push(
-    allPosts[path]().then(({ metadata }) => {
-      return { path, metadata };
-    })
-  );
-}
 export const load = async () => {
-  const posts = await Promise.all(body);
+  const body = JSON.stringify({
+    query: `{
+      posts {
+        title
+        slug
+        date
+        tags {
+          name
+        }
+      }
+    }`
+  });
+  const {
+    data: {
+      data: { posts }
+    }
+  } = await apiClient.post('master', body);
+
+  if (!posts?.length) {
+    throw error(404);
+  }
 
   return {
     posts

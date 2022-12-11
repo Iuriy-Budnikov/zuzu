@@ -36,7 +36,6 @@
 		"date-fns": "^2.29.3",
 		"gsap": "3.11.3",
 		"lodash": "^4.17.21",
-		"mdsvex": "^0.10.6",
 		"rxjs": "^7.6.0",
 		"smoothscroll-polyfill": "0.4.4",
 		"svelte-flatpickr": "^3.2.6",

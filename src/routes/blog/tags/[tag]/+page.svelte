@@ -14,12 +14,9 @@
 <div class="blog">
   <h1 class="blog__title">{capitalizeFirstLetter(data.tag)}</h1>
   <section>
-    {#each data.filteredPosts as { path, metadata: { title } }}
+    {#each data.posts as { slug, title }}
       <article class="blog__article">
-        <a
-          class="blog__article_title"
-          href={`/blog/${path.replace('./tags', '/').replace('.md', '').replace('.svx', '').replace('../../', '')}`}>{title}</a
-        >
+        <a class="blog__article_title" href={`/blog/${slug}`}>{title}</a>
       </article>
     {/each}
   </section>

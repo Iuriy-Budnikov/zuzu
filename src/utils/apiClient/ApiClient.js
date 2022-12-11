@@ -178,7 +178,6 @@ export class ApiClient {
       const [timeoutInstance, timeoutSignal] = this.createTimeoutSignal(timeout);
       const reqURL = this.buildUrl(normalizedConfig);
       const searchParams = new URLSearchParams(params);
-
       const res = await _fetch(`${reqURL}?${searchParams.toString()}`.replace(/\?+$/, ''), {
         method: method.toUpperCase(),
         headers: this.prepareHeaders(normalizedConfig),

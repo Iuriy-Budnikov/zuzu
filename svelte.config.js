@@ -1,9 +1,7 @@
 import adapter from '@sveltejs/adapter-cloudflare';
-import { mdsvex } from 'mdsvex';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import preprocess from 'svelte-preprocess';
-import mdsvexConfig from './mdsvex.config.js';
 
 const filePath = dirname(fileURLToPath(import.meta.url));
 const sassPath = `${filePath}/src/lib/styles/`;
@@ -11,7 +9,6 @@ const sassPath = `${filePath}/src/lib/styles/`;
 const config = {
   extensions: ['.svelte', '.md'],
   preprocess: [
-    mdsvex(mdsvexConfig),
     preprocess({
       postcss: true,
       scss: {

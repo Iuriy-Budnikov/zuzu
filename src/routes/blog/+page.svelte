@@ -1,27 +1,10 @@
 <script>
+  import { format } from 'date-fns';
+  import { uk } from 'date-fns/locale/index.js';
   const title = 'ZuZu Travel | Гарячі тури та путівки ⛱️ туризм, відпочинок та подорожі';
   const description =
     'Гарячі тури від всіх туроператорів України на одному сайті. ✈️️ Порівняння цін, фотографії готелів, онлайн-моніторинг путівок, що горять.';
-
-  import { format } from 'date-fns';
-  import { uk } from 'date-fns/locale/index.js';
-
   export let data;
-
-
-  const dateSortedPosts = data.posts
-    .slice()
-    .sort((post1, post2) => {
-      return new Date(post2.metadata.date) - new Date(post1.metadata.date);
-    })
-    .map((c) => {
-      if (c.metadata && c.metadata.date) {
-        const newDate = new Date(c.metadata.date);
-        const formatedDate = format(newDate, 'd MMMMMM yyyy', { locale: uk });
-        return { ...c, metadata: { ...c.metadata, date: formatedDate } };
-      }
-      return c;
-    });
 </script>
 
 <svelte:head>
@@ -34,14 +17,13 @@
 <div class="blog">
   <h1 class="blog__title">Привіт! Це мій блог про відпочинок 🌴</h1>
   <section>
-    {#each dateSortedPosts as { path, metadata: { title, tags, date } }}
+    {#each data.posts as { date, title, slug, tags }}
       <article class="blog__article">
-        <a class="blog__article_title" href={`/blog/${path.replace('.md', '').replace('.svx', '')}`}>{title}</a
-        >
-        <p class="date">{date}</p>
+        <a class="blog__article_title" href={`/blog/${slug}`}>{title}</a>
+        <p class="date">{format(new Date(date), 'd MMMMMM yyyy', { locale: uk })}</p>
         <div>
           {#each tags as tag}
-            <a class="tag" href="/blog/tags/{tag}">#{tag}</a>
+            <a class="tag" href="/blog/tags/{tag.name}">#{tag.name}</a>
           {/each}
         </div>
       </article>

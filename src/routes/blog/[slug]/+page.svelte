@@ -3,46 +3,41 @@
   import { uk } from 'date-fns/locale/index.js';
 
   export let data;
-  const meta = data.meta;
-  const date = data.meta.date;
-
-  const newDate = new Date(date);
-  const formatedDate = format(newDate, 'd MMMMMM yyyy', { locale: uk });
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={meta.url} />
+  <!-- <link rel="canonical" href={meta.url} /> -->
 
   <!-- HTML Meta Tags -->
-  <title>{meta.title}</title>
-  <meta name="description" content={meta.description} />
-  <meta name="author" content={meta.author | 'bachrc'} />
+  <title>{data.post.title}</title>
+  <!-- <meta name="description" content={meta.description} />
+  <meta name="author" content={meta.author} /> -->
 
   <!-- Google / Search Engine Tags -->
-  <meta itemprop="name" content={meta.title} />
+  <!-- <meta itemprop="name" content={meta.title} />
   <meta itemprop="description" content={meta.description} />
-  <meta itemprop="image" content={meta.image} />
+  <meta itemprop="image" content={meta.image} /> -->
 
   <!-- Facebook Meta Tags -->
-  <meta property="og:url" content={meta.url} />
+  <!-- <meta property="og:url" content={meta.url} />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={meta.title} />
   <meta property="og:description" content={meta.description} />
-  <meta property="og:image" content={meta.image} />
+  <meta property="og:image" content={meta.image} /> -->
 
   <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
+  <!-- <meta name="twitter:card" content="summary_large_image" />
   <meta property="twitter:domain" content="https://zuzutravel.co" />
   <meta property="twitter:url" content={meta.url} />
   <meta name="twitter:title" content={meta.title} />
   <meta name="twitter:description" content={meta.description} />
-  <meta name="twitter:image" content={meta.image} />
+  <meta name="twitter:image" content={meta.image} /> -->
 </svelte:head>
 
 <article class="article">
-  <h1 class="title">{meta.title}</h1>
-  <time class="date">{formatedDate}</time>
-  {@html data.html}
+  <h1 class="title">{data.post.title}</h1>
+  <time class="date">{format(new Date(data.post.date), 'd MMMMMM yyyy', { locale: uk })}</time>
+  {@html data.post.content.html}
 </article>
 
 <style lang="scss">
