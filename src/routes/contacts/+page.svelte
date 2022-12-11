@@ -1,16 +1,35 @@
-<script context="module">
-  export const prerender = true;
-</script>
-
 <script>
+  import { page } from '$app/stores';
   import ImageLoader from '$lib/elements/Image/ImageLoader.svelte';
   import SocialContacts from '$lib/components/SocialContacts/SocialContacts.svelte';
   const imagePath = '/images/emoji/';
+
+  const title = 'Контакти. Я в соціальних мережах 😍';
+  const description = 'Для звя\'зку будь ласка використовуйте наступні посилання';
+  const coverImage = `${$page.url.origin}/images/social_contacts.jpg`;
 </script>
 
 <svelte:head>
-  <title>ZuZu Travel | Контакти. Я в соціальних мережах 😍</title>
-  <meta name="description" content="Контакти. Я в соціальних мережах" />
+  <link rel="canonical" href={$page.url.href} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <meta itemprop="name" content={title} />
+  <meta itemprop="description" content={description} />
+  <meta itemprop="image" content={coverImage} />
+
+  <meta property="og:url" content={$page.url.href} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={coverImage} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content={$page.url.origin} />
+  <meta property="twitter:url" content={$page.url.href} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={coverImage} />
 </svelte:head>
 
 <div class="contacts">
