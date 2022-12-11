@@ -3,8 +3,8 @@ import apiClient from '$utils/apiClient/apiCmsClient';
 
 export const load = async () => {
   const body = JSON.stringify({
-    query: `{
-      posts {
+    query: `query GetPostById {
+      posts(orderBy: date_DESC) {
         title
         slug
         date
