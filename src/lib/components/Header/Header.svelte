@@ -32,14 +32,14 @@
               {#if $page.url.pathname === `/${item.slug}`}
                 <span
                   class="header__a"
-                  class:header__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
-                  href={`/${item.slug}/`}>{item.title}</span
+                  class:header__a--active={$page.url.pathname === `/${item.slug}`}
+                  href={`/${item.slug}`}>{item.title}</span
                 >
               {:else}
                 <a
                   class="header__a"
-                  class:header__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
-                  href={`/${item.slug}/`}>{item.title}</a
+                  class:header__a--active={$page.url.pathname === `/${item.slug}`}
+                  href={`/${item.slug}`}>{item.title}</a
                 >
               {/if}
             </li>
@@ -65,7 +65,7 @@
   {/if}
 </MediaQuery>
 
-<Menu {isMenuOpen} {onClickBackdropMenu} />
+<Menu {isMenuOpen} on:clickBackdrop={onClickBackdropMenu} />
 
 <style lang="scss">
   .header {

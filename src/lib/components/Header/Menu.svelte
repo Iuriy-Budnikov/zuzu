@@ -1,22 +1,21 @@
 <script>
   import { page } from '$app/stores';
   import gsap from 'gsap';
-  import CustomEase from '$lib/utils/gsap/CustomEase';
+  import { createEventDispatcher } from 'svelte';
   import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
   import links from './links';
-  import { onMount } from 'svelte';
 
   export let isMenuOpen = false;
-  export let onClickBackdropMenu = () => {};
   let navElement = undefined;
   let backdropElement = undefined;
-  const ease = CustomEase.create(
-    'custom',
-    'M0,0 C0.021,0.032 0.082,0.02 0.162,0.03 0.329,0.05 0.342,0.08 0.354,0.104 0.408,0.213 0.498,0.536 0.536,0.8 0.558,0.954 0.78,1 1,1'
-  );
+
+  const dispatch = createEventDispatcher();
 
   function onClickLink() {
     onClickBackdropMenu();
+  }
+  function onClickBackdropMenu() {
+    dispatch('clickBackdrop');
   }
 
   function animateMenuIn(node) {
@@ -40,7 +39,6 @@
     tl.to(node, {
       duration: durationMenu,
       yPercent: 0,
-      ease,
       force3D: true
     });
 
@@ -100,10 +98,6 @@
       }
     };
   }
-
-  onMount(() => {
-    gsap.registerPlugin(CustomEase);
-  });
 </script>
 
 {#if isMenuOpen}
@@ -116,16 +110,23 @@
               <li class="menu__li">
                 <a
                   class="menu__a"
-                  class:menu__a--active={$page.url.pathname.indexOf(`/${item.slug}`) > -1}
+                  class:menu__a--active={$page.url.pathname === `/${item.slug}`}
                   on:click={onClickLink}
-                  href={`/${item.slug}/`}>{item.title}</a
+                  href={`/${item.slug}`}
                 >
+                  {item.title}
+                </a>
               </li>
             {/each}
           </ul>
         </nav>
       </div>
-      <div class="menu__backdrop" bind:this={backdropElement} on:click={onClickBackdropMenu} />
+      <div
+        class="menu__backdrop"
+        bind:this={backdropElement}
+        on:click={onClickBackdropMenu}
+        role="presentation"
+      />
     {/if}
   </MediaQuery>
 {/if}
@@ -180,7 +181,7 @@
 
       &--active,
       &:hover {
-        color: var(--color__text--primary);
+        color: var(--color__link);
       }
     }
   }

@@ -1,0 +1,332 @@
+<script>
+  import { createEventDispatcher, getContext } from 'svelte';
+  import { key } from 'svelte-forms-lib';
+  import { onMount } from 'svelte';
+  import { valuesSearchSuggests } from '$lib/stores/search/searchSuggests';
+  import { valuesSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  import { valuesSearchForm } from '$lib/stores/search/searchForm';
+
+  import { clickOutside } from '$lib/utils/clickOutside';
+  import { windowKeyDown } from '$lib/utils/windowKeyDown';
+
+  import SearchSuggestLocation from './SearchSuggestLocation.svelte';
+  import SearchSuggestGeoGroup from './SearchSuggestGeoGroup.svelte';
+  import SearchSuggestGeoItem from './SearchSuggestGeoItem.svelte';
+  import Icon from '$lib/elements/Icon/Icon.svelte';
+  import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
+  import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
+  import SearchSuggestGeoAddAll from './SearchSuggestGeoAddAll.svelte';
+  import SearchToursLoader from '../SearchToursComponents/SearchToursLoader.svelte';
+  import SearchToursReset from '../SearchToursComponents/SearchToursReset.svelte';
+
+  const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
+  const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
+  const { isSuggestModalOpened, isGeoTreeModalOpened } = valuesSearchForm;
+
+  let listSuggestsElement;
+  let listGeoElement;
+  let inputElement;
+
+  const dispatch = createEventDispatcher();
+
+  const { form } = getContext(key);
+
+  let placeholder = '';
+  $: {
+    const numberOfIds = $form['toCities'].length;
+    const categoryId = $form['to'];
+    if (categoryId) {
+      const findSuggest = $suggests?.find((c) => c.id == categoryId);
+      if (findSuggest) {
+        placeholder = '';
+        if (numberOfIds) {
+          placeholder = findSuggest.value;
+          placeholder += ': ';
+          placeholder += numberOfIds + ' ';
+          if (numberOfIds === 1) {
+            placeholder += 'курорт';
+          } else if (numberOfIds > 1 && numberOfIds < 5) {
+            placeholder += 'курорта';
+          } else {
+            placeholder += 'курортів';
+          }
+        }
+      }
+    } else {
+      placeholder = !$isSuggestModalOpened ? 'Куди' : '';
+    }
+  }
+
+  function onClickLabel() {
+    if (!$isSuggestModalOpened) {
+      dispatch('open_suggest_modal');
+    }
+  }
+
+  function onInputKeyDown(e) {
+    if (listSuggestsElement) {
+      listSuggestsElement.scrollTop = 0;
+    }
+    const text = e.currentTarget.value;
+    if (!text) {
+      dispatch('reset_suggests');
+    }
+    dispatch('autocomplete_suggests', { where: text });
+  }
+
+  function handleSuggestion({ value, id, type }) {
+    dispatch('close_suggest_modal');
+    dispatch('close_geo_tree_modal');
+    dispatch('change_suggest', { type, id, where: value });
+    dispatch('open_deps_modal');
+  }
+
+  function handleReset() {
+    dispatch('reset_suggests');
+    if ($isSuggestModalOpened) {
+      dispatch('autocomplete_suggests', { where: '' });
+    }
+  }
+
+  function handleHoverSuggestion({ id, type }) {
+    if (type === 'country') {
+      if ($isGeoTreeModalOpened && listGeoElement) {
+        listGeoElement.scrollTop = 0;
+      }
+      dispatch('open_geo_tree_modal', { id });
+    } else {
+      if ($isGeoTreeModalOpened) {
+        dispatch('close_geo_tree_modal');
+      }
+    }
+  }
+
+  function handleSubmitGeo() {
+    dispatch('close_suggest_modal');
+    dispatch('close_geo_tree_modal');
+    dispatch('submit_geo_tree');
+    dispatch('open_deps_modal');
+  }
+
+  function handleClickOutside() {
+    if ($isSuggestModalOpened) {
+      dispatch('close_suggest_modal');
+    }
+    if ($isGeoTreeModalOpened) {
+      dispatch('close_geo_tree_modal');
+    }
+  }
+
+  function handleWindowKeyDown({ detail: { event } }) {
+    if (event.key === 'Escape') {
+      if ($isSuggestModalOpened) {
+        dispatch('close_suggest_modal');
+        inputElement.blur();
+      }
+      if ($isGeoTreeModalOpened) {
+        dispatch('close_geo_tree_modal');
+      }
+    }
+  }
+
+  onMount(() => {
+    dispatch('mount_suggests');
+  });
+</script>
+
+<SearchToursField isActive={$isSuggestModalOpened} type="location">
+  <div class="search-tours-form-location">
+    <SearchToursLabel
+      on:click={onClickLabel}
+      label={$isSuggestModalOpened || !!$form['where'] || !!$form['toCities']?.length ? 'Куди' : ''}
+    >
+      <input
+        class="search-tours-form-location__input"
+        class:search-tours-form-location__input--minimized={$isSuggestModalOpened ||
+          !!$form['where'] ||
+          !!$form['toCities']?.length}
+        name="where"
+        type="text"
+        on:keyup={onInputKeyDown}
+        {placeholder}
+        value={$form['toCities']?.length ? '' : $form['where']}
+        bind:this={inputElement}
+      />
+    </SearchToursLabel>
+    <div
+      use:clickOutside
+      on:click_outside={handleClickOutside}
+      use:windowKeyDown
+      on:window_key_down={handleWindowKeyDown}
+    >
+      {#if !!$form['where'] || !!$form['toCities']?.length || !!$form['to']}
+        <SearchToursReset on:click={handleReset} />
+      {/if}
+      {#if $isSuggestModalOpened}
+        <div class="search-tours-form-location__dropdown">
+          <div class="search-tours-form-location__container">
+            <div
+              class="search-tours-form-location__list  scrollbar"
+              bind:this={listSuggestsElement}
+            >
+              {#if $loadingSuggests}
+                <SearchToursLoader />
+              {:else}
+                {#each $suggests as item}
+                  <SearchSuggestLocation
+                    {...item}
+                    {handleSuggestion}
+                    {handleHoverSuggestion}
+                    isActive={$geo?.[0]?.parent_id == item.id}
+                  />
+                {/each}
+              {/if}
+            </div>
+          </div>
+        </div>
+      {/if}
+      {#if $isGeoTreeModalOpened}
+        <div class="search-tours-form-location__dropdown">
+          <div
+            class="search-tours-form-location__container search-tours-form-location__container--geo"
+          >
+            <div
+              class="search-tours-form-location__list search-tours-form-location__list--geo scrollbar"
+              class:search-tours-form-location__list--has-value={!!$form['toCities']?.length}
+              bind:this={listGeoElement}
+            >
+              {#if $loadingGeoTree}
+                <SearchToursLoader />
+              {:else}
+                {#if !!$geo.length}
+                  <SearchSuggestGeoAddAll on:change_geo_tree_all name="Всі курорти" />
+                {/if}
+
+                {#each $geo as item}
+                  {#if item.type === 'province'}
+                    <SearchSuggestGeoGroup {...item} on:change_geo_tree />
+                  {:else if item.type === 'city'}
+                    <SearchSuggestGeoItem {...item} on:change_geo_tree />
+                  {/if}
+                {/each}
+                {#if !!$form['toCities']?.length}
+                  <div class="search-tours-form-location__submit_container">
+                    <button
+                      type="button"
+                      class="search-tours-form-location__submit"
+                      on:click={handleSubmitGeo}
+                    >
+                      Обрати
+                    </button>
+                  </div>
+                {/if}
+              {/if}
+            </div>
+          </div>
+        </div>
+      {/if}
+    </div>
+  </div>
+</SearchToursField>
+
+<style lang="scss">
+  .search-tours-form-location {
+    height: 100%;
+
+    &:hover {
+      :global(.search-tours-reset) {
+        &:before {
+          background: #fff !important;
+        }
+      }
+    }
+
+    &__input {
+      border: none;
+      height: 80px;
+      outline: 0;
+      padding: 0 16px;
+      background: 0 0;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: pointer;
+      font-size: 19px;
+      letter-spacing: 0.09px;
+      color: var(--color__dark);
+      font-weight: 400;
+      background: inherit;
+
+      &--minimized {
+        padding-top: 22px;
+      }
+
+      &::placeholder {
+        color: var(--color__dark);
+      }
+    }
+
+    &__dropdown {
+      position: relative;
+    }
+
+    &__container {
+      top: calc(100% + 2px);
+      left: 0;
+      position: absolute;
+      z-index: 2;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0px 0px 40px rgb(0 0 0 / 20%);
+
+      &--geo {
+        left: 503px;
+      }
+    }
+
+    &__list {
+      width: 500px;
+      border-radius: 5px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background-color: var(--color__light);
+      max-height: 363px;
+
+      &--geo {
+        min-height: 363px;
+      }
+
+      &--has-value {
+        padding-bottom: 70px;
+      }
+    }
+
+    &__submit_container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 16px;
+      background-color: var(--color__light);
+    }
+
+    &__submit {
+      background-color: var(--color__button);
+      width: 100%;
+      font-family: var(--type__primary);
+      border: 1px solid var(--color__button);
+      border-radius: 3px;
+      padding: 10px;
+      color: var(--color__light);
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-weight: 600;
+      font-size: 18px;
+
+      &:hover {
+        background-color: var(--color__button-hover);
+      }
+    }
+  }
+</style>
