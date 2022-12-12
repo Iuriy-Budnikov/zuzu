@@ -8,6 +8,12 @@
     padding: 12px;
     height: 100%;
 
+    @include media('<=tablet') {
+      min-width: 80px;
+      width: 80px;
+      max-width: 80px;
+    }
+
     &__button {
       background-color: var(--color__button);
       color: #fff;

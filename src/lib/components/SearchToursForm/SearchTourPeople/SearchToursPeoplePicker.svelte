@@ -26,7 +26,6 @@
   }
 
   function onRemoveChildren({ detail: { index } }) {
-    console.log('index', index);
     dispatch('change_people', {
       people,
       children: children.filter((c, i) => i !== index)

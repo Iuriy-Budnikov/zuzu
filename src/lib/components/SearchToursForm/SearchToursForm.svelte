@@ -26,7 +26,7 @@
     transport: '',
     nights: 6,
     nightsTo: 8,
-    checkRange: 5,
+    checkRange: 4,
     checkDate: '',
     checkIn: '',
     checkTo: '',
@@ -216,6 +216,9 @@
     updateField('checkIn', checkIn);
     updateField('checkTo', checkTo);
   }
+  function onChangeCheckRange({ detail: { checkRange } }) {
+    updateField('checkRange', checkRange);
+  }
   function onOpenDateModal() {
     dispatch(actionsSearchForm.openDateModal());
   }
@@ -270,6 +273,7 @@
     />
     <SearchTourDate
       on:change_date={onChangeDate}
+      on:change_check_range={onChangeCheckRange}
       on:open_date_modal={onOpenDateModal}
       on:close_date_modal={onCloseDateModal}
     />

@@ -28,20 +28,44 @@
     &--dep-cities {
       flex: 1.1;
       max-width: 170px;
+
+      @include media('<=tablet') {
+        min-width: 97px;
+        width: 97px;
+        max-width: 97px;
+      }
     }
     &--date {
-      min-width: 125px;
-      width: 125px;
-      max-width: 125px;
+      min-width: 240px;
+      width: 240px;
+      max-width: 240px;
+
+      @include media('<=tablet') {
+        min-width: 205px;
+        width: 205px;
+        max-width: 205px;
+      }
     }
     &--nights {
       flex: 125px 0 0;
       min-width: 152px;
       max-width: 152px;
+
+      @include media('<=tablet') {
+        min-width: 125px;
+        width: 125px;
+        max-width: 125px;
+      }
     }
     &--people {
       flex: 1;
       min-width: 180px;
+
+      @include media('<=tablet') {
+        min-width: 140px;
+        width: 140px;
+        max-width: 140px;
+      }
     }
 
     &:after {

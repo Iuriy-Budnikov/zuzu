@@ -9,6 +9,7 @@
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
   import SearchToursDropdown from '../SearchToursComponents/SearchToursDropdown.svelte';
   import SearchTourPicker from './SearchTourPicker.svelte';
+  import SearchTourActiveDate from './SearchTourActiveDate.svelte';
 
   const { form } = getContext(key);
   const { isDateModalOpened } = valuesSearchForm;
@@ -36,7 +37,7 @@
   }
 
   function onChangeDate(event) {
-    const [, date] = event.detail;
+    const [, date] = event.detail.detail;
     const dateFormat = 'yyyy-MM-dd';
     const selectedDate = parse(date, dateFormat, new Date());
     const prevDate = subDays(selectedDate, $form.checkRange);
@@ -50,12 +51,18 @@
       checkTo: formatedNextDate
     });
   }
+
+  function onChangeCheckRange(event) {
+    const { value } = event.detail;
+    dispatch('change_check_range', {
+      checkRange: value
+    });
+  }
 </script>
 
 <SearchToursField isActive={$isDateModalOpened} type="date">
   <SearchToursLabel on:click={onClickLabel} label="Початок туру">
-    <!-- <SearchToursActiveNight /> -->
-    Label
+    <SearchTourActiveDate />
   </SearchToursLabel>
   <SearchToursDropdown
     isOpen={$isDateModalOpened}
@@ -63,6 +70,6 @@
     on:window_key_down={handleWindowKeyDown}
     type="date"
   >
-    <SearchTourPicker {onChangeDate} />
+    <SearchTourPicker on:change_date={onChangeDate} on:change_check_range={onChangeCheckRange} />
   </SearchToursDropdown>
 </SearchToursField>
