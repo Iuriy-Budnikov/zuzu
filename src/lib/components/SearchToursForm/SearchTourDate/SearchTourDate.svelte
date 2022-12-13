@@ -54,8 +54,16 @@
 
   function onChangeCheckRange(event) {
     const { value } = event.detail;
+    const selectedDate = parse($form.checkDate, DATE_FORMAT, new Date());
+    const prevDate = subDays(selectedDate, value);
+    const nextDate = addDays(selectedDate, value);
+    const formatedPrevDate = format(prevDate, DATE_FORMAT);
+    const formatedNextDate = format(nextDate, DATE_FORMAT);
+
     dispatch('change_check_range', {
-      checkRange: value
+      checkRange: value,
+      checkIn: formatedPrevDate,
+      checkTo: formatedNextDate
     });
   }
 </script>

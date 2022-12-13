@@ -51,8 +51,6 @@
           {endDay}
         {/if}
       </span>
-    {:else}
-      {startYear}
     {/if}
   </div>
 </div>

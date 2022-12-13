@@ -225,8 +225,10 @@
     updateField('checkIn', checkIn);
     updateField('checkTo', checkTo);
   }
-  function onChangeCheckRange({ detail: { checkRange } }) {
+  function onChangeCheckRange({ detail: { checkRange, checkIn, checkTo } }) {
     updateField('checkRange', checkRange);
+    updateField('checkIn', checkIn);
+    updateField('checkTo', checkTo);
   }
   function onOpenDateModal() {
     dispatch(actionsSearchForm.openDateModal());
