@@ -542,8 +542,8 @@ span.flatpickr-weekday {
 }
 
 .flatpickr-day.selected-day {
-  border-color: #f1e9ff;
-  background: #f1e9ff;
+  border-color: var(--color__secondary);
+  background: var(--color__secondary);
 }
 
 .flatpickr-day.inRange,

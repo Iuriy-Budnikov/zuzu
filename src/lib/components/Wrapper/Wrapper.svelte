@@ -11,7 +11,7 @@
     background-color: var(--color__bg--primary);
 
     &--home {
-      background-color: #f2e9ff;
+      background-color: var(--color__secondary);
     }
   }
 </style>
