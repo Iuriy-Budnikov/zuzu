@@ -20,6 +20,7 @@
       <div
         class="search-tours-dropdown__container"
         class:search-tours-dropdown__container--right={isRight}
+        class:search-tours-dropdown__container--date={type === 'date'}
       >
         <div
           class="search-tours-dropdown__list scrollbar"
@@ -53,6 +54,10 @@
         right: 0;
         left: auto;
       }
+
+      &--date {
+        left: -138px;
+      }
     }
 
     &__list {
@@ -67,6 +72,10 @@
       &--people,
       &--date {
         max-height: initial;
+      }
+
+      &--date {
+        min-width: 500px;
       }
     }
   }

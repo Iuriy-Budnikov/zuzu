@@ -1,4 +1,5 @@
 <script>
+  import Button from '$lib/elements/Button/Button.svelte';
   import Icon from '$lib/elements/Icon/Icon.svelte';
   import { getContext, createEventDispatcher } from 'svelte';
   import { key } from 'svelte-forms-lib';
@@ -74,14 +75,9 @@
   <SearchToursChildrenList on:change={onRemoveChildren} />
 
   {#if children.length < 4}
-    <button
-      class="search-tours-people-picker__add-children"
-      type="button"
-      on:click={onToggleChildren}
-    >
-      Додати дитину
-    </button>
-
+    <div class="search-tours-people-picker__add-children">
+      <Button type="button" on:click={onToggleChildren}>Додати дитину</Button>
+    </div>
     {#if isChildrenOpen}
       <div class="search-tours-people-picker__title">Скільки років?</div>
       <SearchToursChildrenPicker on:change={onAddChildren} />
@@ -124,24 +120,10 @@
     }
 
     &__add-children {
-      text-align: center;
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 18px;
       margin-bottom: 18px;
-      width: 100%;
-      line-height: 1;
-      padding: 7px 10px 10px 10px;
-      font-family: var(--type__primary);
-      background-color: var(--color__button);
-      border: 1px solid var(--color__button);
-      padding: 10px;
-      font-weight: 600;
-      transition: background-color 0.2s;
-      color: var(--color__light);
 
-      &:hover {
-        background-color: var(--color__button-hover);
+      :global(.button) {
+        width: 100%;
       }
     }
   }

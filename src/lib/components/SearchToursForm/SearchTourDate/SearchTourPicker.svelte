@@ -1,11 +1,12 @@
 <script>
   import { createEventDispatcher, getContext } from 'svelte';
   import { key } from 'svelte-forms-lib';
-  import { parse, addDays } from 'date-fns';
+  import { parse } from 'date-fns';
   import DatePicker from '$lib/elements/Inputs/DatePicker/DatePicker.svelte';
   import { Ukrainian } from 'flatpickr/dist/l10n/uk.js';
   import SearchTourRangeButton from './SearchTourRangeButton.svelte';
   import { DATE_FORMAT } from '$lib/utils/dateUtils';
+  import Button from '$lib/elements/Button/Button.svelte';
 
   const { form } = getContext(key);
 
@@ -20,14 +21,13 @@
     currentDate = new Date();
     start = parse($form.checkIn, DATE_FORMAT, currentDate);
     end = parse($form.checkTo, DATE_FORMAT, currentDate);
-    // const todayDate = parse(date, DATE_FORMAT, currentDate);
-    const minDate = addDays(currentDate, 1);
     options = {
       inline: true,
       locale: Ukrainian,
       animate: false,
       mode: 'single',
-      minDate,
+      minDate: 'today',
+      disable: [currentDate],
       onDayCreate: function (dObj, dStr, fp, dayElem) {
         if ($form.checkDate) {
           const date = dayElem.dateObj;
@@ -48,10 +48,15 @@
       value
     });
   }
+  function onOpenPeopleModal() {
+    dispatch('open_people_modal');
+  }
 </script>
 
 <div class="search-tour-picker">
-  <DatePicker {options} on:change={onChangeDate} value={$form.checkDate} />
+  <div class="search-tour-picker__date-picker">
+    <DatePicker {options} on:change={onChangeDate} value={$form.checkDate} />
+  </div>
   <div class="search-tour-picker__check-range">
     <SearchTourRangeButton value={1} on:change_range={onChangeCheckRange}>
       ± 1 день
@@ -62,12 +67,22 @@
     <SearchTourRangeButton value={5} on:change_range={onChangeCheckRange}>
       ± 7 днів
     </SearchTourRangeButton>
+    <Button on:click={onOpenPeopleModal}>Обрати</Button>
   </div>
 </div>
 
 <style lang="scss">
   .search-tour-picker {
     padding: 16px;
+
+    &__date-picker {
+      display: flex;
+      justify-content: center;
+
+      :global(.flatpickr-calendar) {
+        width: 100%;
+      }
+    }
 
     &__check-range {
       display: flex;

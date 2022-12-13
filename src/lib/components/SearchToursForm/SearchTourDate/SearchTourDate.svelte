@@ -78,6 +78,6 @@
     on:window_key_down={handleWindowKeyDown}
     type="date"
   >
-    <SearchTourPicker on:change_date={onChangeDate} on:change_check_range={onChangeCheckRange} />
+    <SearchTourPicker on:change_date={onChangeDate} on:change_check_range={onChangeCheckRange} on:open_people_modal />
   </SearchToursDropdown>
 </SearchToursField>

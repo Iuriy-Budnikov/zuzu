@@ -18,6 +18,7 @@
   import SearchSuggestGeoAddAll from './SearchSuggestGeoAddAll.svelte';
   import SearchToursLoader from '../SearchToursComponents/SearchToursLoader.svelte';
   import SearchToursReset from '../SearchToursComponents/SearchToursReset.svelte';
+  import Button from '$lib/elements/Button/Button.svelte';
 
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
@@ -211,13 +212,7 @@
                 {/each}
                 {#if !!$form['toCities']?.length}
                   <div class="search-tours-form-location__submit_container">
-                    <button
-                      type="button"
-                      class="search-tours-form-location__submit"
-                      on:click={handleSubmitGeo}
-                    >
-                      Обрати
-                    </button>
+                    <Button on:click={handleSubmitGeo}>Обрати</Button>
                   </div>
                 {/if}
               {/if}
@@ -309,23 +304,9 @@
       width: 100%;
       padding: 16px;
       background-color: var(--color__light);
-    }
 
-    &__submit {
-      background-color: var(--color__button);
-      width: 100%;
-      font-family: var(--type__primary);
-      border: 1px solid var(--color__button);
-      border-radius: 3px;
-      padding: 10px;
-      color: var(--color__light);
-      cursor: pointer;
-      transition: background-color 0.2s;
-      font-weight: 600;
-      font-size: 18px;
-
-      &:hover {
-        background-color: var(--color__button-hover);
+      :global(.button) {
+        width: 100%;
       }
     }
   }

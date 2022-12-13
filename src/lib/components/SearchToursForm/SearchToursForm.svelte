@@ -236,6 +236,11 @@
   function onCloseDateModal() {
     dispatch(actionsSearchForm.closeDateModal());
   }
+  function onOpenPeopleDateModal() {
+    console.log('!!!!!!');
+    onCloseDateModal();
+    onOpenPeopleModal();
+  }
 
   function onChangePeople({ detail: { people, children } }) {
     updateField('people', people);
@@ -287,6 +292,7 @@
       on:change_check_range={onChangeCheckRange}
       on:open_date_modal={onOpenDateModal}
       on:close_date_modal={onCloseDateModal}
+      on:open_people_modal={onOpenPeopleDateModal}
     />
     <SearchTourPeople
       on:reset_people={onResetPeople}
