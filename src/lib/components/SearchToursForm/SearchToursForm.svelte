@@ -27,12 +27,13 @@
   const checkToDate = addDays(checkInDate, initialCheckInDays - 1);
   const initialCheckInDate = format(checkInDate, DATE_FORMAT);
   const initialCheckToDate = format(checkToDate, DATE_FORMAT);
+  const initialFromCity = '1544'; // KIEV
 
   let initialValues = {
     where: '',
     to: '',
     toCities: [],
-    from: '1544', // KIEV
+    from: initialFromCity,
     transport: '',
     nights: initialCheckInDays,
     nightsTo: initialCheckInDays + 2,
@@ -105,8 +106,15 @@
     updateField('where', '');
     updateField('to', '');
     updateField('toCities', []);
-    updateField('from', '');
+    updateField('from', initialFromCity);
     updateField('transport', '');
+    dispatch(
+      actionsSearchCities.start({
+        params: {
+          geoId: $form.to || 0
+        }
+      })
+    );
   }
   function onAutocompleteSuggests({ detail: { where } }) {
     dispatch(
@@ -214,6 +222,17 @@
       })
     );
   }
+  function onFetchDefaultDepsCity({ detail: { id } }) {
+    updateField('from', id);
+    dispatch(
+      actionsSearchDates.start({
+        params: {
+          to: $form.to,
+          from: id
+        }
+      })
+    );
+  }
 
   function onChangeNight({ detail: { nights, nightsTo } }) {
     updateField('nights', nights);
@@ -303,6 +322,7 @@
       on:open_deps_modal={onOpenDepsModal}
       on:close_deps_modal={onCloseDepsModal}
       on:mount_deps_cities={onMountDepsCities}
+      on:fetch_default_deps_city={onFetchDefaultDepsCity}
     />
     <SearchTourNights
       on:change_night={onChangeNight}

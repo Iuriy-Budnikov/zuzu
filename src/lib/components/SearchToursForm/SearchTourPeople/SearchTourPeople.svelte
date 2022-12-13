@@ -1,8 +1,8 @@
 <script>
   import { createEventDispatcher, getContext } from 'svelte';
   import { key } from 'svelte-forms-lib';
-  import { valuesSearchForm } from '$lib/stores/search/searchForm';
 
+  import { valuesSearchForm } from '$lib/stores/search/searchForm';
   import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
   import SearchToursDropdown from '../SearchToursComponents/SearchToursDropdown.svelte';

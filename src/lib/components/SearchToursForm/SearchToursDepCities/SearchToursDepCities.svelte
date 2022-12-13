@@ -1,8 +1,9 @@
 <script>
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { onMount, createEventDispatcher, getContext } from 'svelte';
+  import { key } from 'svelte-forms-lib';
+
   import { valuesSearchCities } from '$lib/stores/search/searchCities';
   import { valuesSearchForm } from '$lib/stores/search/searchForm';
-
   import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
   import SearchToursDropdown from '../SearchToursComponents/SearchToursDropdown.svelte';
@@ -13,7 +14,16 @@
   const { cities, loading: loadingCities } = valuesSearchCities;
   const { isDepsModalOpened } = valuesSearchForm;
 
+  const { form } = getContext(key);
   const dispatch = createEventDispatcher();
+
+  $: {
+    if (!$form.from && $cities?.length && $form.to && !$loadingCities) {
+      dispatch('fetch_default_deps_city', {
+        id: $cities?.[0].id || '0'
+      });
+    }
+  }
 
   function onClickLabel() {
     if (!$isDepsModalOpened) {
