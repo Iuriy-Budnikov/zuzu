@@ -176,6 +176,17 @@
     updateField('transport', transport);
     dispatch(actionsSearchForm.closeDepsModal());
     dispatch(actionsSearchForm.openNightsModal());
+
+    if (id && $form.to) {
+      dispatch(
+        actionsSearchDates.start({
+          params: {
+            to: $form.to,
+            from: id
+          }
+        })
+      );
+    }
   }
   function onClickDepCity() {
     dispatch(actionsSearchForm.closeDepsModal());
