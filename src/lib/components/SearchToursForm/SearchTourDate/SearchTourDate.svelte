@@ -39,11 +39,19 @@
 
   function onChangeDate(event) {
     const [, date] = event.detail.detail;
-    const selectedDate = parse(date, DATE_FORMAT, new Date());
+    const currentDate = new Date();
+    const selectedDate = parse(date, DATE_FORMAT, currentDate);
+    const tomorrow = parse(format(addDays(currentDate, 1), DATE_FORMAT), DATE_FORMAT, currentDate);
+    const formatedTomorrowDate = format(tomorrow, DATE_FORMAT);
     const prevDate = subDays(selectedDate, $form.checkRange);
     const nextDate = addDays(selectedDate, $form.checkRange);
-    const formatedPrevDate = format(prevDate, DATE_FORMAT);
+    let formatedPrevDate = format(prevDate, DATE_FORMAT);
     const formatedNextDate = format(nextDate, DATE_FORMAT);
+
+    // prevent offset if +- selected
+    if (prevDate < tomorrow) {
+      formatedPrevDate = formatedTomorrowDate;
+    }
 
     dispatch('change_date', {
       checkDate: date,
@@ -54,11 +62,19 @@
 
   function onChangeCheckRange(event) {
     const { value } = event.detail;
-    const selectedDate = parse($form.checkDate, DATE_FORMAT, new Date());
+    const currentDate = new Date();
+    const selectedDate = parse($form.checkDate, DATE_FORMAT, currentDate);
+    const tomorrow = parse(format(addDays(currentDate, 1), DATE_FORMAT), DATE_FORMAT, currentDate);
+    const formatedTomorrowDate = format(tomorrow, DATE_FORMAT);
     const prevDate = subDays(selectedDate, value);
     const nextDate = addDays(selectedDate, value);
-    const formatedPrevDate = format(prevDate, DATE_FORMAT);
+    let formatedPrevDate = format(prevDate, DATE_FORMAT);
     const formatedNextDate = format(nextDate, DATE_FORMAT);
+
+    // // prevent offset if +- selected
+    if (prevDate < tomorrow) {
+      formatedPrevDate = formatedTomorrowDate;
+    }
 
     dispatch('change_check_range', {
       checkRange: value,
