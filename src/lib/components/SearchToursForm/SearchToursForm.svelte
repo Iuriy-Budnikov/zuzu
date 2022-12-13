@@ -108,6 +108,7 @@
     updateField('toCities', []);
     updateField('from', initialFromCity);
     updateField('transport', '');
+    dispatch(actionsSearchDates.clear());
     dispatch(
       actionsSearchCities.start({
         params: {

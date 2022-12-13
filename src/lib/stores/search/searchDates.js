@@ -15,6 +15,10 @@ const { actions, values } = createChunk({
     failure: {
       handler: (store, payload) => ({ ...store, loading: false, error: payload }),
       payload: (n) => n
+    },
+    clear: {
+      handler: (store) => ({ ...store, loading: false, dates: {}, error: null }),
+      payload: (n) => n
     }
   }
 });
