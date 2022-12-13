@@ -3,9 +3,8 @@
   import { key } from 'svelte-forms-lib';
   import { parse, format } from 'date-fns';
   import { uk } from 'date-fns/locale/index.js';
+  import { DATE_FORMAT } from '$lib/utils/dateUtils';
   const { form } = getContext(key);
-
-  const dateFormat = 'yyyy-MM-dd';
 
   let currentDate;
   let start;
@@ -22,8 +21,8 @@
   $: {
     try {
       currentDate = new Date();
-      start = parse($form.checkIn, dateFormat, currentDate);
-      end = parse($form.checkTo, dateFormat, currentDate);
+      start = parse($form.checkIn, DATE_FORMAT, currentDate);
+      end = parse($form.checkTo, DATE_FORMAT, currentDate);
 
       startDate = format(start, 'd', { locale: uk });
       startMonth = format(start, 'MMM', { locale: uk }).slice(0, 3);
@@ -42,7 +41,7 @@
   <div class="search-tours-active-date__name">
     {startDate}
     {startMonth}, <span class="search-tours-active-date__date">{startDay}</span>
-    {#if $form.checkRange}
+    {#if $form.checkRange || !$form.checkDate}
       &nbsp;—&nbsp;{endDate}
       {endMonth},&nbsp;
       <span class="search-tours-active-date__date">

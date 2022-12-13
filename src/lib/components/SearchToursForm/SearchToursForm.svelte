@@ -1,5 +1,7 @@
 <script>
   import { createForm } from 'svelte-forms-lib';
+  import { format, addDays } from 'date-fns';
+
   import { dispatch } from '$lib/stores/store';
   import { actionsSearchCities } from '$lib/stores/search/searchCities';
   import { actionsSearchForm } from '$lib/stores/search/searchForm';
@@ -13,23 +15,30 @@
   import SearchToursSubmit from './SearchToursComponents/SearchToursSubmit.svelte';
   import SearchTourPeople from './SearchTourPeople/SearchTourPeople.svelte';
   import SearchTourDate from './SearchTourDate/SearchTourDate.svelte';
+  import { DATE_FORMAT } from '$lib/utils/dateUtils';
 
   const onSubmit = async (values) => {
     console.log('values', values);
   };
 
+  const initialCheckInDays = 7;
+  const checkInDate = addDays(new Date(), initialCheckInDays);
+  const checkToDate = addDays(checkInDate, initialCheckInDays - 1);
+  const initialCheckInDate = format(checkInDate, DATE_FORMAT);
+  const initialCheckToDate = format(checkToDate, DATE_FORMAT);
+
   let initialValues = {
     where: '',
     to: '',
     toCities: [],
-    from: '',
+    from: '1544', // KIEV
     transport: '',
-    nights: 6,
-    nightsTo: 8,
-    checkRange: 4,
+    nights: initialCheckInDays,
+    nightsTo: initialCheckInDays + 2,
+    checkRange: 0,
     checkDate: '',
-    checkIn: '',
-    checkTo: '',
+    checkIn: initialCheckInDate,
+    checkTo: initialCheckToDate,
     people: 2,
     children: []
   };

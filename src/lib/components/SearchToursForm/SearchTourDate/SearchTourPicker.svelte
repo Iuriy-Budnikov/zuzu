@@ -5,9 +5,9 @@
   import DatePicker from '$lib/elements/Inputs/DatePicker/DatePicker.svelte';
   import { Ukrainian } from 'flatpickr/dist/l10n/uk.js';
   import SearchTourRangeButton from './SearchTourRangeButton.svelte';
+  import { DATE_FORMAT } from '$lib/utils/dateUtils';
 
   const { form } = getContext(key);
-  const dateFormat = 'yyyy-MM-dd';
 
   let currentDate;
   let start;
@@ -18,8 +18,8 @@
 
   $: {
     currentDate = new Date();
-    start = parse($form.checkIn, dateFormat, currentDate);
-    end = parse($form.checkTo, dateFormat, currentDate);
+    start = parse($form.checkIn, DATE_FORMAT, currentDate);
+    end = parse($form.checkTo, DATE_FORMAT, currentDate);
 
     options = {
       inline: true,
@@ -29,7 +29,7 @@
       minDate: 'today',
       onDayCreate: function (dObj, dStr, fp, dayElem) {
         const date = dayElem.dateObj;
-        if (date > start && date < end) {
+        if (date > start && date < end && $form.checkDate) {
           dayElem.className += ' selected-day';
         }
       }

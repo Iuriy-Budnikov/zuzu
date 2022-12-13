@@ -10,6 +10,7 @@
   import SearchToursDropdown from '../SearchToursComponents/SearchToursDropdown.svelte';
   import SearchTourPicker from './SearchTourPicker.svelte';
   import SearchTourActiveDate from './SearchTourActiveDate.svelte';
+  import { DATE_FORMAT } from '$lib/utils/dateUtils';
 
   const { form } = getContext(key);
   const { isDateModalOpened } = valuesSearchForm;
@@ -38,12 +39,11 @@
 
   function onChangeDate(event) {
     const [, date] = event.detail.detail;
-    const dateFormat = 'yyyy-MM-dd';
-    const selectedDate = parse(date, dateFormat, new Date());
+    const selectedDate = parse(date, DATE_FORMAT, new Date());
     const prevDate = subDays(selectedDate, $form.checkRange);
     const nextDate = addDays(selectedDate, $form.checkRange);
-    const formatedPrevDate = format(prevDate, dateFormat);
-    const formatedNextDate = format(nextDate, dateFormat);
+    const formatedPrevDate = format(prevDate, DATE_FORMAT);
+    const formatedNextDate = format(nextDate, DATE_FORMAT);
 
     dispatch('change_date', {
       checkDate: date,

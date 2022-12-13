@@ -9,26 +9,28 @@
   $: city = $cities.find((c) => c.id === $form.from);
 </script>
 
-<div class="search-tours-active-dep-city">
-  <div class="search-tours-active-dep-city__name">
-    {#if $form.from === '0'}
-      Тільки проживання
-    {:else if !!city}
-      з {city?.rel}
-    {/if}
-  </div>
-  <div class="search-tours-active-dep-city__icon">
-    {#if $form.from === '0'}
-      <Icon width="16px" height="16px" box="16 16" name="foot" />
-    {:else if !!city}
-      {#if city.transport?.[0] === 'air'}
-        <Icon width="18px" height="16px" box="18 18" name="air" />
-      {:else if city.transport?.[0] === 'bus'}
-        <Icon width="16px" height="16px" box="16 16" name="bus" />
+{#if $form.from}
+  <div class="search-tours-active-dep-city">
+    <div class="search-tours-active-dep-city__name">
+      {#if $form.from === '0'}
+        Тільки проживання
+      {:else if !!city}
+        з {city?.rel}
       {/if}
-    {/if}
+    </div>
+    <div class="search-tours-active-dep-city__icon">
+      {#if $form.from === '0'}
+        <Icon width="16px" height="16px" box="16 16" name="foot" />
+      {:else if !!city}
+        {#if city.transport?.[0] === 'air'}
+          <Icon width="18px" height="16px" box="18 18" name="air" />
+        {:else if city.transport?.[0] === 'bus'}
+          <Icon width="16px" height="16px" box="16 16" name="bus" />
+        {/if}
+      {/if}
+    </div>
   </div>
-</div>
+{/if}
 
 <style lang="scss">
   .search-tours-active-dep-city {
