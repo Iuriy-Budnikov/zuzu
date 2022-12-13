@@ -1,7 +1,7 @@
 import { createChunk } from '../store';
 
 const { actions, values } = createChunk({
-  initialState: { loading: false, dates: [], error: null },
+  initialState: { loading: false, dates: {}, error: null },
   namespace: 'searchDates',
   actions: {
     start: {

@@ -25,6 +25,9 @@
     const tomorrow = parse(format(addDays(currentDate, 1), DATE_FORMAT), DATE_FORMAT, currentDate);
 
     function disableDays(date) {
+      if (!$dates || !Object.keys($dates || {})?.length) {
+        return false;
+      }
       const currentDay = format(date, DATE_FORMAT);
       return !$dates?.[currentDay];
     }
@@ -40,7 +43,7 @@
       onDayCreate: function (dObj, dStr, fp, dayElem) {
         if ($form.checkDate) {
           const date = dayElem.dateObj;
-          if (date >= start && date <= end && date > tomorrow) {
+          if (date >= start && date <= end && date >= tomorrow) {
             dayElem.className += ' selected-day';
           }
         }

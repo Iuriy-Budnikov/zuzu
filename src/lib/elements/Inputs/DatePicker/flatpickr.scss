@@ -563,10 +563,8 @@ span.flatpickr-weekday {
 .flatpickr-day:focus,
 .flatpickr-day.prevMonthDay:focus,
 .flatpickr-day.nextMonthDay:focus {
-  border-color: #e6e6e6;
-  background: #e6e6e6;
-  background: transparent;
-  border-color: transparent;
+  // border-color: #e6e6e6;
+  // background: #e6e6e6;
   outline: 0;
   cursor: pointer;
 }

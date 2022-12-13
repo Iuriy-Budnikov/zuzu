@@ -27,6 +27,8 @@
     }
     &--dep-cities {
       flex: 1.1;
+      min-width: 170px;
+      width: 170px;
       max-width: 170px;
 
       @include media('<=tablet') {
@@ -47,7 +49,7 @@
       }
     }
     &--nights {
-      flex: 125px 0 0;
+      flex: 152px 0 0;
       min-width: 152px;
       max-width: 152px;
 
