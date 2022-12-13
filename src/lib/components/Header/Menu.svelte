@@ -145,11 +145,11 @@
     position: fixed;
     top: 0;
     overflow: auto;
-    max-height: 520px;
+    max-height: 320px;
     height: 100%;
     -webkit-overflow-scrolling: touch;
     &__backdrop {
-      background-color: var(--color__bg--primary);
+      background-color: var(--color__dark);
       position: fixed;
       top: 0;
       right: 0;

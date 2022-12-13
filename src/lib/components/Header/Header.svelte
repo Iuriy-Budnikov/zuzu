@@ -93,6 +93,8 @@
     &__logo {
       min-width: 100px;
       pointer-events: all;
+      margin-top: -10px;
+
       a {
         border-bottom: 0;
       }
