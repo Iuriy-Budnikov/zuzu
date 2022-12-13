@@ -7,6 +7,7 @@
   import { actionsSearchForm } from '$lib/stores/search/searchForm';
   import { actionsSearchSuggests } from '$lib/stores/search/searchSuggests';
   import { actionsSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  import { actionsSearchDates } from '$lib/stores/search/searchDates';
 
   import Form from '$lib/elements/Forms/Form.svelte';
   import SearchToursLocation from './SearchToursLocation/SearchToursLocation.svelte';
@@ -237,9 +238,20 @@
     dispatch(actionsSearchForm.closeDateModal());
   }
   function onOpenPeopleDateModal() {
-    console.log('!!!!!!');
     onCloseDateModal();
     onOpenPeopleModal();
+  }
+  function onMountDate() {
+    if ($form.to && $form.from) {
+      dispatch(
+        actionsSearchDates.start({
+          params: {
+            to: $form.to,
+            from: $form.from
+          }
+        })
+      );
+    }
   }
 
   function onChangePeople({ detail: { people, children } }) {
@@ -293,6 +305,7 @@
       on:open_date_modal={onOpenDateModal}
       on:close_date_modal={onCloseDateModal}
       on:open_people_modal={onOpenPeopleDateModal}
+      on:mount_date={onMountDate}
     />
     <SearchTourPeople
       on:reset_people={onResetPeople}

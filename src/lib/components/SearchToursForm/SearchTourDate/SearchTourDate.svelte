@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher, getContext, onMount } from 'svelte';
   import { format, parse, subDays, addDays } from 'date-fns';
   import { key } from 'svelte-forms-lib';
 
@@ -66,6 +66,10 @@
       checkTo: formatedNextDate
     });
   }
+
+  onMount(() => {
+    dispatch('mount_date');
+  });
 </script>
 
 <SearchToursField isActive={$isDateModalOpened} type="date">
@@ -78,6 +82,10 @@
     on:window_key_down={handleWindowKeyDown}
     type="date"
   >
-    <SearchTourPicker on:change_date={onChangeDate} on:change_check_range={onChangeCheckRange} on:open_people_modal />
+    <SearchTourPicker
+      on:change_date={onChangeDate}
+      on:change_check_range={onChangeCheckRange}
+      on:open_people_modal
+    />
   </SearchToursDropdown>
 </SearchToursField>
