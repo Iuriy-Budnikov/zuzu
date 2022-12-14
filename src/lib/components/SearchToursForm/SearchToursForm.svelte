@@ -65,7 +65,9 @@
   });
   const { form, isSubmitting, isValid, errors, updateField } = formContext;
 
-  console.log('$errors', $errors);
+  $: {
+    console.log('$errors', $errors);
+  }
 
   try {
     if (typeof localStorage !== 'undefined') {
@@ -309,6 +311,7 @@
   {$isValid}
   <div class="search-tours-form">
     <SearchToursLocation
+      disabled={isSubmitting}
       on:open_suggest_modal={onOpenSuggestModal}
       on:close_suggest_modal={onCloseSuggestModal}
       on:open_geo_tree_modal={onOpenGeoTreeModal}
@@ -323,6 +326,7 @@
       on:open_deps_modal={onOpenDepsModal}
     />
     <SearchToursDepCities
+      disabled={isSubmitting}
       on:change_dep_city={onChangeDepCity}
       on:click_dep_city={onClickDepCity}
       on:open_deps_modal={onOpenDepsModal}
@@ -331,12 +335,14 @@
       on:fetch_default_deps_city={onFetchDefaultDepsCity}
     />
     <SearchTourNights
+      disabled={isSubmitting}
       on:change_night={onChangeNight}
       on:click_night={onClickNight}
       on:open_nights_modal={onOpenNightsModal}
       on:close_nights_modal={onCloseNightsModal}
     />
     <SearchTourDate
+      disabled={isSubmitting}
       on:change_date={onChangeDate}
       on:change_check_range={onChangeCheckRange}
       on:open_date_modal={onOpenDateModal}
@@ -345,12 +351,13 @@
       on:mount_date={onMountDate}
     />
     <SearchTourPeople
+      disabled={isSubmitting}
       on:reset_people={onResetPeople}
       on:change_people={onChangePeople}
       on:open_people_modal={onOpenPeopleModal}
       on:close_people_modal={onClosePeopleModal}
     />
-    <SearchToursSubmit />
+    <SearchToursSubmit disabled={isSubmitting} />
   </div>
 </Form>
 

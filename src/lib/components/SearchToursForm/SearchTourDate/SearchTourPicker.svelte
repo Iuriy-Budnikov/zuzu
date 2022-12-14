@@ -94,6 +94,7 @@
     &__date-picker {
       display: flex;
       justify-content: center;
+      min-height: 374px;
 
       :global(.flatpickr-calendar) {
         width: 100%;
