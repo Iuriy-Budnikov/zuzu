@@ -19,8 +19,10 @@
 
   $: {
     if (!$form.from && $cities?.length && $form.to && !$loadingCities) {
+      const city = $cities?.[0];
       dispatch('fetch_default_deps_city', {
-        id: $cities?.[0].id || '0'
+        id: city?.id || '0',
+        transport: city?.transport?.[0]
       });
     }
   }

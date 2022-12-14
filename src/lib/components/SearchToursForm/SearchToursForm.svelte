@@ -17,10 +17,7 @@
   import SearchTourPeople from './SearchTourPeople/SearchTourPeople.svelte';
   import SearchTourDate from './SearchTourDate/SearchTourDate.svelte';
   import { DATE_FORMAT } from '$lib/utils/dateUtils';
-
-  const onSubmit = async (values) => {
-    console.log('values', values);
-  };
+  import toursSchema from './toursSchema';
 
   const initialCheckInDays = 7;
   const checkInDate = addDays(new Date(), initialCheckInDays);
@@ -57,12 +54,18 @@
     } catch (error) {}
   }
 
+  const onSubmit = async (values) => {
+    console.log('values', values);
+  };
+
   let formContext = createForm({
     initialValues,
-    // validationSchema: schema,
+    validationSchema: toursSchema,
     onSubmit
   });
-  const { form, isSubmitting, updateField } = formContext;
+  const { form, isSubmitting, isValid, errors, updateField } = formContext;
+
+  console.log('$errors', $errors);
 
   try {
     if (typeof localStorage !== 'undefined') {
@@ -106,7 +109,7 @@
     updateField('where', '');
     updateField('to', '');
     updateField('toCities', []);
-    updateField('from', initialFromCity);
+    updateField('from', '');
     updateField('transport', '');
     dispatch(actionsSearchDates.clear());
     dispatch(
@@ -223,8 +226,9 @@
       })
     );
   }
-  function onFetchDefaultDepsCity({ detail: { id } }) {
+  function onFetchDefaultDepsCity({ detail: { id, transport } }) {
     updateField('from', id);
+    updateField('transport', transport);
     dispatch(
       actionsSearchDates.start({
         params: {
@@ -302,6 +306,7 @@
 </script>
 
 <Form context={formContext} formProps={{ method: 'post' }}>
+  {$isValid}
   <div class="search-tours-form">
     <SearchToursLocation
       on:open_suggest_modal={onOpenSuggestModal}
