@@ -134,10 +134,7 @@
   });
 </script>
 
-<SearchToursField
-  isActive={$isSuggestModalOpened}
-  type="location"
->
+<SearchToursField isActive={$isSuggestModalOpened} type="location">
   <div class="search-tours-form-location">
     <SearchToursLabel
       on:click={onClickLabel}
@@ -200,7 +197,7 @@
               bind:this={listGeoElement}
             >
               {#if $loadingGeoTree}
-                <SearchToursLoader />
+                &nbsp;
               {:else}
                 {#if !!$geo.length}
                   <SearchSuggestGeoAddAll on:change_geo_tree_all name="Всі курорти" />

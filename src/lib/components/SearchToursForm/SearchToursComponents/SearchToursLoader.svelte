@@ -1,4 +1,4 @@
-<div class="search-tours-loader">Завантажую...</div>
+<div class="search-tours-loader">Завантажую ⛱️</div>
 
 <style lang="scss">
   .search-tours-loader {
