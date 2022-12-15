@@ -11,6 +11,7 @@
   import SearchToursLoader from '../SearchToursComponents/SearchToursLoader.svelte';
   import SearchToursActiveDepCity from './SearchToursActiveDepCity.svelte';
 
+  export let isSubmitting = false;
   const { cities, loading: loadingCities } = valuesSearchCities;
   const { isDepsModalOpened } = valuesSearchForm;
 
@@ -52,7 +53,7 @@
   });
 </script>
 
-<SearchToursField isActive={$isDepsModalOpened} type="dep-cities">
+<SearchToursField isActive={$isDepsModalOpened} {isSubmitting} type="dep-cities">
   <SearchToursLabel on:click={onClickLabel} label="Звідки">
     <SearchToursActiveDepCity />
   </SearchToursLabel>

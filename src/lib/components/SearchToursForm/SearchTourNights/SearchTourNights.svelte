@@ -9,6 +9,7 @@
   import SearchToursActiveNight from './SearchToursActiveNight.svelte';
   import { getNights } from './nigths';
 
+  export let isSubmitting = false;
   const { isNightsModalOpened } = valuesSearchForm;
 
   const dispatch = createEventDispatcher();
@@ -36,7 +37,7 @@
   const nights = getNights();
 </script>
 
-<SearchToursField isActive={$isNightsModalOpened} type="nights">
+<SearchToursField isActive={$isNightsModalOpened} {isSubmitting} type="nights">
   <SearchToursLabel on:click={onClickLabel} label="Тривалість">
     <SearchToursActiveNight />
   </SearchToursLabel>

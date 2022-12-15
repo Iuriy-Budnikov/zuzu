@@ -12,7 +12,6 @@
   import SearchSuggestLocation from './SearchSuggestLocation.svelte';
   import SearchSuggestGeoGroup from './SearchSuggestGeoGroup.svelte';
   import SearchSuggestGeoItem from './SearchSuggestGeoItem.svelte';
-  import Icon from '$lib/elements/Icon/Icon.svelte';
   import SearchToursLabel from '../SearchToursComponents/SearchToursLabel.svelte';
   import SearchToursField from '../SearchToursComponents/SearchToursField.svelte';
   import SearchSuggestGeoAddAll from './SearchSuggestGeoAddAll.svelte';
@@ -20,6 +19,7 @@
   import SearchToursReset from '../SearchToursComponents/SearchToursReset.svelte';
   import Button from '$lib/elements/Button/Button.svelte';
 
+  export let isSubmitting = false;
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
   const { isSuggestModalOpened, isGeoTreeModalOpened } = valuesSearchForm;
@@ -135,7 +135,7 @@
   });
 </script>
 
-<SearchToursField isActive={$isSuggestModalOpened} type="location">
+<SearchToursField isActive={$isSuggestModalOpened} {isSubmitting} type="location">
   <div class="search-tours-form-location">
     <SearchToursLabel
       on:click={onClickLabel}
@@ -152,6 +152,7 @@
         {placeholder}
         value={$form['toCities']?.length ? '' : $form['where']}
         bind:this={inputElement}
+        id="search-location-input"
       />
     </SearchToursLabel>
     <div

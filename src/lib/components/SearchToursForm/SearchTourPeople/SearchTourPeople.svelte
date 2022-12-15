@@ -10,6 +10,7 @@
   import SearchToursActivePeople from './SearchToursActivePeople.svelte';
   import SearchToursPeoplePicker from './SearchToursPeoplePicker.svelte';
 
+  export let isSubmitting = false;
   const { isPeopleModalOpened } = valuesSearchForm;
 
   const dispatch = createEventDispatcher();
@@ -41,7 +42,7 @@
   }
 </script>
 
-<SearchToursField isActive={$isPeopleModalOpened} type="people">
+<SearchToursField isActive={$isPeopleModalOpened} {isSubmitting} type="people">
   <div class="search-tours-people">
     <SearchToursLabel on:click={onClickLabel} label="Туристи">
       <SearchToursActivePeople />

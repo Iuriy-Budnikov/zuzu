@@ -1,11 +1,13 @@
 <script>
   export let isActive = false;
+  export let isSubmitting = false;
   export let type = 'location';
 </script>
 
 <div
   class="search-tours-field"
   class:search-tours-field--active={isActive}
+  class:search-tours-field--submitting={isSubmitting}
   class:search-tours-field--location={type === 'location'}
   class:search-tours-field--dep-cities={type === 'dep-cities'}
   class:search-tours-field--date={type === 'date'}
@@ -89,6 +91,10 @@
       &:after {
         display: none;
       }
+    }
+
+    &--submitting {
+      pointer-events: none;
     }
   }
 </style>

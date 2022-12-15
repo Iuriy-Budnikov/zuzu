@@ -55,6 +55,7 @@
   }
 
   const onSubmit = async (values) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log('values', values);
   };
 
@@ -66,7 +67,15 @@
   const { form, isSubmitting, isValid, errors, updateField } = formContext;
 
   $: {
-    console.log('$errors', $errors);
+    if (typeof window !== 'undefined') {
+      if (!$errors?.toCities?.length && !!$errors?.to) {
+        const input = document.getElementById('search-location-input');
+        if (input.className.indexOf('--focused') === -1) {
+          onOpenSuggestModal();
+          input.focus();
+        }
+      }
+    }
   }
 
   try {
@@ -308,10 +317,9 @@
 </script>
 
 <Form context={formContext} formProps={{ method: 'post' }}>
-  {$isValid}
   <div class="search-tours-form">
     <SearchToursLocation
-      disabled={isSubmitting}
+      isSubmitting={$isSubmitting}
       on:open_suggest_modal={onOpenSuggestModal}
       on:close_suggest_modal={onCloseSuggestModal}
       on:open_geo_tree_modal={onOpenGeoTreeModal}
@@ -326,7 +334,7 @@
       on:open_deps_modal={onOpenDepsModal}
     />
     <SearchToursDepCities
-      disabled={isSubmitting}
+      isSubmitting={$isSubmitting}
       on:change_dep_city={onChangeDepCity}
       on:click_dep_city={onClickDepCity}
       on:open_deps_modal={onOpenDepsModal}
@@ -335,14 +343,14 @@
       on:fetch_default_deps_city={onFetchDefaultDepsCity}
     />
     <SearchTourNights
-      disabled={isSubmitting}
+      isSubmitting={$isSubmitting}
       on:change_night={onChangeNight}
       on:click_night={onClickNight}
       on:open_nights_modal={onOpenNightsModal}
       on:close_nights_modal={onCloseNightsModal}
     />
     <SearchTourDate
-      disabled={isSubmitting}
+      isSubmitting={$isSubmitting}
       on:change_date={onChangeDate}
       on:change_check_range={onChangeCheckRange}
       on:open_date_modal={onOpenDateModal}
@@ -351,13 +359,13 @@
       on:mount_date={onMountDate}
     />
     <SearchTourPeople
-      disabled={isSubmitting}
+      isSubmitting={$isSubmitting}
       on:reset_people={onResetPeople}
       on:change_people={onChangePeople}
       on:open_people_modal={onOpenPeopleModal}
       on:close_people_modal={onClosePeopleModal}
     />
-    <SearchToursSubmit disabled={isSubmitting} />
+    <SearchToursSubmit isSubmitting={$isSubmitting} />
   </div>
 </Form>
 
