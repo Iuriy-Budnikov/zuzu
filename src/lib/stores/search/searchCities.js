@@ -1,7 +1,7 @@
 import { createChunk } from '../store';
 
 const { actions, values } = createChunk({
-  initialState: { loading: false, cities: [], error: null },
+  initialState: { loading: false, loaded: false, cities: [], error: null },
   namespace: 'searchCities',
   actions: {
     start: {
@@ -9,11 +9,11 @@ const { actions, values } = createChunk({
       payload: (n) => n
     },
     success: {
-      handler: (state, payload) => ({ ...state, loading: false, cities: payload }),
+      handler: (state, payload) => ({ ...state, loading: false, loaded: true, cities: payload }),
       payload: (n) => n.fromCities
     },
     failure: {
-      handler: (store, payload) => ({ ...store, loading: false, error: payload }),
+      handler: (store, payload) => ({ ...store, loading: false, loaded: false, error: payload }),
       payload: (n) => n
     }
   }

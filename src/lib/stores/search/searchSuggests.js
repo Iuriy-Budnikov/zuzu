@@ -1,7 +1,7 @@
 import { createChunk } from '../store';
 
 const { actions, values } = createChunk({
-  initialState: { loading: false, suggests: [], error: null },
+  initialState: { loading: false, loaded: false, suggests: [], error: null },
   namespace: 'searchSuggests',
   actions: {
     start: {
@@ -9,7 +9,7 @@ const { actions, values } = createChunk({
       payload: (n) => n
     },
     success: {
-      handler: (state, payload) => ({ ...state, loading: false, suggests: payload }),
+      handler: (state, payload) => ({ ...state, loading: false, loaded: true, suggests: payload }),
       payload: (n) =>
         Object.keys(n.response)
           .map((key) => n.response[key])
@@ -22,7 +22,7 @@ const { actions, values } = createChunk({
           })
     },
     failure: {
-      handler: (store, payload) => ({ ...store, loading: false, error: payload }),
+      handler: (store, payload) => ({ ...store, loading: false, loaded: false, error: payload }),
       payload: (n) => n
     }
   }

@@ -21,5 +21,11 @@
       width: 80px;
       max-width: 80px;
     }
+
+    :global(.button) {
+      width: 100%;
+      height: 100%;
+      text-transform: uppercase;
+    }
   }
 </style>

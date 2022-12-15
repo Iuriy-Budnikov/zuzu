@@ -1,7 +1,7 @@
 import { createChunk } from '../store';
 
 const { actions, values } = createChunk({
-  initialState: { loading: false, geo: [], error: null },
+  initialState: { loading: false, loaded: false, geo: [], error: null },
   namespace: 'searchGeoTree',
   actions: {
     start: {
@@ -9,7 +9,7 @@ const { actions, values } = createChunk({
       payload: (n) => n
     },
     success: {
-      handler: (state, payload) => ({ ...state, loading: false, geo: payload }),
+      handler: (state, payload) => ({ ...state, loading: false, loaded: true, geo: payload }),
       payload: (n) =>
         n.geo
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -22,7 +22,7 @@ const { actions, values } = createChunk({
           .sort((a, b) => (a?.children?.length || -1) - (b?.children?.length || -1))
     },
     failure: {
-      handler: (store, payload) => ({ ...store, loading: false, error: payload }),
+      handler: (store, payload) => ({ ...store, loading: false, loaded: false, error: payload }),
       payload: (n) => n
     }
   }

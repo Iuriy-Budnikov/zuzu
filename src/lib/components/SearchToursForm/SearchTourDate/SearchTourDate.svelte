@@ -12,7 +12,6 @@
   import SearchTourActiveDate from './SearchTourActiveDate.svelte';
   import { DATE_FORMAT } from '$lib/utils/dateUtils';
 
-  export let isSubmitting = false;
   const { form } = getContext(key);
   const { isDateModalOpened } = valuesSearchForm;
 
@@ -89,7 +88,7 @@
   });
 </script>
 
-<SearchToursField isActive={$isDateModalOpened} {isSubmitting} type="date">
+<SearchToursField isActive={$isDateModalOpened} type="date">
   <SearchToursLabel on:click={onClickLabel} label="Початок туру">
     <SearchTourActiveDate />
   </SearchToursLabel>

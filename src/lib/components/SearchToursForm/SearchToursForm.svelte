@@ -2,6 +2,7 @@
   import { createForm } from 'svelte-forms-lib';
   import { format, addDays } from 'date-fns';
 
+  import { browser } from '$app/environment';
   import { dispatch } from '$lib/stores/store';
   import { actionsSearchCities } from '$lib/stores/search/searchCities';
   import { actionsSearchForm } from '$lib/stores/search/searchForm';
@@ -18,6 +19,16 @@
   import SearchTourDate from './SearchTourDate/SearchTourDate.svelte';
   import { DATE_FORMAT } from '$lib/utils/dateUtils';
   import toursSchema from './toursSchema';
+
+  import { valuesSearchSuggests } from '$lib/stores/search/searchSuggests';
+  import { valuesSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  import { valuesSearchCities } from '$lib/stores/search/searchCities';
+  import { valuesSearchDates } from '$lib/stores/search/searchDates';
+
+  const { loading: loadingSuggests, loaded: loadedSuggests } = valuesSearchSuggests;
+  const { loading: loadingGeoTree, loaded: loadedGeoTree } = valuesSearchGeoTree;
+  const { loading: loadingCities, loaded: loadedCities } = valuesSearchCities;
+  const { loading: loadingDates, loaded: loadedDates } = valuesSearchDates;
 
   const initialCheckInDays = 7;
   const checkInDate = addDays(new Date(), initialCheckInDays);
@@ -64,15 +75,15 @@
     validationSchema: toursSchema,
     onSubmit
   });
-  const { form, isSubmitting, isValid, errors, updateField } = formContext;
+  const { form, isSubmitting, errors, updateField } = formContext;
 
   $: {
     if (typeof window !== 'undefined') {
       if (!$errors?.toCities?.length && !!$errors?.to) {
         const input = document.getElementById('search-location-input');
         if (input.className.indexOf('--focused') === -1) {
-          onOpenSuggestModal();
           input.focus();
+          dispatch(actionsSearchForm.openSuggestModal());
         }
       }
     }
@@ -314,12 +325,30 @@
   function onClosePeopleModal() {
     dispatch(actionsSearchForm.closePeopleModal());
   }
+
+  let loading = true;
+  $: {
+    if (browser) {
+      loading =
+        $loadingSuggests &&
+        !$loadedSuggests &&
+        $loadingGeoTree &&
+        !$loadedGeoTree &&
+        $loadingCities &&
+        !$loadedCities &&
+        $loadingDates &&
+        !$loadedDates;
+    }
+  }
 </script>
 
 <Form context={formContext} formProps={{ method: 'post' }}>
-  <div class="search-tours-form">
+  <div
+    class="search-tours-form"
+    class:search-tours-form--loading={loading}
+    class:search-tours-form--submitting={$isSubmitting}
+  >
     <SearchToursLocation
-      isSubmitting={$isSubmitting}
       on:open_suggest_modal={onOpenSuggestModal}
       on:close_suggest_modal={onCloseSuggestModal}
       on:open_geo_tree_modal={onOpenGeoTreeModal}
@@ -334,7 +363,6 @@
       on:open_deps_modal={onOpenDepsModal}
     />
     <SearchToursDepCities
-      isSubmitting={$isSubmitting}
       on:change_dep_city={onChangeDepCity}
       on:click_dep_city={onClickDepCity}
       on:open_deps_modal={onOpenDepsModal}
@@ -343,14 +371,12 @@
       on:fetch_default_deps_city={onFetchDefaultDepsCity}
     />
     <SearchTourNights
-      isSubmitting={$isSubmitting}
       on:change_night={onChangeNight}
       on:click_night={onClickNight}
       on:open_nights_modal={onOpenNightsModal}
       on:close_nights_modal={onCloseNightsModal}
     />
     <SearchTourDate
-      isSubmitting={$isSubmitting}
       on:change_date={onChangeDate}
       on:change_check_range={onChangeCheckRange}
       on:open_date_modal={onOpenDateModal}
@@ -359,7 +385,6 @@
       on:mount_date={onMountDate}
     />
     <SearchTourPeople
-      isSubmitting={$isSubmitting}
       on:reset_people={onResetPeople}
       on:change_people={onChangePeople}
       on:open_people_modal={onOpenPeopleModal}
@@ -383,5 +408,29 @@
     width: 100%;
     position: relative;
     z-index: 10;
+
+    &--submitting,
+    &--loading {
+      pointer-events: none;
+    }
+
+    &--loading {
+      &:before {
+        content: 'Завантажую тури ⛱️';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: var(--color__light);
+        border-radius: 3px;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 </style>

@@ -19,7 +19,6 @@
   import SearchToursReset from '../SearchToursComponents/SearchToursReset.svelte';
   import Button from '$lib/elements/Button/Button.svelte';
 
-  export let isSubmitting = false;
   const { suggests, loading: loadingSuggests } = valuesSearchSuggests;
   const { geo, loading: loadingGeoTree } = valuesSearchGeoTree;
   const { isSuggestModalOpened, isGeoTreeModalOpened } = valuesSearchForm;
@@ -135,7 +134,10 @@
   });
 </script>
 
-<SearchToursField isActive={$isSuggestModalOpened} {isSubmitting} type="location">
+<SearchToursField
+  isActive={$isSuggestModalOpened}
+  type="location"
+>
   <div class="search-tours-form-location">
     <SearchToursLabel
       on:click={onClickLabel}
