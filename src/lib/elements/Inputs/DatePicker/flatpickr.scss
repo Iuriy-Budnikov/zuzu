@@ -267,8 +267,8 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 14px;
-  height: 50%;
-  padding: 0 4px 0 2px;
+  height: 16px;
+  padding: 0 2px 0 2px;
   position: absolute;
   right: 0;
   border: 1px solid rgba(57, 57, 57, 0.15);
@@ -289,7 +289,7 @@
 }
 .numInputWrapper span.arrowUp {
   top: 0;
-  border-bottom: 0;
+  // border-bottom: 0;
 }
 .numInputWrapper span.arrowUp:after {
   top: 26%;
@@ -322,8 +322,8 @@
 .flatpickr-current-month {
   display: inline-block;
   width: 75%;
-  height: 34px;
-  padding: 7.48px 0 0 0;
+  height: 36px;
+  // padding: 7.48px 0 0 0;
   position: absolute;
   left: 12.5%;
   color: inherit;
@@ -350,6 +350,7 @@
   display: inline-block;
   width: 6ch;
   width: 7ch\0;
+  min-height: 36px;
 }
 .flatpickr-current-month .numInputWrapper span.arrowUp:after {
   border-bottom-color: rgba(0, 0, 0, 0.9);
@@ -362,7 +363,7 @@
   box-sizing: border-box;
   display: inline-block;
   vertical-align: initial;
-  height: auto;
+  // height: auto;
   margin: 0;
   padding: 0 0 0 0.5ch;
   -webkit-appearance: textfield;
@@ -377,6 +378,7 @@
   font-size: inherit;
   line-height: inherit;
   cursor: text;
+  height: 36px;
 }
 .flatpickr-current-month input.cur-year:focus {
   outline: 0;
@@ -414,6 +416,7 @@
   font-size: 18px;
   line-height: inherit;
   cursor: pointer;
+  min-height: 36px;
 }
 .flatpickr-current-month .flatpickr-monthDropdown-months:focus,
 .flatpickr-current-month .flatpickr-monthDropdown-months:active {
