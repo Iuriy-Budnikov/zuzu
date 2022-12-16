@@ -82,6 +82,11 @@
     }
     &__h1 {
       margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    &__h2 {
+      font-weight: 300;
     }
 
     &__hello {

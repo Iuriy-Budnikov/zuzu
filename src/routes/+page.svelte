@@ -38,13 +38,13 @@
   .home {
     margin: 0 auto;
     max-width: 1200px;
-    padding: 240px 40px 240px 40px;
+    padding: 240px 40px;
 
     @include media('<=tablet') {
-      padding: 100px 30px 0;
+      padding: 160px 30px;
     }
     @include media('<=phone') {
-      padding: 100px 5% 0;
+      padding: 140px 16px;
     }
   }
 </style>
