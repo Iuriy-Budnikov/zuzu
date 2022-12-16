@@ -1,8 +1,8 @@
 import axios from 'axios';
+import { catchError, EMPTY, from, map, mergeMap, of } from 'rxjs';
 import { createEffect } from '../store';
 import { actionsSearchSuggests } from './searchSuggests';
-import { catchError, EMPTY, from, map, mergeMap, of } from 'rxjs';
-import { apiClient } from './searchClient';
+import { searchClient } from '../apiClients';
 
 let cancelTokenSuggestion;
 
@@ -12,7 +12,7 @@ createEffect(actionsSearchSuggests.start, (action$) => {
       cancelTokenSuggestion?.cancel?.();
       cancelTokenSuggestion = axios.CancelToken.source();
       return from(
-        apiClient.get('/proxy/api/2.5/tours/suggests', {
+        searchClient.get('/proxy/api/2.5/tours/suggests', {
           params: { ...params },
           cancelToken: cancelTokenSuggestion?.token
         })
