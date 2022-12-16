@@ -428,34 +428,34 @@
     &--submitting,
     &--loading,
     &--error {
-      // pointer-events: none;
+      pointer-events: none;
     }
 
-    // &--loading,
-    // &--error {
-    //   &:before {
-    //     position: absolute;
-    //     left: 0;
-    //     right: 0;
-    //     top: 0;
-    //     bottom: 0;
-    //     background-color: var(--color__light);
-    //     border-radius: 3px;
-    //     width: 100%;
-    //     height: 100%;
-    //     z-index: 5;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //   }
-    // }
+    &--loading,
+    &--error {
+      &:before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: var(--color__light);
+        border-radius: 3px;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
 
-    // &--error:before {
-    //   content: 'Виникла помилка. Перезавантажте сторінку ⛱️';
-    // }
+    &--error:before {
+      content: 'Виникла помилка. Перезавантажте сторінку ⛱️';
+    }
 
-    // &--loading:before {
-    //   content: 'Завантажую тури ⛱️';
-    // }
+    &--loading:before {
+      content: 'Завантажую тури ⛱️';
+    }
   }
 </style>
