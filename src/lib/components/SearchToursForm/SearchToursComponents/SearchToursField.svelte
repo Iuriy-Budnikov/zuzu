@@ -24,6 +24,11 @@
     &--location {
       flex: 1.7;
       border-radius: 5px 0 0 5px;
+
+      @include media('<=phone-search') {
+        border-radius: 5px 5px 0 0;
+        flex: unset;
+      }
     }
     &--dep-cities {
       flex: 1.1;
@@ -35,6 +40,9 @@
         min-width: 140px;
         width: 140px;
         max-width: 140px;
+      }
+      @include media('<=phone-search') {
+        flex: unset;
       }
     }
     &--date {
@@ -64,6 +72,9 @@
         width: 125px;
         max-width: 125px;
       }
+      @include media('<=phone-search') {
+        flex: unset;
+      }
     }
     &--people {
       flex: 1;
@@ -73,6 +84,22 @@
         min-width: 140px;
         width: 140px;
         max-width: 140px;
+      }
+      @include media('<=phone-search') {
+        flex: unset;
+      }
+    }
+
+    &--location,
+    &--dep-cities,
+    &--date,
+    &--nights,
+    &--people {
+      @include media('<=phone-search') {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        height: 80px;
       }
     }
 
@@ -86,6 +113,10 @@
       bottom: 12px;
       right: -1px;
       z-index: 1;
+
+      @include media('<=phone-search') {
+        display: none;
+      }
     }
 
     &--active,

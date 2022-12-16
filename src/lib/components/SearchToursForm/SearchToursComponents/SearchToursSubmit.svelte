@@ -23,10 +23,21 @@
       padding: 12px 8px;
     }
 
+    @include media('<=phone-search') {
+      width: 100%;
+      flex: unset;
+      min-width: 0;
+      max-width: 100%;
+    }
+
     :global(.button) {
       width: 100%;
       height: 100%;
       text-transform: uppercase;
+
+      @include media('<=phone-search') {
+        height: 40px;
+      }
     }
   }
 </style>

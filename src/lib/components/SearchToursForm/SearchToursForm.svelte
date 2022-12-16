@@ -424,6 +424,12 @@
     width: 100%;
     position: relative;
     z-index: 10;
+    flex-direction: row;
+
+    @include media('<=phone-search') {
+      flex-direction: column;
+      height: initial;
+    }
 
     &--submitting,
     &--loading,
@@ -447,6 +453,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include media('<=phone') {
+          font-size: 14px;
+          padding: 20px;
+        }
       }
     }
 
