@@ -25,10 +25,18 @@
   import { valuesSearchCities } from '$lib/stores/search/searchCities';
   import { valuesSearchDates } from '$lib/stores/search/searchDates';
 
-  const { loading: loadingSuggests, loaded: loadedSuggests } = valuesSearchSuggests;
-  const { loading: loadingGeoTree, loaded: loadedGeoTree } = valuesSearchGeoTree;
-  const { loading: loadingCities, loaded: loadedCities } = valuesSearchCities;
-  const { loading: loadingDates, loaded: loadedDates } = valuesSearchDates;
+  const {
+    loading: loadingSuggests,
+    loaded: loadedSuggests,
+    error: errorSuggests
+  } = valuesSearchSuggests;
+  const {
+    loading: loadingGeoTree,
+    loaded: loadedGeoTree,
+    error: errorGeoTree
+  } = valuesSearchGeoTree;
+  const { loading: loadingCities, loaded: loadedCities, error: errorCities } = valuesSearchCities;
+  const { loading: loadingDates, loaded: loadedDates, error: errorDates } = valuesSearchDates;
 
   const initialCheckInDays = 7;
   const checkInDate = addDays(new Date(), initialCheckInDays);
@@ -340,12 +348,20 @@
         !$loadedDates;
     }
   }
+
+  let error = null;
+  $: {
+    if (browser) {
+      error = errorSuggests || errorGeoTree || errorCities || errorDates;
+    }
+  }
 </script>
 
 <Form context={formContext} formProps={{ method: 'post' }}>
   <div
     class="search-tours-form"
     class:search-tours-form--loading={loading}
+    class:search-tours-form--error={error}
     class:search-tours-form--submitting={$isSubmitting}
   >
     <SearchToursLocation
@@ -410,13 +426,14 @@
     z-index: 10;
 
     &--submitting,
-    &--loading {
+    &--loading,
+    &--error {
       pointer-events: none;
     }
 
-    &--loading {
+    &--loading,
+    &--error {
       &:before {
-        content: 'Завантажую тури ⛱️';
         position: absolute;
         left: 0;
         right: 0;
@@ -431,6 +448,14 @@
         align-items: center;
         justify-content: center;
       }
+    }
+
+    &--error:before {
+      content: 'Виникла помилка. Перезавантажте сторінку ⛱️';
+    }
+
+    &--loading:before {
+      content: 'Завантажую тури ⛱️';
     }
   }
 </style>
