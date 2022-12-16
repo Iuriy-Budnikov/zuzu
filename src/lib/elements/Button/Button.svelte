@@ -31,6 +31,10 @@
     align-items: center;
     justify-content: center;
 
+    @include media('<=laptop') {
+      font-size: 14px;
+    }
+
     &:hover {
       background-color: var(--color__button-hover);
     }

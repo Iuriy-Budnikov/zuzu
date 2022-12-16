@@ -31,10 +31,10 @@
       width: 170px;
       max-width: 170px;
 
-      @include media('<=tablet') {
-        min-width: 97px;
-        width: 97px;
-        max-width: 97px;
+      @include media('<=laptop') {
+        min-width: 140px;
+        width: 140px;
+        max-width: 140px;
       }
     }
     &--date {
@@ -42,10 +42,16 @@
       width: 240px;
       max-width: 240px;
 
-      @include media('<=tablet') {
+      @include media('<=laptop') {
         min-width: 205px;
         width: 205px;
         max-width: 205px;
+      }
+
+      @include media('<=tablet') {
+        min-width: 160px;
+        width: 160px;
+        max-width: 160px;
       }
     }
     &--nights {
@@ -53,7 +59,7 @@
       min-width: 152px;
       max-width: 152px;
 
-      @include media('<=tablet') {
+      @include media('<=laptop') {
         min-width: 125px;
         width: 125px;
         max-width: 125px;
@@ -63,7 +69,7 @@
       flex: 1;
       min-width: 180px;
 
-      @include media('<=tablet') {
+      @include media('<=laptop') {
         min-width: 140px;
         width: 140px;
         max-width: 140px;

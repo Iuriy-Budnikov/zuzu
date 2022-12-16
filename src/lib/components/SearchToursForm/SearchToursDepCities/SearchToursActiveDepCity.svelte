@@ -52,6 +52,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+
+      @include media('<=laptop') {
+        font-size: 14px;
+      }
     }
 
     &__icon {

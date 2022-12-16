@@ -50,6 +50,10 @@
   .search-tours-people-children-list {
     &__title {
       font-size: 18px;
+
+      @include media('<=laptop') {
+        font-size: 14px;
+      }
     }
     &__list {
       margin: 16px 0 16px;
@@ -74,6 +78,10 @@
       cursor: pointer;
       justify-content: space-between;
       line-height: 1;
+
+      @include media('<=laptop') {
+        font-size: 12px;
+      }
 
       &:hover {
         background-color: #ededee;

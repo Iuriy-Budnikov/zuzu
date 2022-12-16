@@ -93,6 +93,10 @@
     &__title {
       font-weight: 500;
       font-size: 18px;
+
+      @include media('<=laptop') {
+        font-size: 14px;
+      }
     }
 
     &__controls {
@@ -104,6 +108,9 @@
 
     &__controls-value {
       font-size: 18px;
+      @include media('<=laptop') {
+        font-size: 14px;
+      }
     }
 
     &__controls-button {

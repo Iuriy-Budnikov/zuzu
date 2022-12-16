@@ -1,3 +1,5 @@
+@import '../../../styles/mixins/index.scss';
+
 .flatpickr-calendar {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -404,9 +406,10 @@
   outline: none;
   color: inherit;
   color: #474f55;
-  font-weight: 700;
+  font-weight: 400;
   font-family: inherit;
   font-size: inherit;
+  text-transform: uppercase;
 
   font-size: 18px;
   line-height: inherit;
@@ -539,6 +542,10 @@ span.flatpickr-weekday {
   -ms-flex-preferred-size: 14.2857143%;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+
+  @include media('<=laptop') {
+    font-size: 14px;
+  }
 }
 
 .flatpickr-day.selected-day {

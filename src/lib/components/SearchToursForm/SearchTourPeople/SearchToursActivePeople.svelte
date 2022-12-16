@@ -39,6 +39,10 @@
     justify-content: space-between;
     white-space: nowrap;
 
+    @include media('<=laptop') {
+      font-size: 14px;
+    }
+
     &__name {
       padding-right: 10px;
       overflow: hidden;

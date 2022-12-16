@@ -23,6 +23,10 @@
       top: 15px;
       color: #91989e;
       z-index: 1;
+
+      @include media('<=laptop') {
+        font-size: 12px;
+      }
     }
   }
 </style>

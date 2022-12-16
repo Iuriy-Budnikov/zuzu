@@ -96,6 +96,10 @@
       justify-content: center;
       min-height: 374px;
 
+      @include media('<=laptop') {
+        min-height: 330px;
+      }
+
       :global(.flatpickr-calendar) {
         width: 100%;
       }

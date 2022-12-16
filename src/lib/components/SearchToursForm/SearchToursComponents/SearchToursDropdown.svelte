@@ -76,6 +76,9 @@
 
       &--date {
         min-width: 500px;
+        @include media('<=laptop') {
+          min-width: 430px;
+        }
       }
     }
   }

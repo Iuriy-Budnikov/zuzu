@@ -21,17 +21,17 @@
 </script>
 
 <div
-  class="search-tours-dep-city-item"
-  class:search-tours-dep-city-item--active={checked}
+  class="search-tours-night-item"
+  class:search-tours-night-item--active={checked}
   on:click={checked ? onClick : undefined}
   role="presentation"
 >
   <Radio {checked} on:change={onChange}>
-    <div class="search-tours-dep-city-item__text">
-      <span class="search-tours-dep-city-item__night">
+    <div class="search-tours-night-item__text">
+      <span class="search-tours-night-item__night">
         {night}
       </span>
-      <span class="search-tours-dep-city-item__day">
+      <span class="search-tours-night-item__day">
         , {day}
       </span>
     </div>
@@ -39,7 +39,7 @@
 </div>
 
 <style lang="scss">
-  .search-tours-dep-city-item {
+  .search-tours-night-item {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -75,6 +75,10 @@
       align-items: center;
       white-space: nowrap;
       font-family: var(--type__secondary);
+
+      @include media('<=laptop') {
+        font-size: 14px;
+      }
     }
 
     &__day {

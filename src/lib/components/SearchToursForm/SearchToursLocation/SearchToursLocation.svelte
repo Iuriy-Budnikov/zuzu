@@ -252,6 +252,10 @@
       font-weight: 400;
       background: inherit;
 
+      @include media('<=laptop') {
+        font-size: 14px;
+      }
+
       &--minimized {
         padding-top: 22px;
       }

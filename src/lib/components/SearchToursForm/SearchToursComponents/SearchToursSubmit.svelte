@@ -16,10 +16,11 @@
     align-items: center;
     display: flex;
 
-    @include media('<=tablet') {
-      min-width: 80px;
-      width: 80px;
-      max-width: 80px;
+    @include media('<=laptop') {
+      min-width: 120px;
+      width: 120px;
+      max-width: 120px;
+      padding: 12px 8px;
     }
 
     :global(.button) {

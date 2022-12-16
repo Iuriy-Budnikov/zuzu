@@ -37,6 +37,10 @@
     transition: background-color 0.2s;
     font-family: var(--type__primary);
 
+    @include media('<=laptop') {
+      font-size: 14px;
+    }
+
     &--active {
       color: var(--color__light);
       background-color: var(--color__button);

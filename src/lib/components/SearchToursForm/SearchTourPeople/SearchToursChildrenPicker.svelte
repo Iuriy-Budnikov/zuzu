@@ -41,6 +41,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
+    @include media('<=laptop') {
+      font-size: 14px;
+    }
+
     &__item {
       width: 44px;
       height: 40px;

@@ -85,6 +85,10 @@
       justify-content: space-between;
       white-space: nowrap;
       font-family: var(--type__secondary);
+
+      @include media('<=laptop') {
+        font-size: 14px;
+      }
     }
 
     &__name {
