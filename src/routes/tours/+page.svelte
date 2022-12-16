@@ -1,10 +1,24 @@
 <script>
+  import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  import SearchTours from '$lib/components/SearchToursForm/SearchToursForm.svelte';
-  const title = 'Гарячі тури та путівки, ⛱️ туризм, відпочинок та подорожі';
-  const description =
-    'Гарячі тури від всіх туроператорів України на одному сайті. ✈️️ Порівняння цін, фотографії готелів, онлайн-моніторинг путівок, що горять.';
+  import { dispatch } from '$lib/stores/store';
+  import { actionsTours, valuesTours } from '$lib/stores/tours/tours';
+  import ToursList from '$lib/components/ToursList/ToursList.svelte';
+  import ToursListLoader from '$lib/components/ToursList/ToursListLoader.svelte';
+
+  const title = 'Пошук турів';
+  const description = "Для звя'зку будь ласка використовуйте наступні посилання";
   const coverImage = `${$page.url.origin}/images/social_main.jpg`;
+
+  const { loading: loadingTours, loaded: loadedTours, error: errorTours, tours } = valuesTours;
+
+  onMount(() => {
+    dispatch(
+      actionsTours.start({
+        params: {}
+      })
+    );
+  });
 </script>
 
 <svelte:head>
@@ -30,4 +44,10 @@
   <meta name="twitter:image" content={coverImage} />
 </svelte:head>
 
-<SearchTours />
+{#if $loadingTours && !$loadedTours}
+  <ToursListLoader />
+{:else if !$loadingTours && $loadedTours}
+  <ToursList tours={$tours} />
+{:else if !$loadingTours && !$loadedTours && $errorTours}
+  Помилка
+{/if}

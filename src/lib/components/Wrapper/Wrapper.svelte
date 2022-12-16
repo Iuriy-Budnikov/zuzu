@@ -2,8 +2,14 @@
   import { page } from '$app/stores';
 </script>
 
-<main class="wrapper" class:wrapper--home={$page.url.pathname === '/'}>
-  <slot />
+<main
+  class="wrapper"
+  class:wrapper--home={$page.url.pathname === '/'}
+  class:wrapper--tours={$page.url.pathname === '/tours'}
+>
+  <div class="wrapper-container">
+    <slot />
+  </div>
 </main>
 
 <style lang="scss">
@@ -12,6 +18,22 @@
 
     &--home {
       background-color: var(--color__secondary);
+    }
+
+    &--tours,
+    &--home {
+      .wrapper-container {
+        margin: 0 auto;
+        max-width: 1200px;
+        padding: 240px 40px;
+
+        @include media('<=tablet') {
+          padding: 160px 30px;
+        }
+        @include media('<=phone') {
+          padding: 140px 16px;
+        }
+      }
     }
   }
 </style>

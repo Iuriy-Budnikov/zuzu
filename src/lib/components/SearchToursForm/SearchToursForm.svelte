@@ -4,11 +4,11 @@
 
   import { browser } from '$app/environment';
   import { dispatch } from '$lib/stores/store';
-  import { actionsSearchCities } from '$lib/stores/search/searchCities';
+  import { actionsSearchCities, valuesSearchCities } from '$lib/stores/search/searchCities';
   import { actionsSearchForm } from '$lib/stores/search/searchForm';
-  import { actionsSearchSuggests } from '$lib/stores/search/searchSuggests';
-  import { actionsSearchGeoTree } from '$lib/stores/search/searchGeoTree';
-  import { actionsSearchDates } from '$lib/stores/search/searchDates';
+  import { actionsSearchSuggests, valuesSearchSuggests } from '$lib/stores/search/searchSuggests';
+  import { actionsSearchGeoTree, valuesSearchGeoTree } from '$lib/stores/search/searchGeoTree';
+  import { actionsSearchDates, valuesSearchDates } from '$lib/stores/search/searchDates';
 
   import Form from '$lib/elements/Forms/Form.svelte';
   import SearchToursLocation from './SearchToursLocation/SearchToursLocation.svelte';
@@ -19,11 +19,6 @@
   import SearchTourDate from './SearchTourDate/SearchTourDate.svelte';
   import { DATE_FORMAT } from '$lib/utils/dateUtils';
   import toursSchema from './toursSchema';
-
-  import { valuesSearchSuggests } from '$lib/stores/search/searchSuggests';
-  import { valuesSearchGeoTree } from '$lib/stores/search/searchGeoTree';
-  import { valuesSearchCities } from '$lib/stores/search/searchCities';
-  import { valuesSearchDates } from '$lib/stores/search/searchDates';
 
   const {
     loading: loadingSuggests,
