@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher, getContext } from 'svelte';
   import { key } from 'svelte-forms-lib';
-  import { parse, format, addDays } from 'date-fns';
+  import { parse, format, addDays, differenceInDays } from 'date-fns';
   import DatePicker from '$lib/elements/Inputs/DatePicker/DatePicker.svelte';
   import { Ukrainian } from 'flatpickr/dist/l10n/uk.js';
   import SearchTourRangeButton from './SearchTourRangeButton.svelte';
@@ -44,7 +44,16 @@
         if ($form.checkDate) {
           const date = dayElem.dateObj;
           if (date >= start && date <= end && date >= tomorrow) {
-            dayElem.className += ' selected-day';
+            dayElem.className += ' selected-range-day';
+
+            const isFirstDay = differenceInDays(date, start);
+            if (isFirstDay === 0) {
+              dayElem.className += ' selected-range-first-day';
+            }
+            const isLastDay = differenceInDays(date, end);
+            if (isLastDay === 0) {
+              dayElem.className += ' selected-range-last-day';
+            }
           }
         }
       }

@@ -528,7 +528,7 @@ span.flatpickr-weekday {
   width: 48px;
   min-width: 48px;
   height: 48px;
-  margin: 0;
+  margin: 0 0 2px 0;
   position: relative;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -548,14 +548,28 @@ span.flatpickr-weekday {
   }
 }
 
-.flatpickr-day.selected-day {
+.flatpickr-day.selected-range-day {
   border-color: var(--color__secondary);
+  background: var(--color__secondary);
+  border-radius: 0;
+}
+
+.flatpickr-day.selected-range-first-day {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.flatpickr-day.selected-range-last-day {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.flatpickr-day.selected-range-day.flatpickr-disabled,
+.flatpickr-day.selected-range-day.flatpickr-disabled:hover {
   background: var(--color__secondary);
 }
 
-.flatpickr-day.selected-day.flatpickr-disabled,
-.flatpickr-day.selected-day.flatpickr-disabled:hover {
-  background: var(--color__secondary);
+.flatpickr-day.selected.selected-range-day.selected-range-first-day.selected-range-last-day {
+  border-radius: 5px;
 }
 
 .flatpickr-day.inRange,
