@@ -7,17 +7,17 @@
 </script>
 
 <SocialContactsList>
-  <SocialContact className="ga-event-facebook" link="https://www.facebook.com/zuzutravelua/">
-    <Icon name="facebook" />
-  </SocialContact>
-  <SocialContact className="ga-event-telegram" link="https://t.me/zuzutravelua">
-    <Icon name="telegram" />
-  </SocialContact>
   <SocialContact className="ga-event-instagram" link="https://www.instagram.com/zuzutravel.ua/">
     <Icon name="instagram" />
   </SocialContact>
   <SocialContact className="ga-event-tiktok" link="https://www.tiktok.com/@zuzutravel_ua">
     <Icon name="tiktok" />
+  </SocialContact>
+  <SocialContact className="ga-event-facebook" link="https://www.facebook.com/zuzutravelua/">
+    <Icon name="facebook" />
+  </SocialContact>
+  <SocialContact className="ga-event-telegram" link="https://t.me/zuzutravelua">
+    <Icon name="telegram" />
   </SocialContact>
   <SocialContact className="ga-event-whatsapp" link="https://wa.me/{phone}?lang=ru">
     <Icon name="whatsapp" />

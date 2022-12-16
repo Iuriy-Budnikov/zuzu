@@ -23,7 +23,7 @@
     }
 
     @include media('<=phone') {
-      margin: 0 5px;
+      margin: 0 8px 16px 8px;
       width: 58px;
       height: 58px;
     }
