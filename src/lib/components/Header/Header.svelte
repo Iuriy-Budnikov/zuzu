@@ -88,7 +88,7 @@
       z-index: 5;
     }
     @include media('<=phone') {
-      padding: 28px 5% 0;
+      padding: 28px 16px 0;
     }
     &__logo {
       min-width: 100px;
