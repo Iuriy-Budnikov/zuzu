@@ -19,6 +19,8 @@
   } = valuesTours;
 
   onMount(() => {
+    dispatch(actionsTours.clear({}));
+
     try {
       const parsedParams = queryString.parse($page.url.search, { arrayFormat: 'bracket' });
 
@@ -48,6 +50,10 @@
     } catch (error) {
       console.log('error', error);
     }
+
+    () => {
+      dispatch(actionsTours.clear({}));
+    };
   });
 </script>
 

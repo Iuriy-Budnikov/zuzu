@@ -5,15 +5,24 @@
   export let resultTours = {};
 
   $: hotels = values(resultTours?.hotels) || [];
-
-  console.log('hotels', resultTours?.hotels);
+  console.log('resultTours', resultTours);
 </script>
 
-{#if resultTours.total}
+{#if resultTours?.total}
   <div>Total {resultTours.total}</div>
   <div class="tours-list">
-    {#each hotels as { n, f, s, x, rb, v }}
-      <ToursListItem name={n} img={f} stars={s} score={x} rating={rb} numberOfReviews={v} />
+    {#each hotels as { n, f, s, x, rb, v, i, e, h }}
+      <ToursListItem
+        features={e}
+        id={i}
+        name={n}
+        img={f}
+        slug={h}
+        stars={s}
+        score={x}
+        rating={rb}
+        numberOfReviews={v}
+      />
     {/each}
   </div>
 {:else}

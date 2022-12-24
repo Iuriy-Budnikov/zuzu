@@ -1,10 +1,13 @@
 <script>
   export let name = '';
   export let img = '';
+  export let id = undefined;
   export let stars = 0;
   export let score = 0;
   export let rating = {};
   export let numberOfReviews = 0;
+  export let features = [];
+  export let slug = '';
 </script>
 
 <div class="tours-list-item">
