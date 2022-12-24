@@ -1,6 +1,8 @@
 <script>
   import { createForm } from 'svelte-forms-lib';
   import { format, addDays } from 'date-fns';
+  import queryString from 'query-string';
+  import { goto } from '$app/navigation';
 
   import { browser } from '$app/environment';
   import { dispatch } from '$lib/stores/store';
@@ -69,8 +71,8 @@
   }
 
   const onSubmit = async (values) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log('values', values);
+    const params = queryString.stringify(values, { arrayFormat: 'bracket' });
+    goto(`/tours?${params}`);
   };
 
   let formContext = createForm({
@@ -347,7 +349,7 @@
   let error = null;
   $: {
     if (browser) {
-      error = errorSuggests || errorGeoTree || errorCities || errorDates;
+      error = $errorSuggests || $errorGeoTree || $errorCities || $errorDates;
     }
   }
 </script>

@@ -1,13 +1,19 @@
 <script>
+  import values from 'lodash/values';
   import ToursListItem from './ToursListItem.svelte';
   import ToursListEmpty from './ToursListEmpty.svelte';
-  export let tours = [];
+  export let resultTours = {};
+
+  $: hotels = values(resultTours?.hotels) || [];
+
+  console.log('hotels', resultTours?.hotels);
 </script>
 
-{#if tours.length}
+{#if resultTours.total}
+  <div>Total {resultTours.total}</div>
   <div class="tours-list">
-    {#each tours as { name }}
-      <ToursListItem {name} />
+    {#each hotels as { n, f, s, x, rb, v }}
+      <ToursListItem name={n} img={f} stars={s} score={x} rating={rb} numberOfReviews={v} />
     {/each}
   </div>
 {:else}
@@ -16,6 +22,5 @@
 
 <style lang="scss">
   .tours-list {
-    background-color: red;
   }
 </style>

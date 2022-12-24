@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import queryString from 'query-string';
   import { page } from '$app/stores';
   import { dispatch } from '$lib/stores/store';
   import { actionsTours, valuesTours } from '$lib/stores/tours/tours';
@@ -10,14 +11,43 @@
   const description = "Для звя'зку будь ласка використовуйте наступні посилання";
   const coverImage = `${$page.url.origin}/images/social_main.jpg`;
 
-  const { loading: loadingTours, loaded: loadedTours, error: errorTours, tours } = valuesTours;
+  const {
+    loading: loadingTours,
+    loaded: loadedTours,
+    error: errorTours,
+    result: resultTours
+  } = valuesTours;
 
   onMount(() => {
-    dispatch(
-      actionsTours.start({
-        params: {}
-      })
-    );
+    try {
+      const parsedParams = queryString.parse($page.url.search, { arrayFormat: 'bracket' });
+
+      const params = {
+        ...parsedParams,
+        toCities: parsedParams?.toCities?.join(',') || undefined
+      };
+
+      dispatch(
+        actionsTours.startSearch({
+          params: {
+            price: 2500,
+            priceTo: 375000,
+            sort: 'price',
+            ...params,
+            // rest params
+            group: 5,
+            page: 1,
+            currencyLocal: 'uah',
+            number: 0,
+            data: 'extlinks',
+            availableFlight: '',
+            stopSale: ''
+          }
+        })
+      );
+    } catch (error) {
+      console.log('error', error);
+    }
   });
 </script>
 
@@ -47,7 +77,7 @@
 {#if $loadingTours && !$loadedTours}
   <ToursListLoader />
 {:else if !$loadingTours && $loadedTours}
-  <ToursList tours={$tours} />
+  <ToursList resultTours={$resultTours} />
 {:else if !$loadingTours && !$loadedTours && $errorTours}
-  Помилка
+  Помилка при завантажжені турів
 {/if}

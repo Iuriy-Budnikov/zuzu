@@ -2,6 +2,6 @@
 
 <style lang="scss">
   .tours-list-loader {
-    background-color: red;
+
   }
 </style>
