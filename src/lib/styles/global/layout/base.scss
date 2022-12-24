@@ -11,7 +11,20 @@ html {
   box-sizing: inherit;
 }
 
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+html,
 body {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+body {
+  min-height: 0;
   background-color: var(--color__bg--primary);
   overflow-y: scroll;
   color: var(--color__text--primary);
@@ -51,8 +64,8 @@ a {
   border-bottom-color: var(--color__link-underline);
   color: var(--color__link);
   text-decoration: none;
-  transition-duration: var(--time);
   transition-property: border-bottom, border-color, background, color, fill;
+  transition-duration: var(--time);
   transition-timing-function: ease-out;
 
   &:hover {
@@ -118,9 +131,9 @@ input {
 }
 
 main {
-  height: 100%;
-  position: relative;
-  z-index: 2;
+  display: flex;
+  flex-grow: 1;
+  min-height: 0;
 }
 
 iframe {
@@ -129,4 +142,8 @@ iframe {
   @include media('<=phone') {
     width: 100%;
   }
+}
+
+#svelte {
+  display: contents;
 }

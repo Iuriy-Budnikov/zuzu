@@ -14,6 +14,7 @@
   import foot from './foot';
   import minus from './minus';
   import plus from './plus';
+  import star from './star';
   export let name;
   export let box = '48 48';
   export let width = '48px';
@@ -34,7 +35,8 @@
     foot,
     minus,
     plus,
-    tiktok
+    tiktok,
+    star,
   };
 </script>
 

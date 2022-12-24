@@ -9,12 +9,15 @@
 </script>
 
 {#if resultTours?.total}
-  <div>Total {resultTours.total}</div>
+  <div>
+    <h1>Тури в {resultTours.cnt.name}</h1>
+  </div>
   <div class="tours-list">
-    {#each hotels as { n, f, s, x, rb, v, i, e, h }}
+    {#each hotels as { n, f, s, x, rb, v, i, e, h, c }}
       <ToursListItem
         features={e}
         id={i}
+        geo={c}
         name={n}
         img={f}
         slug={h}

@@ -20,6 +20,17 @@
       background-color: var(--color__secondary);
     }
 
+    &--tours {
+      background-color: var(--color__bg--neutral);
+    }
+
+    .wrapper-container {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      min-width: 0;
+    }
+
     &--tours,
     &--home {
       .wrapper-container {

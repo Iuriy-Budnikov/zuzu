@@ -30,4 +30,5 @@
   <meta name="twitter:image" content={coverImage} />
 </svelte:head>
 
+<h1>Онлайн бронювання турів всіх операторів України</h1>
 <SearchTours />
