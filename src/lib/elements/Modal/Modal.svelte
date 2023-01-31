@@ -141,8 +141,8 @@
 <svelte:window on:keydown={handleKeyDown} />
 {#if isOpen}
   <div
-    in:fade={{ duration: 50 }}
-    out:fade={{ duration: 50, delay: (transitionOutOptions || transitionInOptions)?.duration }}
+    in:fade={{ duration: 300 }}
+    out:fade={{ duration: 200, delay: (transitionOutOptions || transitionInOptions)?.duration }}
     data-testid="modal-wrapper"
     class={cx('modal__overlay', overlayClassName)}
     class:modal__overlay--visible={overlay}
@@ -170,16 +170,14 @@
         {#if closeOnButton}
           <button class="modal__button" type="button" on:click={handleButtonClick}>
             <svg
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              class="w-6 h-6"
             >
-              <path
-                d="M21.4923 0.508373C20.8434 -0.140561 19.7913 -0.140561 19.1423 0.508374L11.0007 8.65004L2.85898 0.508374C2.21005 -0.14056 1.15792 -0.140561 0.508984 0.508374C-0.13995 1.15731 -0.13995 2.20944 0.508984 2.85837L8.65065 11L0.508985 19.1417C-0.13995 19.7906 -0.139951 20.8428 0.508984 21.4917C1.15792 22.1406 2.21005 22.1406 2.85898 21.4917L11.0007 13.35L19.1423 21.4917C19.7913 22.1406 20.8434 22.1406 21.4923 21.4917C22.1413 20.8428 22.1413 19.7906 21.4923 19.1417L13.3506 11L21.4923 2.85838C22.1413 2.20944 22.1413 1.15731 21.4923 0.508373Z"
-                fill="#999999"
-              />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         {/if}
@@ -212,6 +210,7 @@
 
     &--full-height {
       height: calc(100vh - var(--modal-margin-top, '0px') - var(--modal-margin-bottom, '0px'));
+      height: calc(100svh - var(--modal-margin-top, '0px') - var(--modal-margin-bottom, '0px'));
       overflow: auto;
     }
 
@@ -249,24 +248,23 @@
       top: 72px;
       transition: opacity 0.2s;
       padding: 0;
+      width: 30px;
+      height: 35px;
+      cursor: pointer;
 
       &:hover {
         opacity: 0.5;
       }
 
       @include media('<=phone') {
-        right: 30px;
-        top: 30px;
+        right: 16px;
+        top: 27px;
+        margin-right: -6px;
       }
 
       svg {
-        width: 23px;
-        height: 23px;
-
-        @include media('<=phone') {
-          width: 18px;
-          height: 18px;
-        }
+        width: 28px;
+        height: 28px;
       }
     }
   }

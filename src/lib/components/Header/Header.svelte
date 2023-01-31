@@ -149,10 +149,10 @@
     &__hamburger {
       position: fixed;
       top: 25px;
-      right: 5%;
+      right: 16px;
       width: 30px;
       z-index: 5;
-      margin-right: -15px;
+      margin-right: -6px;
     }
 
     &__switch {
