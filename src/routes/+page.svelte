@@ -30,5 +30,22 @@
   <meta name="twitter:image" content={coverImage} />
 </svelte:head>
 
-<h1>Онлайн бронювання турів всіх операторів України</h1>
+<h1 class="title">Онлайн бронювання турів всіх операторів України</h1>
 <SearchTours />
+
+<style lang="scss">
+  .title {
+    font-size: 40px;
+    letter-spacing: 0.4px;
+    font-weight: 700;
+    max-width: 590px;
+    line-height: 1.05;
+    padding-top: 3px;
+    margin: 0 0 20px;
+
+    @include media('<=phone') {
+      font-size: 26px;
+      margin: 0 0 15px;
+    }
+  }
+</style>

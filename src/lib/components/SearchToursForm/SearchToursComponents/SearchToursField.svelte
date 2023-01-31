@@ -25,7 +25,7 @@
       flex: 1.7;
       border-radius: 5px 0 0 5px;
 
-      @include media('<=phone-search') {
+      @include media('<=phone') {
         border-radius: 5px 5px 0 0;
         flex: unset;
       }
@@ -41,7 +41,7 @@
         width: 140px;
         max-width: 140px;
       }
-      @include media('<=phone-search') {
+      @include media('<=phone') {
         flex: unset;
       }
     }
@@ -72,7 +72,7 @@
         width: 125px;
         max-width: 125px;
       }
-      @include media('<=phone-search') {
+      @include media('<=phone') {
         flex: unset;
       }
     }
@@ -85,7 +85,7 @@
         width: 140px;
         max-width: 140px;
       }
-      @include media('<=phone-search') {
+      @include media('<=phone') {
         flex: unset;
       }
     }
@@ -95,7 +95,7 @@
     &--date,
     &--nights,
     &--people {
-      @include media('<=phone-search') {
+      @include media('<=phone') {
         width: 100%;
         min-width: 0;
         max-width: 100%;
@@ -114,7 +114,7 @@
       right: -1px;
       z-index: 1;
 
-      @include media('<=phone-search') {
+      @include media('<=phone') {
         display: none;
       }
     }

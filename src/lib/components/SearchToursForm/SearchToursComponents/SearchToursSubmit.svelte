@@ -23,7 +23,7 @@
       padding: 12px 8px;
     }
 
-    @include media('<=phone-search') {
+    @include media('<=phone') {
       width: 100%;
       flex: unset;
       min-width: 0;
@@ -35,7 +35,7 @@
       height: 100%;
       text-transform: uppercase;
 
-      @include media('<=phone-search') {
+      @include media('<=phone') {
         height: 40px;
       }
     }

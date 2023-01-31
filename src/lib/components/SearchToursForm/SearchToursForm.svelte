@@ -357,7 +357,7 @@
   }
 </script>
 
-<Form context={formContext} formProps={{ method: 'post' }}>
+<Form context={formContext}>
   <div
     class="search-tours-form"
     class:search-tours-form--loading={loading}
@@ -426,7 +426,7 @@
     z-index: 10;
     flex-direction: row;
 
-    @include media('<=phone-search') {
+    @include media('<=phone') {
       flex-direction: column;
       height: initial;
     }

@@ -42,7 +42,7 @@
           padding: 160px 30px;
         }
         @include media('<=phone') {
-          padding: 140px 16px;
+          padding: 100px 16px;
         }
       }
     }
