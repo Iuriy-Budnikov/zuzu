@@ -71,7 +71,10 @@
   }
 
   const onSubmit = async (values) => {
-    const params = queryString.stringify(values, { arrayFormat: 'bracket' });
+    const params = queryString.stringify(
+      { ...values, checkRange: undefined },
+      { arrayFormat: 'bracket' }
+    );
     goto(`/tours?${params}`);
   };
 
