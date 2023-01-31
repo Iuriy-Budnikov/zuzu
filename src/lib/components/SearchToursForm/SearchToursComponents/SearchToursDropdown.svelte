@@ -1,39 +1,56 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { clickOutside } from '$lib/utils/clickOutside';
   import { windowKeyDown } from '$lib/utils/windowKeyDown';
+  import Modal from '$lib/elements/Modal/Modal.svelte';
+  import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
 
+  const dispatch = createEventDispatcher();
+  export let modalId;
   export let isOpen = false;
   export let isRight = false;
   export let type = '';
   export let listElement;
+
+  function handleCloseModal() {
+    dispatch('close_modal');
+  }
 </script>
 
-<div
-  class="search-tours-dropdown"
-  use:clickOutside
-  on:click_outside
-  use:windowKeyDown
-  on:window_key_down
->
-  {#if isOpen}
-    <div class="search-tours-dropdown__dropdown">
-      <div
-        class="search-tours-dropdown__container"
-        class:search-tours-dropdown__container--right={isRight}
-        class:search-tours-dropdown__container--date={type === 'date'}
-      >
-        <div
-          class="search-tours-dropdown__list scrollbar"
-          bind:this={listElement}
-          class:search-tours-dropdown__list--people={type === 'people'}
-          class:search-tours-dropdown__list--date={type === 'date'}
-        >
-          <slot />
+<MediaQuery query="(max-width: 767px)" let:matches>
+  {#if matches}
+    <Modal fullHeight {modalId} {isOpen} on:close={handleCloseModal}>
+      <slot />
+    </Modal>
+  {:else}
+    <div
+      class="search-tours-dropdown"
+      use:clickOutside
+      on:click_outside
+      use:windowKeyDown
+      on:window_key_down
+    >
+      {#if isOpen}
+        <div class="search-tours-dropdown__dropdown">
+          <div
+            class="search-tours-dropdown__container"
+            class:search-tours-dropdown__container--right={isRight}
+            class:search-tours-dropdown__container--date={type === 'date'}
+          >
+            <div
+              class="search-tours-dropdown__list scrollbar"
+              bind:this={listElement}
+              class:search-tours-dropdown__list--people={type === 'people'}
+              class:search-tours-dropdown__list--date={type === 'date'}
+            >
+              <slot />
+            </div>
+          </div>
         </div>
-      </div>
+      {/if}
     </div>
   {/if}
-</div>
+</MediaQuery>
 
 <style lang="scss">
   .search-tours-dropdown {

@@ -1,13 +1,36 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  import MediaQuery from '$lib/elements/MediaQuery/MediaQuery.svelte';
+
+  const dispatch = createEventDispatcher();
+
   export let label = '';
+
+  function handleClick() {
+    dispatch('click');
+  }
+  function handleOpenModal() {
+    dispatch('open_modal');
+  }
 </script>
 
-<label class="search-tours-label" on:click role="presentation">
-  <slot />
-  {#if label}
-    <div class="search-tours-label__text">{label}</div>
+<MediaQuery query="(max-width: 767px)" let:matches>
+  {#if matches}
+    <label class="search-tours-label" on:click={handleOpenModal} role="presentation">
+      <slot />
+      {#if label}
+        <div class="search-tours-label__text">{label}</div>
+      {/if}
+    </label>
+  {:else}
+    <label class="search-tours-label" on:click={handleClick} role="presentation">
+      <slot />
+      {#if label}
+        <div class="search-tours-label__text">{label}</div>
+      {/if}
+    </label>
   {/if}
-</label>
+</MediaQuery>
 
 <style lang="scss">
   .search-tours-label {
