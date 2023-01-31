@@ -238,7 +238,7 @@
 
     &__input {
       border: none;
-      height: 80px;
+      height: 100%;
       outline: 0;
       padding: 0 16px;
       background: 0 0;
@@ -249,7 +249,7 @@
       font-size: 19px;
       letter-spacing: 0.09px;
       color: var(--color__dark);
-      font-weight: 400;
+      font-weight: 600;
       background: inherit;
 
       @include media('<=laptop') {

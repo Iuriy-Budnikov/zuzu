@@ -23,11 +23,20 @@
       padding: 12px 8px;
     }
 
+    @include media('<=tablet') {
+      padding: 0;
+      min-width: 90px;
+      width: 90px;
+      max-width: 90px;
+    }
+
     @include media('<=phone') {
       width: 100%;
       flex: unset;
       min-width: 0;
       max-width: 100%;
+      padding: 0;
+      height: auto;
     }
 
     :global(.button) {
@@ -36,7 +45,7 @@
       text-transform: uppercase;
 
       @include media('<=phone') {
-        height: 40px;
+        height: 64px;
       }
     }
   }

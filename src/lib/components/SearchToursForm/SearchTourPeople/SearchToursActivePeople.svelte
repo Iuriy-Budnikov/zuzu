@@ -7,8 +7,8 @@
   $: children = $form['children'];
 </script>
 
-<div class="search-tours-active-night">
-  <div class="search-tours-active-night__name">
+<div class="search-tours-active-people">
+  <div class="search-tours-active-people__name">
     {people}
     {#if people > 0}
       {#if !children.length}
@@ -25,10 +25,10 @@
 </div>
 
 <style lang="scss">
-  .search-tours-active-night {
+  .search-tours-active-people {
     color: #404a51;
     font-size: 19px;
-    font-weight: 400;
+    font-weight: 600;
     display: block;
     width: 100%;
     padding: 22px 16px 0 16px;

@@ -63,7 +63,7 @@
     }
     &__item {
       border-radius: 5px;
-      background-color: #f8f8f9;
+      background-color: var(--color__light-grey);
       font-size: 14px;
       font-weight: 500;
       position: relative;

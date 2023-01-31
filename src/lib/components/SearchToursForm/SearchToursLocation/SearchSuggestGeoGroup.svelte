@@ -22,7 +22,7 @@
     font-size: 14px;
     color: #acafb2;
     padding: 18px 16px 7px;
-    border-top: 2px solid #f8f8f9;
+    border-top: 2px solid var(--color__light-grey);
     font-family: var(--type__primary);
     font-weight: 600;
   }

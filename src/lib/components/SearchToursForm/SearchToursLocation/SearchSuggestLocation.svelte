@@ -88,7 +88,7 @@
 
     &--active,
     &:hover {
-      background-color: #f8f8f9;
+      background-color: var(--color__light-grey);
     }
 
     &__wrapper {
@@ -132,7 +132,7 @@
       min-width: 64px;
       height: 56px;
       border-radius: 5px;
-      background: #f8f8f9 no-repeat 50% / cover;
+      background: var(--color__light-grey) no-repeat 50% / cover;
       display: flex;
       align-items: center;
       justify-content: center;

@@ -429,6 +429,9 @@
     @include media('<=phone') {
       flex-direction: column;
       height: initial;
+      background-color: transparent;
+      box-shadow: none;
+      border-radius: 0;
     }
 
     &--submitting,

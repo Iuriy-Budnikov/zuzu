@@ -21,12 +21,16 @@
     height: 100%;
     transition: background-color 0.2s;
 
+    @include media('<=phone') {
+      background-color: var(--color__light);
+    }
+
     &--location {
       flex: 1.7;
       border-radius: 5px 0 0 5px;
 
       @include media('<=phone') {
-        border-radius: 5px 5px 0 0;
+        border-radius: 3px 3px 0 0;
         flex: unset;
       }
     }
@@ -43,6 +47,9 @@
       }
       @include media('<=phone') {
         flex: unset;
+        margin-bottom: 12px;
+        border-top: 2px solid var(--color__light-grey);
+        border-radius: 0 0 3px 3px;
       }
     }
     &--date {
@@ -61,6 +68,11 @@
         width: 160px;
         max-width: 160px;
       }
+
+      @include media('<=phone') {
+        margin-bottom: 12px;
+        border-radius: 3px;
+      }
     }
     &--nights {
       flex: 152px 0 0;
@@ -74,6 +86,8 @@
       }
       @include media('<=phone') {
         flex: unset;
+        margin-bottom: 12px;
+        border-radius: 3px;
       }
     }
     &--people {
@@ -87,6 +101,8 @@
       }
       @include media('<=phone') {
         flex: unset;
+        margin-bottom: 12px;
+        border-radius: 3px;
       }
     }
 
@@ -99,7 +115,7 @@
         width: 100%;
         min-width: 0;
         max-width: 100%;
-        height: 80px;
+        height: 64px;
       }
     }
 
@@ -108,7 +124,7 @@
       display: block;
       position: absolute;
       width: 1px;
-      background: #f8f8f9;
+      background: var(--color__light-grey);
       top: 12px;
       bottom: 12px;
       right: -1px;
@@ -121,7 +137,7 @@
 
     &--active,
     &:hover {
-      background: #f8f8f9;
+      background: var(--color__light-grey);
 
       &:after {
         display: none;

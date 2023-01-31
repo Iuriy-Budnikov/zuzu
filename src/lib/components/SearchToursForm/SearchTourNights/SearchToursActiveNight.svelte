@@ -21,7 +21,7 @@
   .search-tours-active-night {
     color: #404a51;
     font-size: 19px;
-    font-weight: 400;
+    font-weight: 600;
     display: block;
     width: 100%;
     padding: 22px 16px 0 16px;

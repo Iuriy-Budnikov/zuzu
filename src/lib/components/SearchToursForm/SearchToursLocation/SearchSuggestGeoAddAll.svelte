@@ -58,7 +58,7 @@
 
     &--active,
     &:hover {
-      background-color: #f8f8f9;
+      background-color: var(--color__light-grey);
     }
 
     :global(label) {

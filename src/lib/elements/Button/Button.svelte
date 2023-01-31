@@ -35,6 +35,10 @@
       font-size: 14px;
     }
 
+    @include media('<=phone') {
+      font-size: 20px;
+    }
+
     &:hover {
       background-color: var(--color__button-hover);
     }

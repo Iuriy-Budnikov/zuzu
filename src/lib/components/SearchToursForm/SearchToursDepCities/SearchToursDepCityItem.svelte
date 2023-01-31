@@ -54,12 +54,16 @@
     transition: background-color 0.2s;
 
     &:not(:last-child) {
-      border-bottom: 2px solid #f8f8f9;
+      border-bottom: 2px solid var(--color__light-grey);
+    }
+
+    &--active {
+      font-weight: 600;
     }
 
     &--active,
     &:hover {
-      background-color: #f8f8f9;
+      background-color: var(--color__light-grey);
     }
 
     :global(label) {
