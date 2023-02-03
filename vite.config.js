@@ -1,6 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 
-console.log('process.env.SENTRY_AUTH_TOKEN', import.meta.env);
+console.log('process.env.SENTRY_AUTH_TOKEN', process.env.SENTRY_AUTH_TOKEN);
 
 /** @type {import('vite').UserConfig} */
 const config = {
