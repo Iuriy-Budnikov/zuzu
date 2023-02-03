@@ -20,25 +20,20 @@
       Sentry.init({
         environment: env.PUBLIC_SENTRY_ENVIRONMENT,
         dsn: env.PUBLIC_SENTRY_DSN,
-        integrations: [new BrowserTracing()],
+        integrations: [new BrowserTracing(), new Sentry.Replay()],
 
         // Set tracesSampleRate to 1.0 to capture 100%
         // of transactions for performance monitoring.
         // We recommend adjusting this value in production
-        tracesSampleRate: 1.0
-      });
+        tracesSampleRate: 1.0,
 
-      // Sentry.init({
-      //   environment: env.PUBLIC_SENTRY_ENVIRONMENT,
-      //   dsn: env.PUBLIC_SENTRY_DSN,
-      //   integrations: [new Sentry.Replay()],
-      //   // This sets the sample rate to be 10%. You may want this to be 100% while
-      //   // in development and sample at a lower rate in production
-      //   replaysSessionSampleRate: 1.0,
-      //   // If the entire session is not sampled, use the below sample rate to sample
-      //   // sessions when an error occurs.
-      //   replaysOnErrorSampleRate: 1.0
-      // });
+        // This sets the sample rate to be 10%. You may want this to be 100% while
+        // in development and sample at a lower rate in production
+        replaysSessionSampleRate: 1.0,
+        // If the entire session is not sampled, use the below sample rate to sample
+        // sessions when an error occurs.
+        replaysOnErrorSampleRate: 1.0
+      });
     }
   });
 </script>
