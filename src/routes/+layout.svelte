@@ -1,6 +1,10 @@
 <script>
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
+  import { env } from '$env/dynamic/public';
+  import { dev } from '$app/environment';
+  import * as Sentry from '@sentry/svelte';
+  import { BrowserTracing } from '@sentry/tracing';
   import GTM from '$lib/elements/GTM/GTM.svelte';
   import Header from '$lib/components/Header/Header.svelte';
   import Wrapper from '$lib/components/Wrapper/Wrapper.svelte';
@@ -11,13 +15,26 @@
   onMount(async () => {
     const smoothscroll = await import('smoothscroll-polyfill');
     smoothscroll.polyfill();
+
+    if (!dev) {
+      Sentry.init({
+        environment: env.PUBLIC_SENTRY_ENVIRONMENT,
+        dsn: env.PUBLIC_SENTRY_DSN,
+        integrations: [new BrowserTracing()],
+
+        // Set tracesSampleRate to 1.0 to capture 100%
+        // of transactions for performance monitoring.
+        // We recommend adjusting this value in production
+        tracesSampleRate: 1.0
+      });
+    }
   });
 </script>
 
 <svelte:head>
   <meta property="og:site_name" content="zuzutravel.co" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{$page.url}" />
+  <meta property="og:url" content={$page.url} />
 </svelte:head>
 
 <GTM gtmId="GTM-PZM27QT" timeout={2000} />
