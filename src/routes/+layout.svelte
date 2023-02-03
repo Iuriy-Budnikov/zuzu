@@ -22,7 +22,7 @@
 
         // DEFAULT
         dsn: env.PUBLIC_SENTRY_DSN,
-        integrations: [new BrowserTracing()],
+        integrations: [new BrowserTracing(), new Sentry.Replay()],
 
         // Set tracesSampleRate to 1.0 to capture 100%
         // of transactions for performance monitoring.
@@ -36,8 +36,6 @@
         // If the entire session is not sampled, use the below sample rate to sample
         // sessions when an error occurs.
         replaysOnErrorSampleRate: 1.0,
-
-        integrations: [new Sentry.Replay()]
       });
     }
   });
