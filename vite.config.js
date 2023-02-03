@@ -1,4 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 
 /** @type {import('vite').UserConfig} */
 const config = {
