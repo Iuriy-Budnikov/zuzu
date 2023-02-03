@@ -14,7 +14,7 @@ if (
   process.env.SENTRY_PROJECT_NAME &&
   process.env.SENTRY_AUTH_TOKEN
 ) {
-  config.push(
+  config.plugins.push(
     // Put the Sentry vite plugin after all other plugins
     sentryVitePlugin({
       org: process.env.SENTRY_ORG_NAME,
